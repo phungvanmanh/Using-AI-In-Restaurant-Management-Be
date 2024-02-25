@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MonAnController;
 use App\Http\Controllers\QuyenController;
+use App\Models\MonAn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,14 @@ Route::group(['prefix' => '/admin'], function () {
     });
 
     Route::group(['prefix' => '/danh-muc'], function () {
+
+    });
+    Route::group(['prefix' => '/mon-an'], function () {
+        Route::post('/create', [MonAnController::class, 'createMonAn']);
+        Route::get('/get-data', [MonAnController::class, 'getDataMonAn']);
+        Route::post('/change-status', [MonAnController::class, 'changeStatus']);
+        Route::post('/update', [MonAnController::class, 'updateMonAn']);
+        Route::post('/delete', [MonAnController::class, 'deleteMonAn']);
 
     });
 });

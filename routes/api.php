@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DanhMucController;
 use App\Http\Controllers\KhuVucController;
+use App\Http\Controllers\MonAnController;
 use App\Http\Controllers\QuyenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +40,13 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [KhuVucController::class, 'changeStatus']);
         Route::post('/update', [KhuVucController::class, 'updateKhuVuc']);
         Route::post('/delete', [KhuVucController::class, 'deleteKhuVuc']);
+    });
+    Route::group(['prefix' => '/mon-an'], function () {
+        Route::post('/create', [MonAnController::class, 'createMonAn']);
+        Route::get('/get-data', [MonAnController::class, 'getDataMonAn']);
+        Route::post('/change-status', [MonAnController::class, 'changeStatus']);
+        Route::post('/update', [MonAnController::class, 'updateMonAn']);
+        Route::post('/delete', [MonAnController::class, 'deleteMonAn']);
+
     });
 });

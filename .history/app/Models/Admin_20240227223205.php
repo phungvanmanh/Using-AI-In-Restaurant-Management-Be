@@ -17,6 +17,6 @@ class Admin extends Model
         'date_birth',
         'password',
         'status',
-        'id_permission',
+        'id_decentralization',
     ];
 }

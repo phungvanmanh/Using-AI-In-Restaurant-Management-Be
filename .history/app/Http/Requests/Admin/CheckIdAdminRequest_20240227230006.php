@@ -23,7 +23,7 @@ class CheckIdAdminRequest extends FormRequest
     public function attributes()
     {
         return [
-            'id'                      => 'Staff',
+            'id'         => 'Nhân Viên',
         ];
     }
 }

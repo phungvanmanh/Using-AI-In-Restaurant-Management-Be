@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAdminRequest extends FormRequest
+class CreateAdminRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +14,6 @@ class UpdateAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'                      => 'exists:admins,id',
             'first_last_name'         => 'required|min:4',
             'email'                   => 'required|email',
             'phone_number'            => 'required|numeric',
@@ -28,20 +27,18 @@ class UpdateAdminRequest extends FormRequest
     public function messages()
     {
         return [
-            'exists'            => ':attribute does not exist!',
             'required'          => ':attribute cannot be left blank!',
             'regex'             => ':attribute Malformed!',
-            'email'             => ':attribute Must be a valid email address!',
-            'numeric'           => ':attribute must be a number!',
-            'date'              => ':attribute must be date format!',
-            'min'               => ':attribute must have at least :min characters',
+            'email'             => ':attribute phải là một địa chỉ email hợp lệ',
+            'numeric'           => ':attribute phải là số',
+            'date'              => ':attribute phải là định dạng ngày tháng',
+            'min'               => ':attribute phải có ít nhất :min ký tự',
         ];
     }
 
     public function attributes()
     {
         return [
-            'id'                      => 'Staff',
             'first_last_name'         => 'First and last name',
             'email'                   => 'Email',
             'phone_number'            => 'Phone number',

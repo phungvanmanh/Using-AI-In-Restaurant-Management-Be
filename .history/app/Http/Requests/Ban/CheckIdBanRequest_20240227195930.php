@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Ban;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckIdAdminRequest extends FormRequest
+class CheckIdBanRequest extends FormRequest
 {
     public function rules()
     {
         return [
-            'id'         => 'exists:admins,id',
+            'id'         => 'exists:bans,id',
         ];
     }
 
     public function messages()
     {
         return [
-            'exists'            => ':attribute does not exist!',
+            'exists'      => ':attribute does not exist!',
         ];
     }
 
     public function attributes()
     {
         return [
-            'id'                      => 'Staff',
+            'id'         => 'Table',
         ];
     }
 }

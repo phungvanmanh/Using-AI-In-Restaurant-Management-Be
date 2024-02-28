@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('quyens', function (Blueprint $table) {
             $table->id();
-            $table->string('name_permission');
-            $table->integer('status');
-            $table->string('list_id_function')->nullable();
+            $table->string('ten_quyen');
+            $table->integer('tinh_trang');
+            $table->string('list_id_chuc_nang')->nullable();
             $table->timestamps();
         });
     }

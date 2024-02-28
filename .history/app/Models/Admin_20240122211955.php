@@ -11,12 +11,12 @@ class Admin extends Model
 
     protected $table = 'admins';
     protected $fillable = [
-        'first_last_name',
+        'ho_va_ten',
         'email',
-        'phone_number',
-        'date_birth',
+        'so_dien_thoai',
+        'ngay_sinh',
         'password',
-        'status',
-        'id_permission',
+        'tinh_trang',
+        'id_quyen',
     ];
 }

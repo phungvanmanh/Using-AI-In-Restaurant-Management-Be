@@ -28,7 +28,6 @@ class UpdateAdminRequest extends FormRequest
     public function messages()
     {
         return [
-            'exists'            => ':attribute does not exist!',
             'required'          => ':attribute cannot be left blank!',
             'regex'             => ':attribute Malformed!',
             'email'             => ':attribute Must be a valid email address!',

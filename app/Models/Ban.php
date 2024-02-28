@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Ban extends Model
 {
     use HasFactory;
-
-    protected $table = 'admins';
+    protected $table = "bans";
     protected $fillable = [
-        'first_last_name',
-        'email',
-        'phone_number',
-        'date_birth',
-        'password',
+        'name_table',
+        'slug_table',
+        'id_area',
         'status',
-        'id_permission',
+        'is_open_table',
     ];
 }

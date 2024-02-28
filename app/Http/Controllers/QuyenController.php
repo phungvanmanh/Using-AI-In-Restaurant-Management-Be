@@ -25,7 +25,7 @@ class QuyenController extends Controller
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã thêm mới quyền thành công',
+            'message'   => 'New permissions have been added successfully!',
         ]);
     }
 
@@ -37,7 +37,7 @@ class QuyenController extends Controller
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã đổi trạng thái thành công',
+            'message'   => 'Status changed successfully!',
         ]);
     }
 
@@ -50,19 +50,19 @@ class QuyenController extends Controller
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã cập nhật thành công',
+            'message'   => 'Updated successfully!',
         ]);
     }
 
     public function deleteQuyen(CheckIdQuyenRequest $request)
     {
         $quyen = Quyen::find($request->id);
-        $ten_quyen = $quyen->ten_quyen;
+        $ten_quyen = $quyen->name_permission;
         $quyen->delete();
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã xóa quyền '. $ten_quyen .' thành công',
+            'message'   => 'Permission removed'. $ten_quyen .' success!'
         ]);
     }
 }

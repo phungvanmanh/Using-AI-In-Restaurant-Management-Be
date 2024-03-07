@@ -54,7 +54,7 @@ class AdminController extends Controller
     public function changeStatus(CheckIdAdminRequest $request)
     {
         $admin = Admin::find($request->id);
-        $admin->tinh_trang = !$admin->tinh_trang;
+        $admin->status = !$admin->status;
         $admin->save();
 
         return response()->json([

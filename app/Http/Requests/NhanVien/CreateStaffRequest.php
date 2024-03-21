@@ -16,9 +16,9 @@ class CreateStaffRequest extends FormRequest
         return [
             'ho_ten'         => 'required|min:4',
             'so_dien_thoai'     => 'required|numeric',
-            // 'ngay_sinh'         => 'required|date',
-            // 'email'             => 'required|email',
-            // 'ma_nv'             => 'required|min:4',
+            'ngay_sinh'         => 'required|date',
+            'email'             => 'required|email',
+            'ma_nv'             => 'required|min:4',
             'status'            => 'required|numeric',
         ];
     }
@@ -40,9 +40,9 @@ class CreateStaffRequest extends FormRequest
         return [
             'ho_ten'         => 'Họ và tên',
             'so_dien_thoai'     => 'Số điện thoại',
-            // 'ngay_sinh'         => 'Ngày sinh',
-            // 'email'             => 'Email',
-            // 'ma_nv'        => 'Mã Nhân viên',
+            'ngay_sinh'         => 'Ngày sinh',
+            'email'             => 'Email',
+            'ma_nv'        => 'Mã Nhân viên',
             'status'            => 'Status',
         ];
     }

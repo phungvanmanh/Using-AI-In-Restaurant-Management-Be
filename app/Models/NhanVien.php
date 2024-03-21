@@ -12,9 +12,9 @@ class NhanVien extends Model
     protected $fillable = [
         'ho_ten',
         'so_dien_thoai',
-        // 'ngay_sinh',
-        // 'email',
-        // 'ma_nv',
+        'ngay_sinh',
+        'email',
+        'ma_nv',
         'status',
     ];
 }

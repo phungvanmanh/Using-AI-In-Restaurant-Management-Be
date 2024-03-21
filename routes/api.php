@@ -63,6 +63,8 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['prefix' => '/staff'], function () {
         Route::post('/create', [NhanVienController::class, 'createNhanVien']);
         Route::get('/get-data', [NhanVienController::class, 'getDataStaff']);
+        Route::post('/change-status', [NhanVienController::class, 'changeStatus']);
+        Route::post('/update', [NhanVienController::class, 'updateNhanVien']);
     });
 });
 

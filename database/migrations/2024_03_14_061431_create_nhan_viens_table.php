@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('nhan_viens', function (Blueprint $table) {
             $table->id();
             $table->string('ho_ten');
-            $table->integer('so_dien_thoai');
-            // $table->date('ngay_sinh')->nullable();
-            // $table->string('email')->nullable();
-            // $table->string('ma_nv')->nullable();
+            $table->integer('so_dien_thoai')->nullable();
+            $table->date('ngay_sinh')->nullable();
+            $table->string('email')->nullable();
+            $table->string('ma_nv')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

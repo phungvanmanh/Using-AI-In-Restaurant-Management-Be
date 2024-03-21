@@ -10,8 +10,8 @@ class Quyen extends Model
     use HasFactory;
     protected $table = 'quyens';
     protected $fillable = [
-        'name_permission',
-        'status',
-        'list_id_function',
+        'ten_quyen',
+        'tinh_trang',
+        'list_id_chuc_nang',
     ];
 }

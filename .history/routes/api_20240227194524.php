@@ -6,8 +6,6 @@ use App\Http\Controllers\DanhMucController;
 use App\Http\Controllers\KhuVucController;
 use App\Http\Controllers\MonAnController;
 use App\Http\Controllers\QuyenController;
-use App\Http\Controllers\NhanVienController;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,9 +58,4 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update', [BanController::class, 'updateBan']);
         Route::post('/delete', [BanController::class, 'deleteBan']);
     });
-    Route::group(['prefix' => '/staff'], function () {
-        Route::post('/create', [NhanVienController::class, 'createNhanVien']);
-        Route::get('/get-data', [NhanVienController::class, 'getDataStaff']);
-    });
 });
-

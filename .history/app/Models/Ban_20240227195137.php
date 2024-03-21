@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quyen extends Model
+class Ban extends Model
 {
     use HasFactory;
-    protected $table = 'quyens';
+    protected $table = "bans";
     protected $fillable = [
-        'name_permission',
-        'status',
-        'list_id_function',
+        'name_table';
+        'slug_table';
+        'id_area';
+        'status';
+        'is_open_table';
     ];
 }

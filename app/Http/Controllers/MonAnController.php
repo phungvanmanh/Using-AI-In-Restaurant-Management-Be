@@ -21,7 +21,9 @@ class MonAnController extends Controller
     }
     public function getDataMonAn()
     {
-        $data = MonAn::get();
+        $data = MonAn::join('danh_mucs', 'mon_ans.id_category', 'danh_mucs.id')
+                     ->select('mon_ans.*', 'danh_mucs.name_category')
+                     ->get();
         return response()->json([
             'data'   => $data,
         ]);

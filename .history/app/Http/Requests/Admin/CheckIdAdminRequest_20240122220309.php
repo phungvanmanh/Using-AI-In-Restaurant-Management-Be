@@ -16,14 +16,14 @@ class CheckIdAdminRequest extends FormRequest
     public function messages()
     {
         return [
-            'exists'            => ':attribute does not exist!',
+            'exists'            => ':attribute không tồn tại',
         ];
     }
 
     public function attributes()
     {
         return [
-            'id'                      => 'Staff',
+            'id'         => 'Nhân Viên',
         ];
     }
 }

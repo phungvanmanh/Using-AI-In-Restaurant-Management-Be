@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date_birth');
             $table->string('password');
             $table->integer('status');
-            $table->integer('id_permission')->nullable();
+            $table->integer('id_decentralization')->nullable();
             $table->timestamps();
         });
     }

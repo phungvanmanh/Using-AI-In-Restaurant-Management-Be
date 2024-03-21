@@ -14,25 +14,28 @@ class UpdateQuyenRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'                => 'exists:quyens,id',
-            'ten_quyen'         => 'required|min:4',
+            'id'                      => 'exists:quyens,id',
+            'name_permission'         => 'required|min:4',
+            'status'                  => 'required|numeric',
         ];
     }
 
     public function messages()
     {
         return [
-            'required'          => ':attribute không được để trống',
-            'min'               => ':attribute phải có ít nhất :min ký tự',
-            'exists'            => ':attribute không tồn tại',
+            'required'          => ':attribute cannot be left blank!',
+            'min'               => ':attribute must have at least :min characters!',
+            'exists'            => ':attribute does not exist!',
+            'numeric'           => ':attribute must be a number!',
         ];
     }
 
     public function attributes()
     {
         return [
-            'id'                => 'Quyền',
-            'ten_quyen'         => 'Tên quyền',
+            'id'                      => 'Permission',
+            'name_permission'         => 'Name permission',
+            'status'                  => 'Status',
         ];
     }
 }

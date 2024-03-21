@@ -10,13 +10,13 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('first_last_name');
+            $table->string('ho_va_ten');
             $table->string('email');
-            $table->string('phone_number');
-            $table->date('date_birth');
+            $table->string('so_dien_thoai');
+            $table->date('ngay_sinh');
             $table->string('password');
-            $table->integer('status');
-            $table->integer('id_permission')->nullable();
+            $table->integer('tinh_trang');
+            $table->integer('id_quyen')->nullable();
             $table->timestamps();
         });
     }

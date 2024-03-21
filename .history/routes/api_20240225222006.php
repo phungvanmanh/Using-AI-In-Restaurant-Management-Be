@@ -1,13 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BanController;
 use App\Http\Controllers\DanhMucController;
 use App\Http\Controllers\KhuVucController;
 use App\Http\Controllers\MonAnController;
 use App\Http\Controllers\QuyenController;
-use App\Http\Controllers\NhanVienController;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,25 +41,12 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update', [KhuVucController::class, 'updateKhuVuc']);
         Route::post('/delete', [KhuVucController::class, 'deleteKhuVuc']);
     });
-
     Route::group(['prefix' => '/mon-an'], function () {
         Route::post('/create', [MonAnController::class, 'createMonAn']);
         Route::get('/get-data', [MonAnController::class, 'getDataMonAn']);
         Route::post('/change-status', [MonAnController::class, 'changeStatus']);
         Route::post('/update', [MonAnController::class, 'updateMonAn']);
         Route::post('/delete', [MonAnController::class, 'deleteMonAn']);
-    });
 
-    Route::group(['prefix' => '/ban'], function () {
-        Route::post('/create', [BanController::class, 'createBan']);
-        Route::get('/get-data', [BanController::class, 'getDataBan']);
-        Route::post('/change-status', [BanController::class, 'changeStatus']);
-        Route::post('/update', [BanController::class, 'updateBan']);
-        Route::post('/delete', [BanController::class, 'deleteBan']);
-    });
-    Route::group(['prefix' => '/staff'], function () {
-        Route::post('/create', [NhanVienController::class, 'createNhanVien']);
-        Route::get('/get-data', [NhanVienController::class, 'getDataStaff']);
     });
 });
-

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('phone_number');
             $table->date('date_birth');
             $table->string('password');
-            $table->integer('status');
-            $table->integer('id_permission')->nullable();
+            $table->integer('tinh_trang');
+            $table->integer('id_decentralization')->nullable();
             $table->timestamps();
         });
     }

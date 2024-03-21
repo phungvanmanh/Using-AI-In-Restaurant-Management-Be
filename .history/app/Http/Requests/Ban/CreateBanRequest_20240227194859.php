@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Quyen;
+namespace App\Http\Requests\Ban;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateQuyenRequest extends FormRequest
+class CreateBanRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,8 +14,9 @@ class CreateQuyenRequest extends FormRequest
     public function rules()
     {
         return [
-            'name_permission'         => 'required|min:4',
-            'status'                  => 'required|numeric',
+            'name_table'         => 'required|min:4',
+            'slug_table'         => 'required|min:4',
+            'status'             => 'required|numeric',
         ];
     }
 
@@ -23,7 +24,7 @@ class CreateQuyenRequest extends FormRequest
     {
         return [
             'required'          => ':attribute cannot be left blank!',
-            'min'               => ':attribute must have at least :min characters!',
+            'min'               => ':attribute must have at least :min character!',
             'numeric'           => ':attribute must be a number!',
         ];
     }
@@ -31,8 +32,9 @@ class CreateQuyenRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name_permission'         => 'Name Permission',
-            'status'                  => 'Status',
+            'name_table'         => 'Name table',
+            'slug_table'         => 'Slug table',
+            'status'             => 'Status',
         ];
     }
 }

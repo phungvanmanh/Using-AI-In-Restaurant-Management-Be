@@ -35,7 +35,7 @@ class AdminController extends Controller
     public function getDataAdmin()
     {
         $data = Admin::join('quyens', 'admins.id_permission', 'quyens.id')
-                     ->select('admins.id', 'admins.first_last_name', 'admins.email', 'admins.phone_number', 'admins.status', 'admins.id_permission', DB::raw("DATE_FORMAT(admins.date_birth, '%d-%m-%Y') as date_birth"), 'quyens.name_permission')
+                     ->select('admins.id', 'admins.first_last_name', 'admins.email', 'admins.so_dien_thoai', 'admins.tinh_trang', 'admins.id_permission', DB::raw("DATE_FORMAT(admins.ngay_sinh, '%d-%m-%Y') as ngay_sinh"), 'quyens.ten_quyen')
                      ->paginate(10);
         $response = [
             'pagination' => [
@@ -54,7 +54,7 @@ class AdminController extends Controller
     public function changeStatus(CheckIdAdminRequest $request)
     {
         $admin = Admin::find($request->id);
-        $admin->status = !$admin->status;
+        $admin->tinh_trang = !$admin->tinh_trang;
         $admin->save();
 
         return response()->json([

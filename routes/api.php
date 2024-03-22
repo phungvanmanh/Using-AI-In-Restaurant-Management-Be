@@ -7,6 +7,7 @@ use App\Http\Controllers\KhuVucController;
 use App\Http\Controllers\MonAnController;
 use App\Http\Controllers\QuyenController;
 use App\Http\Controllers\NhanVienController;
+use App\Http\Controllers\KhachHangController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,10 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/get-data', [NhanVienController::class, 'getDataStaff']);
         Route::post('/change-status', [NhanVienController::class, 'changeStatus']);
         Route::post('/update', [NhanVienController::class, 'updateNhanVien']);
+    });
+    Route::group(['prefix' => '/khach-hang'], function () {
+        Route::get('/get-data', [KhachHangController::class, 'getData']);
+        Route::post('/delete', [KhachHangController::class, 'DeleteKhachHang']);
     });
 });
 

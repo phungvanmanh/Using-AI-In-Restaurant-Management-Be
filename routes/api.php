@@ -3,8 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\KhuVucController;
 use App\Http\Controllers\MonAnController;
+use App\Http\Controllers\NhaCungCapController;
 use App\Http\Controllers\QuyenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,5 +59,22 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [BanController::class, 'changeStatus']);
         Route::post('/update', [BanController::class, 'updateBan']);
         Route::post('/delete', [BanController::class, 'deleteBan']);
+    });
+    Route::group(['prefix' => '/khach-hang'], function () {
+        Route::get('/get-data', [KhachHangController::class, 'getdata']);
+        Route::post('/create',[KhachHangController::class,'createKhachHang']);
+        Route::post('/update', [KhachHangController::class, 'updateKhachHang']);
+        Route::post('/delete', [KhachHangController::class, 'deleteKhachHang']);
+        Route::post('/search', [KhachHangController::class, 'searchKhachHang']);
+       
+    });
+    Route::group(['prefix'  =>  '/nha-cung-cap'], function () {
+        // Lấy dữ liệu  -> get
+        Route::get('/get-data', [NhaCungCapController::class, 'getData']);
+        // Route::post('/tim-nha-cung-cap', [NhaCungCapController::class, 'searchNhaCungCap']);
+        Route::post('/create', [NhaCungCapController::class, 'createNhaCungCap']);
+        Route::post('/delete', [NhaCungCapController::class, 'xoaNhaCungCap']);
+        Route::post('/update', [NhaCungCapController::class, 'capNhatNhaCungCap']);
+        Route::post('/change-status', [NhaCungCapController::class, 'doiTrangThaiNhaCungCap']);
     });
 });

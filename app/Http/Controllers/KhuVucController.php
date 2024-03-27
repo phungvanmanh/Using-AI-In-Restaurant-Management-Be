@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\KhuVuc\CheckIdKhuVucRequest;
 use App\Http\Requests\KhuVuc\CreateKhuVucRequest;
 use App\Http\Requests\KhuVuc\UpdateKhuVucRequest;
+use App\Models\DanhMuc;
 use App\Models\KhuVuc;
 use Illuminate\Http\Request;
 
@@ -20,49 +21,21 @@ class KhuVucController extends Controller
 
     public function createKhuVuc(CreateKhuVucRequest $request)
     {
-        $data = $request->all();
-        KhuVuc::create($data);
-
-        return response()->json([
-            'status'    => 1,
-            'message'   => 'New area added successfully!',
-        ]);
+        return $this->createModel($request, KhuVuc::class, ['message' => 'New area added successfully!']);
     }
 
     public function changeStatus(CheckIdKhuVucRequest $request)
     {
-        $khu_vuc = KhuVuc::find($request->id);
-        $khu_vuc->status = !$khu_vuc->status;
-        $khu_vuc->save();
-
-        return response()->json([
-            'status'    => 1,
-            'message'   => 'Status changed successfully!',
-        ]);
+        return $this->changeStatusOrUpdateModel($request, KhuVuc::class, 'changeStatus');
     }
 
     public function updateKhuVuc(UpdateKhuVucRequest $request)
     {
-        $data = $request->all();
-        $danh_muc = KhuVuc::where('id', $request->id)->first();
-
-        $danh_muc->update($data);
-
-        return response()->json([
-            'status'    => 1,
-            'message'   => 'Updated successfully!',
-        ]);
+        return $this->changeStatusOrUpdateModel($request, KhuVuc::class, 'update');
     }
 
     public function deleteKhuVuc(CheckIdKhuVucRequest $request)
     {
-        $danh_muc = KhuVuc::find($request->id);
-        $ten_danh_muc = $danh_muc->name_category;
-        $danh_muc->delete();
-
-        return response()->json([
-            'status'    => 1,
-            'message'   => $ten_danh_muc .' category removed successfully!',
-        ]);
+        return $this->deleteModel($request, DanhMuc::class, 'name_area');
     }
 }

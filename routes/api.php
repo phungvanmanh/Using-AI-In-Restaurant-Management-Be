@@ -67,9 +67,5 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [NhanVienController::class, 'changeStatus']);
         Route::post('/update', [NhanVienController::class, 'updateNhanVien']);
     });
-    Route::group(['prefix' => '/khach-hang'], function () {
-        Route::get('/get-data', [KhachHangController::class, 'getData']);
-        Route::post('/delete', [KhachHangController::class, 'DeleteKhachHang']);
-    });
 });
 

@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BanController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\KhuVucController;
+use App\Http\Controllers\LichLamViecController;
 use App\Http\Controllers\MonAnController;
 use App\Http\Controllers\QuyenController;
 use App\Http\Controllers\NhanVienController;
@@ -28,6 +31,16 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update', [QuyenController::class, 'updateQuyen']);
         Route::post('/delete', [QuyenController::class, 'deleteQuyen']);
 
+    });
+
+    Route::group(['prefix' => '/lich-lam-viec'], function () {
+        Route::get('/get-days/{type}', [Controller::class, 'getDays']);
+        Route::post('/dang-ky/store', [LichLamViecController::class, 'createLichLamViec']);
+        Route::post('/dang-ky/update', [LichLamViecController::class, 'updateLichLamViec']);
+        // Route::get('/get-data', [BanController::class, 'getDataBan']);
+        // Route::post('/change-status', [BanController::class, 'changeStatus']);
+        // Route::post('/update', [BanController::class, 'updateBan']);
+        // Route::post('/delete', [BanController::class, 'deleteBan']);
     });
 
     Route::group(['prefix' => '/danh-muc'], function () {

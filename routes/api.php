@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\KhuVucController;
 use App\Http\Controllers\LichLamViecController;
 use App\Http\Controllers\MonAnController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\QuyenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
+Route::post('upload', [FileController::class, 'uploadFile']);
+Route::get('get-upload', [FileController::class, 'getData']);
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('get-user', [AuthController::class, 'getUser']);

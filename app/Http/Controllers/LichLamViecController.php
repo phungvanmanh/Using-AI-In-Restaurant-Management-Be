@@ -63,4 +63,15 @@ class LichLamViecController extends Controller
         }
     }
 
+    public function upload(Request $request) {
+        if ($request->hasfile('files')) {
+            foreach($request->file('files') as $file) {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path().'/files/', $name);  // Lưu file vào thư mục public/files
+                // Hoặc bạn có thể lưu trữ nó ở đâu đó và/hoặc lưu đường dẫn vào database
+            }
+        }
+
+        return response()->json(['message' => 'Uploaded successfully']);
+    }
 }

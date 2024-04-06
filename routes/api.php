@@ -1,19 +1,27 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\KhuVucController;
 use App\Http\Controllers\LichLamViecController;
 use App\Http\Controllers\MonAnController;
 use App\Http\Controllers\QuyenController;
+use App\Http\Controllers\BaiViet1Controller;
+use App\Http\Controllers\ChuyenMucBaiVietController;
+use App\Http\Controllers\NhaCungCapController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+Route::post('login', [AuthController::class, 'login']);
+Route::post('upload', [FileController::class, 'uploadFile']);
+Route::get('get-upload', [FileController::class, 'getData']);
 
 Route::group(['prefix' => '/admin'], function () {
-
+    Route::get('get-user', [AuthController::class, 'getUser']);
+    Route::post('logout', [AuthController::class, 'logout']);
     Route::post('/create', [AdminController::class, 'createAdmin']);
     Route::get('/get-data', [AdminController::class, 'getDataAdmin']);
     Route::post('/search', [AdminController::class, 'searchAdmin']);
@@ -69,6 +77,32 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [BanController::class, 'changeStatus']);
         Route::post('/update', [BanController::class, 'updateBan']);
         Route::post('/delete', [BanController::class, 'deleteBan']);
+    });
+    Route::group(['prefix'  =>  '/nha-cung-cap'], function () {
+        // Lấy dữ liệu  -> get
+        Route::get('/get-data', [NhaCungCapController::class, 'getData']);
+        // Route::post('/tim-nha-cung-cap', [NhaCungCapController::class, 'searchNhaCungCap']);
+        Route::post('/create', [NhaCungCapController::class, 'createNhaCungCap']);
+        Route::post('/delete', [NhaCungCapController::class, 'xoaNhaCungCap']);
+        Route::post('/update', [NhaCungCapController::class, 'capNhatNhaCungCap']);
+        Route::post('/change-status', [NhaCungCapController::class, 'doiTrangThaiNhaCungCap']);
+    });
+    Route::group(['prefix'  =>  '/chuyen-muc-bai-viet'], function () {
+        Route::get('/get-data', [ChuyenMucBaiVietController::class, 'getData']);
+        // Route::post('/tim-chuyen-muc', [ChuyenMucBaiVietController::class, 'searchChuyenMuc']);
+        Route::post('/create', [ChuyenMucBaiVietController::class, 'createChuyenMuc']);
+        Route::post('/delete', [ChuyenMucBaiVietController::class, 'deleteChuyenMuc']);
+        Route::post('/update', [ChuyenMucBaiVietController::class, 'capNhatChuyenMuc']);
+        Route::post('/status', [ChuyenMucBaiVietController::class, 'doiTrangThaiChuyenMuc']);
+    });
+    Route::group(['prefix'  =>  '/bai-viet'], function () {
+        // Lấy dữ liệu  -> get
+        Route::get('/get-data', [BaiViet1Controller::class, 'getData']);
+        // Route::post('/tim-tin-tuc', [BaiVietController::class, 'searchTinTuc']);
+        Route::post('/tao-bai-viet', [BaiViet1Controller::class, 'createBaiViet1']);
+        Route::post('/delete', [BaiViet1Controller::class, 'xoaBaiViet']);
+        Route::post('/update', [BaiViet1Controller::class, 'capNhatBaiViet']);
+        // Route::put('/doi-trang-thai', [BaiVietController::class, 'doiTrangThaiTinTuc']);
     });
 });
 

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\LichLamViec;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -21,7 +23,7 @@ class Controller extends BaseController
 
     public function getDays($type){
         $type = 7 * $type;
-        // $user = auth('sanctum')->user();
+        $user = Auth::guard('admin')->user()->id;
         $now  = Carbon::today()->addDays($type);
         $thu  = $now->dayOfWeek == 0 ? 8 : $now->dayOfWeek + 1;
         $weekStartDate = Carbon::today()->addDays(9 + $type - $thu);
@@ -32,7 +34,7 @@ class Controller extends BaseController
                                         ->whereDate('ngay_lam_viec', '<=', $weekEndDate->format('Y-m-d'))
                                         ->get();
 
-        $lichLamViecUser = LichLamViec::where('id_nhan_vien', 1)/*user->id*/
+        $lichLamViecUser = LichLamViec::where('id_nhan_vien', $user)/*user->id*/
                             ->whereDate('ngay_lam_viec', '>=', $weekStartDate)
                             ->whereDate('ngay_lam_viec', '<=', $weekEndDate)
                             ->get();

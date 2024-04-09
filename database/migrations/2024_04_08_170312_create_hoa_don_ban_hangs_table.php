@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('hoa_don_ban_hangs', function (Blueprint $table) {
             $table->id();
-            $table->integer('tong_tien_truoc_giam')->nullable();
-            $table->integer('phan_tram_giam')->nullable();
-            $table->integer('tien_thuc_nhan')->nullable();
+            $table->integer('tong_tien_truoc_giam')->default(0);
+            $table->integer('phan_tram_giam')->default(0);
+            $table->integer('tien_thuc_nhan')->default(0);
             $table->string('ghi_chu')->nullable();
             $table->integer('id_ban');
             $table->integer('is_done')->default(0);

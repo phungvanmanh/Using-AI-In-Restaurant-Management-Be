@@ -13,6 +13,7 @@ use App\Http\Controllers\QuyenController;
 use App\Http\Controllers\BaiViet1Controller;
 use App\Http\Controllers\ChuyenMucBaiVietController;
 use App\Http\Controllers\NhaCungCapController;
+use App\Http\Controllers\DichVuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
@@ -41,10 +42,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/get-days/{type}', [Controller::class, 'getDays']);
         Route::post('/dang-ky/store', [LichLamViecController::class, 'createLichLamViec']);
         Route::post('/dang-ky/update', [LichLamViecController::class, 'updateLichLamViec']);
-        // Route::get('/get-data', [BanController::class, 'getDataBan']);
-        // Route::post('/change-status', [BanController::class, 'changeStatus']);
-        // Route::post('/update', [BanController::class, 'updateBan']);
-        // Route::post('/delete', [BanController::class, 'deleteBan']);
+
     });
 
     Route::group(['prefix' => '/danh-muc'], function () {
@@ -96,13 +94,24 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/status', [ChuyenMucBaiVietController::class, 'doiTrangThaiChuyenMuc']);
     });
     Route::group(['prefix'  =>  '/bai-viet'], function () {
-        // Lấy dữ liệu  -> get
+
         Route::get('/get-data', [BaiViet1Controller::class, 'getData']);
         // Route::post('/tim-tin-tuc', [BaiVietController::class, 'searchTinTuc']);
         Route::post('/tao-bai-viet', [BaiViet1Controller::class, 'createBaiViet1']);
         Route::post('/delete', [BaiViet1Controller::class, 'xoaBaiViet']);
         Route::post('/update', [BaiViet1Controller::class, 'capNhatBaiViet']);
         // Route::put('/doi-trang-thai', [BaiVietController::class, 'doiTrangThaiTinTuc']);
+    });
+    Route::group(['prefix'  =>  '/su-dung-dich-vu'], function () {
+
+        Route::post('/lay-du-lieu-theo-khu', [DichVuController::class, 'getdataTheoKhuVuc']);
+        Route::post('/tao-hoa-don', [DichVuController::class, 'createHoaDon']);
+        Route::post('/get-id-hoa-don', [DichVuController::class, 'getIdHoaDon']);
+        Route::post('/them-mon-an', [DichVuController::class, 'themMonAn']);
+        Route::post('/get-chi-tiet', [DichVuController::class, 'getChiTietBanHang']);
+        Route::post('/update-chi-tiet-ban-hang', [DichVuController::class, 'updateChiTietBanHang']);
+        Route::post('/xoa-chi-tiet', [DichVuController::class, 'xoaChiTietBanHang']);
+
     });
 });
 

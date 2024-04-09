@@ -30,15 +30,16 @@ class UpdateNhaCungCap extends FormRequest
     public function messages()
     {
         return [
-            'id.*'                          => 'Nhà cung cấp không tồn tại!',
-            'ma_so_thue.*'                  => 'Mã số thuế đã tồn tại trong hệ thống!',
-            'ten_cong_ty.required'          => 'Tên công ty không được để trống!',
-            'ten_nguoi_dai_dien.required'   => 'Tên người đại điện không được để trống!',
-            // 'so_dien_thoai.required'        => 'Số điện thoại không được để trống!',
-            'so_dien_thoai.digits'          => 'Số điện thoại phải là 10 số!',
-            'email.required'                => 'Email không được để trống!',
-            'email.email'                   => 'Email phải đúng định dạng!',
-            'email.unique'                  => 'Email đã tồn tại!',
+            'id.*'                          => 'Supplier does not exist!',
+            'ma_so_thue.*'                  => 'Tax ID already exists in the system!',
+            'ten_cong_ty.required'          => 'Company name is required!',
+            'ten_nguoi_dai_dien.required'   => 'Representative name is required!',
+            // 'so_dien_thoai.required'        => 'Phone number is required!',
+            'so_dien_thoai.digits'          => 'Phone number must be 10 digits!',
+            'email.required'                => 'Email is required!',
+            'email.email'                   => 'Email must be in the correct format!',
+            'email.unique'                  => 'Email already exists!',
+
         ];
     }
 }

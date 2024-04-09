@@ -73,7 +73,7 @@ class DichVuController extends Controller
                     $tong_tien=$tong_tien+ $value->thanh_tien;
                 }
                 $hoa_don->tong_tien_truoc_giam = $tong_tien;
-                $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - $hoa_don->phan_tram_giam);
+                $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - ($hoa_don->phan_tram_giam) / 100);
                 $hoa_don->save();
                 return response()->json([
                     'status'    => 1,
@@ -96,7 +96,7 @@ class DichVuController extends Controller
                 }
 
                 $hoa_don->tong_tien_truoc_giam = $tong_tien;
-                $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - $hoa_don->phan_tram_giam);
+                $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - ($hoa_don->phan_tram_giam) / 100);
                 $hoa_don->save();
             }
             return response()->json([
@@ -136,7 +136,7 @@ class DichVuController extends Controller
 
             $hoa_don = HoaDonBanHang::find($chiTiet->id_hoa_don);
             $hoa_don->tong_tien_truoc_giam = $tong_tien;
-            $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - $hoa_don->phan_tram_giam);
+            $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - ($hoa_don->phan_tram_giam) / 100);
             $hoa_don->save();
 
             return response()->json([
@@ -160,13 +160,33 @@ class DichVuController extends Controller
 
             $hoa_don = HoaDonBanHang::find($chiTiet->id_hoa_don);
             $hoa_don->tong_tien_truoc_giam = $tong_tien;
-            $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - $hoa_don->phan_tram_giam);
+            $hoa_don->tien_thuc_nhan =  $tong_tien * (1 - ($hoa_don->phan_tram_giam) / 100);
             $hoa_don->save();
 
             return response()->json([
                 'status'    => 1,
                 'message'   => 'Delete successfully!',
-                'tong_tien'=>$tong_tien
+            ]);
+        }
+    }
+
+    public function updateHoaDonBanHang(Request $request)
+    {
+        $hoa_don = HoaDonBanHang::where('id', $request->id)->where('id_ban', $request->id_ban)->where('is_done', 0)->first();
+        if($hoa_don) {
+            $hoa_don->phan_tram_giam = $request->phan_tram_giam;
+            $hoa_don->tien_thuc_nhan =  $hoa_don->tong_tien_truoc_giam * (1 - ($request->phan_tram_giam / 100));
+            $hoa_don->ghi_chu = $request->ghi_chu;
+            $hoa_don->save();
+
+            return response()->json([
+                'status'    => 1,
+                'message'   => 'Update successfully!',
+            ]);
+        } else {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Invoice does not exist!',
             ]);
         }
     }

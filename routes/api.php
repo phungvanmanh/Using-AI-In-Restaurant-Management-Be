@@ -111,6 +111,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/get-chi-tiet', [DichVuController::class, 'getChiTietBanHang']);
         Route::post('/update-chi-tiet-ban-hang', [DichVuController::class, 'updateChiTietBanHang']);
         Route::post('/xoa-chi-tiet', [DichVuController::class, 'xoaChiTietBanHang']);
+        Route::post('/update-hoa-don-ban-hang', [DichVuController::class, 'updateHoaDonBanHang']);
 
     });
 });

@@ -28,6 +28,8 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/search', [AdminController::class, 'searchAdmin']);
     Route::post('/change-status', [AdminController::class, 'changeStatus']);
     Route::post('/update', [AdminController::class, 'updateAdmin']);
+    Route::get('/create-token/{id_ban}', [AuthController::class, 'generateQRCode']);
+    Route::post('/get-qrcode', [AuthController::class, 'getQRCode']);
 
     Route::group(['prefix' => '/quyen'], function () {
         Route::post('/create', [QuyenController::class, 'createQuyen']);

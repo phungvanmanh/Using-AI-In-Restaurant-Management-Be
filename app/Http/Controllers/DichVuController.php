@@ -7,6 +7,7 @@ use App\Models\HoaDonBanHang;
 use App\Models\MonAn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DichVuController extends Controller
 {
@@ -26,6 +27,8 @@ class DichVuController extends Controller
     public function createHoaDon(Request $request)
     {
         $ban = Ban::find($request->id_ban);
+        $id_nv = Auth::guard('admin')->user()->id;
+        $request['id_nhan_vien'] = $id_nv;
         if($ban && $ban->status == 1 && $ban->is_open_table == 0) {
             $ban->is_open_table = 1;
             $ban->save();

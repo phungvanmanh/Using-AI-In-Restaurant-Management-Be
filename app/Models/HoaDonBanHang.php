@@ -16,5 +16,7 @@ class HoaDonBanHang extends Model
         'ghi_chu',
         'id_ban',
         'is_done',
+        'id_nhan_vien',
+        'created_at'
     ];
 }

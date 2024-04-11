@@ -128,7 +128,7 @@ Route::group(['prefix' => '/admin'], function () {
     });
     Route::group(['prefix'  =>  '/hoa-don'], function () {
         Route::post('/data-bill', [HoaDonBanHangController::class, 'dataBill']);
-        Route::post('/chi-tiet-hoa-don', [HoaDonBanHangController::class, 'chitietHoaDon']);
+        Route::post('/hoa-don', [HoaDonBanHangController::class, 'hoaDon']);
 
 
     });

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Str;
+
 class AuthController extends Controller
 {
     public function login(CheckLogin $request)
@@ -48,9 +49,9 @@ class AuthController extends Controller
     {
         $userId = Auth::guard('admin')->user()->id; // Lấy ID của người dùng đang đăng nhập
         $user = Admin::join('quyens', 'admins.id_permission', '=', 'quyens.id')
-                    ->where('admins.id', $userId)
-                    ->select('admins.id', 'admins.first_last_name', 'quyens.name_permission')
-                    ->first();
+            ->where('admins.id', $userId)
+            ->select('admins.id', 'admins.first_last_name', 'quyens.name_permission')
+            ->first();
 
         if (!$user) {
             return response()->json(['message' => 'Không tìm thấy thông tin người dùng'], 404);
@@ -61,17 +62,15 @@ class AuthController extends Controller
 
     public function generateQRCode($id_ban)
     {
-        $token = Str::random(40); // Tạo một token ngẫu nhiên
-        $a = Token::where('id_ban', $id_ban)
-                    ->first();
-        if(!$a) {
-            // Lưu token và id_ban vào database
-            $tokenModel = Token::create([
-                'token' => $token,
-                'id_ban' => $id_ban
-            ]);
-        }
-        $url = "/mon-an/{$id_ban}?token={$a->token}";
+        // Sử dụng firstOrCreate để tìm Token hoặc tạo mới nếu không tồn tại
+        $tokenModel = Token::firstOrCreate(
+            ['id_ban' => $id_ban],
+            ['token' => Str::random(40)]
+        );
+
+        // Xây dựng URL với token tìm được hoặc token mới tạo
+        $url = "/mon-an/{$id_ban}?token={$tokenModel->token}";
+
         return response()->json(['url' => $url]);
     }
 

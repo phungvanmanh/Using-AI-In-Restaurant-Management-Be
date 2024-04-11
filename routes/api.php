@@ -14,6 +14,8 @@ use App\Http\Controllers\BaiViet1Controller;
 use App\Http\Controllers\ChuyenMucBaiVietController;
 use App\Http\Controllers\NhaCungCapController;
 use App\Http\Controllers\DichVuController;
+use App\Http\Controllers\NguyenLieuController;
+use App\Http\Controllers\HoaDonBanHangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
@@ -114,6 +116,20 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update-chi-tiet-ban-hang', [DichVuController::class, 'updateChiTietBanHang']);
         Route::post('/xoa-chi-tiet', [DichVuController::class, 'xoaChiTietBanHang']);
         Route::post('/update-hoa-don-ban-hang', [DichVuController::class, 'updateHoaDonBanHang']);
+
+    });
+    Route::group(['prefix'  =>  '/nguyen-lieu'], function () {
+        Route::post('/tao-nguyen-lieu', [NguyenLieuController::class, 'themNguyenLieu']);
+        Route::get('/get-nguyen-lieu', [NguyenLieuController::class, 'getNguyenLieu']);
+        Route::post('/cap-nhat-nguyen-lieu', [NguyenLieuController::class, 'capnhatNguyenLieu']);
+        Route::post('/doi-trang-thai', [NguyenLieuController::class, 'doiTrangThai']);
+        Route::post('/xoa-nguyen-lieu', [NguyenLieuController::class, 'deleteNguyenLieu']);
+
+    });
+    Route::group(['prefix'  =>  '/hoa-don'], function () {
+        Route::post('/data-bill', [HoaDonBanHangController::class, 'dataBill']);
+        Route::post('/chi-tiet-hoa-don', [HoaDonBanHangController::class, 'chitietHoaDon']);
+
 
     });
 });

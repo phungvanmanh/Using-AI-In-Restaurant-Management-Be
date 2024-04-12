@@ -18,7 +18,6 @@ use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\HoaDonBanHangController;
 use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\TransactionController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('upload', [FileController::class, 'uploadFile']);
@@ -36,6 +35,7 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/update', [AdminController::class, 'updateAdmin']);
     Route::get('/create-token/{id_ban}', [AuthController::class, 'generateQRCode']);
     Route::post('/get-qrcode', [AuthController::class, 'getQRCode']);
+    Route::post('/change-status-hoa-don', [HoaDonBanHangController::class, 'changeStatus']);
 
     Route::group(['prefix' => '/quyen'], function () {
         Route::post('/create', [QuyenController::class, 'createQuyen']);

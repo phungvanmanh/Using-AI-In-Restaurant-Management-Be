@@ -88,4 +88,18 @@ class ChuyenMucBaiVietController extends Controller
     {
         return $this->deleteModel($request, ChuyenMucBaiViet::class, 'ten_chuyen_muc');
     }
+
+    public function searchChuyenMucBaiViet(Request $request)
+    {
+
+
+        $key = '%' . $request->abc . '%';
+
+        $data   = ChuyenMucBaiViet::where('ten_chuyen_muc', 'like', $key)
+            ->get();
+
+        return response()->json([
+            'data'  =>  $data,
+        ]);
+    }
 }

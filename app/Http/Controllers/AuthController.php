@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Login\CheckLogin;
 use App\Models\Admin;
+use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -46,14 +49,35 @@ class AuthController extends Controller
     {
         $userId = Auth::guard('admin')->user()->id; // Lấy ID của người dùng đang đăng nhập
         $user = Admin::join('quyens', 'admins.id_permission', '=', 'quyens.id')
-                    ->where('admins.id', $userId)
-                    ->select('admins.id', 'admins.first_last_name', 'quyens.name_permission')
-                    ->first();
+            ->where('admins.id', $userId)
+            ->select('admins.id', 'admins.first_last_name', 'quyens.name_permission')
+            ->first();
 
         if (!$user) {
             return response()->json(['message' => 'Không tìm thấy thông tin người dùng'], 404);
         }
 
-        return response()->json($user);
+        return response()->json($user, 200);
+    }
+
+    public function generateQRCode($id_ban)
+    {
+        // Sử dụng firstOrCreate để tìm Token hoặc tạo mới nếu không tồn tại
+        $tokenModel = Token::firstOrCreate(
+            ['id_ban' => $id_ban],
+            ['token' => Str::random(40)]
+        );
+
+        // Xây dựng URL với token tìm được hoặc token mới tạo
+        $url = "/mon-an/{$id_ban}?token={$tokenModel->token}";
+
+        return response()->json(['url' => $url]);
+    }
+
+    public function checkQRCode(Request $request)
+    {
+        $token = $request->token;
+        $status = Cache::get($token)['status'] ?? 'expired';
+        return response()->json(['status' => $status]);
     }
 }

@@ -36,6 +36,6 @@ class KhuVucController extends Controller
 
     public function deleteKhuVuc(CheckIdKhuVucRequest $request)
     {
-        return $this->deleteModel($request, DanhMuc::class, 'name_area');
+        return $this->deleteModel($request, KhuVuc::class, 'name_area');
     }
 }

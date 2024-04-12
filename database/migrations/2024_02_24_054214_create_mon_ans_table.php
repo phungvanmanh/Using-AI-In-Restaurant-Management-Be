@@ -12,6 +12,7 @@ return new class extends Migration
         Schema::create('mon_ans', function (Blueprint $table) {
             $table->id();
             $table->string('food_name');
+            $table->string('image');
             $table->float('price');
             $table->integer('status');
             $table->float('total_input')->nullable();

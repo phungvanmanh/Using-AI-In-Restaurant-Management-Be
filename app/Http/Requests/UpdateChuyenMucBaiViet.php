@@ -23,12 +23,13 @@ class UpdateChuyenMucBaiViet extends FormRequest
     public function messages()
     {
         return [
-            'ten_chuyen_muc.required'        =>  'Tên chuyên mục yêu cầu phải nhập',
-            'ten_chuyen_muc.between'         =>  'Tên chuyên mục phải từ 5 đến 50 ký tự',
-            'slug_chuyen_muc.required'       =>  'Slug chuyên mục yêu cầu phải nhập',
-            'slug_chuyen_muc.between'        =>  'Slug chuyên mục phải từ 4 đến 50 ký tự',
-            'slug_chuyen_muc.unique'         =>  'Slug chuyên mục đã tồn tại',
-            'tinh_trang.*'                   =>  'Tình trạng chọn không chính xác',
+            'ten_chuyen_muc.required'   => 'Category name is required.',
+            'ten_chuyen_muc.between'    => 'Category name must be between 5 and 50 characters.',
+            'slug_chuyen_muc.required'  => 'Category slug is required.',
+            'slug_chuyen_muc.between'   => 'Category slug must be between 4 and 50 characters.',
+            'slug_chuyen_muc.unique'    => 'Category slug already exists.',
+            'tinh_trang.*'              => 'Invalid selection for status.',
+
         ];
     }
 }

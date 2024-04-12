@@ -12,6 +12,7 @@ class MonAn extends Model
     protected $fillable = [
         'food_name',
         'price',
+        'image',
         'status',
         'total_input',
         'total_ouput',

@@ -100,6 +100,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/delete', [ChuyenMucBaiVietController::class, 'deleteChuyenMuc']);
         Route::post('/update', [ChuyenMucBaiVietController::class, 'capNhatChuyenMuc']);
         Route::post('/status', [ChuyenMucBaiVietController::class, 'doiTrangThaiChuyenMuc']);
+        Route::post('/tim-chuyen-muc-bai-viet', [ChuyenMucBaiVietController::class, 'searchChuyenMucBaiViet']);
     });
     Route::group(['prefix'  =>  '/bai-viet'], function () {
 

@@ -27,16 +27,16 @@ class ThanhToanController extends Controller
                 'noi_dung' => $request->noi_dung,
             ]
         );
-
+        //wasRecentlyCreated => true/false
         if ($payment->wasRecentlyCreated) {
             return response()->json([
                 'status' => 1,
-                'message' => "Đã thanh toán thành công!"
+                'message' => "Successfully paid!"
             ]);
         } else {
             return response()->json([
                 'status' => 0,
-                'message' => "Dữ liệu thanh toán đã tồn tại!"
+                'message' => "Invoice has been paid"
             ]);
         }
     }

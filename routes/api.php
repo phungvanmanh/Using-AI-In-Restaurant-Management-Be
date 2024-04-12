@@ -16,11 +16,15 @@ use App\Http\Controllers\NhaCungCapController;
 use App\Http\Controllers\DichVuController;
 use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\HoaDonBanHangController;
+use App\Http\Controllers\ThanhToanController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('upload', [FileController::class, 'uploadFile']);
 Route::get('get-upload', [FileController::class, 'getData']);
+Route::post('/transactions', [ThanhToanController::class, 'store']);
+Route::get('/historyviettelpay', [ThanhToanController::class, 'fetchHistory']);
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('get-user', [AuthController::class, 'getUser']);

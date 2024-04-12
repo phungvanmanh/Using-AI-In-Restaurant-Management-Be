@@ -39,8 +39,25 @@ class HoaDonBanHangController extends Controller
                      ->whereDate('hoa_don_ban_hangs.created_at', '<=', $request->end)
                      ->select('hoa_don_ban_hangs.*', 'admins.first_last_name', 'bans.name_table')
                      ->get();
+        $total = 0;
+        foreach($data as $key => $value ) {
+            $hoa_don = HoaDonBanHang::where('hoa_don_ban_hangs.id', $value->id)
+                                    ->first();
+            $total += $hoa_don->tien_thuc_nhan;
+        }
         return response()->json([
             'data' => $data,
+            'total' => $total,
         ]);
+    }
+    public function chitietHoaDon(Request $request)
+    {
+        $data =ChiTietHoaDonBanHang::where('id_hoa_don',$request->id)
+                                    ->join('mon_ans','chi_tiet_hoa_don_ban_hangs.id_mon_an','mon_ans.id')
+                                    ->select('chi_tiet_hoa_don_ban_hangs.*','mon_ans.food_name')
+                                    ->get();
+     return response()->json([
+                     'data' => $data,
+         ]);
     }
 }

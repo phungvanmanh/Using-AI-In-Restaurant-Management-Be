@@ -83,7 +83,7 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['prefix'  =>  '/nha-cung-cap'], function () {
         // Lấy dữ liệu  -> get
         Route::get('/get-data', [NhaCungCapController::class, 'getData']);
-        // Route::post('/tim-nha-cung-cap', [NhaCungCapController::class, 'searchNhaCungCap']);
+        Route::post('/tim-nha-cung-cap', [NhaCungCapController::class, 'searchNhaCungCap']);
         Route::post('/create', [NhaCungCapController::class, 'createNhaCungCap']);
         Route::post('/delete', [NhaCungCapController::class, 'xoaNhaCungCap']);
         Route::post('/update', [NhaCungCapController::class, 'capNhatNhaCungCap']);
@@ -129,6 +129,7 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['prefix'  =>  '/hoa-don'], function () {
         Route::post('/data-bill', [HoaDonBanHangController::class, 'dataBill']);
         Route::post('/hoa-don', [HoaDonBanHangController::class, 'hoaDon']);
+        Route::post('/chi-tiet-hoa-don', [HoaDonBanHangController::class, 'chitietHoaDon']);
 
 
     });

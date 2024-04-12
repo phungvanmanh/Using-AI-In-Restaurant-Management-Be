@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('tien_thuc_nhan')->default(0);
             $table->string('ghi_chu')->nullable();
             $table->integer('id_ban');
+            $table->integer('id_nhan_vien');
             $table->integer('is_done')->default(0);
             $table->timestamps();
         });

@@ -15,16 +15,16 @@ class NhaCungCapController extends Controller
 {
     public function getData()
     {
-        $id_chuc_nang = 14;
+
 
         $data = NhaCungCap::get();
         return response()->json([
-            'nha_cung_cap'   => $data,
+            'data'   => $data,
         ]);
     }
     public function searchNhaCungCap(Request $request)
     {
-        $id_chuc_nang = 70;
+
 
         $key = '%' . $request->abc . '%';
 
@@ -32,7 +32,7 @@ class NhaCungCapController extends Controller
             ->get(); // get là ra 1 danh sách
 
         return response()->json([
-            'nha_cung_cap'  =>  $data,
+            'data'  =>  $data,
         ]);
     }
     public function createNhaCungCap(CreateNhaCungCap $request)
@@ -50,7 +50,7 @@ class NhaCungCapController extends Controller
         ]);
         return response()->json([
             'status'    => true,
-            'message'   => 'Tạo mới nhà cung cấp thành công!',
+            'message'   => 'Create a new supplier successfully!',
         ]);
     }
     public function xoaNhaCungCap($id)

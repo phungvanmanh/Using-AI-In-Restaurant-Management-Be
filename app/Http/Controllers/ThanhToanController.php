@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HoaDonBanHang;
 use App\Models\ThanhToan;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;

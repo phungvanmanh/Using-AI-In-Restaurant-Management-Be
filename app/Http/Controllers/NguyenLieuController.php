@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\createNguyenLieu;
 use App\Http\Requests\Chec;
+use App\Http\Requests\CheckidNguyenLieu;
 use App\Models\NguyenLieu;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NguyenLieuController extends Controller
 {
@@ -88,5 +91,18 @@ class NguyenLieuController extends Controller
         $ten_nguyen_lieu = $tennguyenlieu->ten_nguyen_lieu;
 
         return $this->deleteModel($request, NguyenLieu::class, 'ten_nguyen_lieu', 'Đã xóa món ' . $ten_nguyen_lieu . ' thành công!',);
+    }
+    public function searchNguyenLieu(Request $request)
+    {
+
+
+        $key = '%' . $request->abc . '%';
+
+        $data   = NguyenLieu::where('ten_nguyen_lieu', 'like', $key)
+            ->get();
+
+        return response()->json([
+            'data'  =>  $data,
+        ]);
     }
 }

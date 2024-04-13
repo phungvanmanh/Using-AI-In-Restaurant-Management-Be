@@ -37,4 +37,17 @@ class DanhMucController extends Controller
     {
         return $this->deleteModel($request, DanhMuc::class, 'name_category');
     }
+    public function searchDanhMuc(Request $request)
+    {
+
+
+        $key = '%' . $request->abc . '%';
+
+        $data   = DanhMuc::where('name_category', 'like', $key)
+            ->get();
+
+        return response()->json([
+            'data'  =>  $data,
+        ]);
+    }
 }

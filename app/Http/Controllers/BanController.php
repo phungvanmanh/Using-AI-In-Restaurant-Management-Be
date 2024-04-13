@@ -6,6 +6,7 @@ use App\Http\Requests\Ban\CheckIdBanRequest;
 use App\Http\Requests\Ban\CreateBanRequest;
 use App\Http\Requests\Ban\UpdateBanRequest;
 use App\Models\Ban;
+use Illuminate\Http\Request;
 
 class BanController extends Controller
 {
@@ -37,5 +38,16 @@ class BanController extends Controller
     public function deleteBan(CheckIdBanRequest $request)
     {
         return $this->deleteModel($request, Ban::class, 'name_table');
+    }
+    public function searchBan(Request $request)
+    {
+        $key = '%' . $request->abc . '%';
+
+        $data   = Ban::where('name_table', 'like', $key)
+            ->get();
+
+        return response()->json([
+            'data'  =>  $data,
+        ]);
     }
 }

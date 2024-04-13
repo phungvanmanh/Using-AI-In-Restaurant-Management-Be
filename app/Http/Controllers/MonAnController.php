@@ -78,4 +78,17 @@ class MonAnController extends Controller
             'message'   => 'Đã cập nhật thành công',
         ]);
     }
+    public function searchMonAn(Request $request)
+    {
+
+
+        $key = '%' . $request->abc . '%';
+
+        $data   = MonAn::where('food_name', 'like', $key)
+            ->get();
+
+        return response()->json([
+            'data'  =>  $data,
+        ]);
+    }
 }

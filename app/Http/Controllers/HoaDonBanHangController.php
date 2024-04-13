@@ -44,7 +44,9 @@ class HoaDonBanHangController extends Controller
         foreach ($data as $key => $value) {
             $hoa_don = HoaDonBanHang::where('hoa_don_ban_hangs.id', $value->id)
                 ->first();
-            $total += $hoa_don->tien_thuc_nhan;
+            if ($hoa_don->is_done) {
+                $total += $hoa_don->tien_thuc_nhan;
+            }
         }
         return response()->json([
             'data' => $data,
@@ -65,11 +67,11 @@ class HoaDonBanHangController extends Controller
     function changeStatus(Request $request)
     {
         $hoa_don = HoaDonBanHang::find($request->id_hoa_don_ban_hang);
-        if($hoa_don) {
+        if ($hoa_don) {
             $hoa_don->is_done = 1;
             $hoa_don->save();
             $ban = Ban::find($hoa_don->id_ban);
-            if($ban && $ban->is_open_table == 1) {
+            if ($ban && $ban->is_open_table == 1) {
                 $ban->is_open_table = 0;
                 $ban->save();
             }

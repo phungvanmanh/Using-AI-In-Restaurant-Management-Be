@@ -39,6 +39,19 @@ class BaiViet1Controller extends Controller
     {
         return $this->deleteModel($request, BaiViet1::class, 'tieu_de_bai_viet');
     }
+    public function timBaiViet(Request $request)
+    {
+
+
+        $key = '%' . $request->abc . '%';
+
+        $data   = BaiViet1::where('tieu_de_bai_viet', 'like', $key)
+            ->get();
+
+        return response()->json([
+            'data'  =>  $data,
+        ]);
+    }
 }
-  
+
 

@@ -59,6 +59,8 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [DanhMucController::class, 'changeStatus']);
         Route::post('/update', [DanhMucController::class, 'updateDanhMuc']);
         Route::post('/delete', [DanhMucController::class, 'deleteDanhMuc']);
+        Route::post('/tim-danh-muc', [DanhMucController::class, 'searchDanhMuc']);
+
     });
 
     Route::group(['prefix' => '/khu-vuc'], function () {
@@ -75,6 +77,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [MonAnController::class, 'changeStatus']);
         Route::post('/update', [MonAnController::class, 'updateMonAn']);
         Route::post('/delete', [MonAnController::class, 'deleteMonAn']);
+        Route::post('/tim-mon', [MonAnController::class, 'searchMonAn']);
     });
 
     Route::group(['prefix' => '/ban'], function () {
@@ -83,6 +86,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [BanController::class, 'changeStatus']);
         Route::post('/update', [BanController::class, 'updateBan']);
         Route::post('/delete', [BanController::class, 'deleteBan']);
+        Route::post('/tim-ban', [BanController::class, 'searchBan']);
     });
     Route::group(['prefix'  =>  '/nha-cung-cap'], function () {
         // Lấy dữ liệu  -> get
@@ -105,7 +109,7 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['prefix'  =>  '/bai-viet'], function () {
 
         Route::get('/get-data', [BaiViet1Controller::class, 'getData']);
-        // Route::post('/tim-tin-tuc', [BaiVietController::class, 'searchTinTuc']);
+        Route::post('/tim-bai-viet', [BaiViet1Controller::class, 'timBaiViet']);
         Route::post('/tao-bai-viet', [BaiViet1Controller::class, 'createBaiViet1']);
         Route::post('/delete', [BaiViet1Controller::class, 'xoaBaiViet']);
         Route::post('/update', [BaiViet1Controller::class, 'capNhatBaiViet']);
@@ -129,6 +133,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/cap-nhat-nguyen-lieu', [NguyenLieuController::class, 'capnhatNguyenLieu']);
         Route::post('/doi-trang-thai', [NguyenLieuController::class, 'doiTrangThai']);
         Route::post('/xoa-nguyen-lieu', [NguyenLieuController::class, 'deleteNguyenLieu']);
+        Route::post('/tim-nguyen-lieu', [NguyenLieuController::class, 'searchNguyenLieu']);
 
     });
     Route::group(['prefix'  =>  '/hoa-don'], function () {

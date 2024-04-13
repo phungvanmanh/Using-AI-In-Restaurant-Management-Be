@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\HoaDonBanHang;
 use App\Models\ChiTietHoaDonBanHang;
 use App\Http\Controllers\Controller;
+use App\Mail\sendMailBill;
 use App\Models\Ban;
+use App\Models\KhachHang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HoaDonBanHangController extends Controller
 {
@@ -76,6 +79,20 @@ class HoaDonBanHangController extends Controller
                 $ban->save();
             }
         }
+
+        $chi_tiet = ChiTietHoaDonBanHang::join('mon_ans', 'chi_tiet_hoa_don_ban_hangs.id_mon_an', 'mon_ans.id')
+                                        ->where('chi_tiet_hoa_don_ban_hangs.id_hoa_don', $hoa_don->id)
+                                        ->select('chi_tiet_hoa_don_ban_hangs.so_luong','chi_tiet_hoa_don_ban_hangs.don_gia','chi_tiet_hoa_don_ban_hangs.thanh_tien as total','chi_tiet_hoa_don_ban_hangs.phan_tram_giam', 'mon_ans.food_name', 'mon_ans.image')
+                                        ->get();
+        $khach_hang = KhachHang::find($hoa_don->id_khach_hang);
+        $data['chi_tiet'] = $chi_tiet;
+        $data['subtotal'] = $hoa_don->tong_tien_truoc_giam;
+        $data['phan_tram_giam'] = $hoa_don->phan_tram_giam;
+        $data['total'] = $hoa_don->tien_thuc_nhan;
+        $data['code_bill'] = $hoa_don->id;
+        $data['email'] = $khach_hang->email_khach_hang;
+        // dd($data);
+        Mail::to($khach_hang->email_khach_hang)->queue(new sendMailBill($data));
 
         return response()->json([
             "status"    => 200

@@ -16,6 +16,8 @@ use App\Http\Controllers\NhaCungCapController;
 use App\Http\Controllers\DichVuController;
 use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\HoaDonBanHangController;
+use App\Http\Controllers\KhachHangController;
+use App\Http\Controllers\LogControlter;
 use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -142,6 +144,12 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/chi-tiet-hoa-don', [HoaDonBanHangController::class, 'chitietHoaDon']);
 
 
+    });
+    Route::group(['prefix'  =>  '/log'], function () {
+        Route::get('/lich-su-thanh-toan', [LogControlter::class, 'dataHistoryBuill']);
+    });
+    Route::group(['prefix'  =>  '/khach-hang'], function () {
+        Route::post('/store', [KhachHangController::class, 'store']);
     });
 });
 

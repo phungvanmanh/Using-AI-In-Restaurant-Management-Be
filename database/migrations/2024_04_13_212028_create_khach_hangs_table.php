@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('thanh_toans', function (Blueprint $table) {
+        Schema::create('khach_hangs', function (Blueprint $table) {
             $table->id();
-            $table->integer('so_tien');
-            $table->string('noi_dung');
-            $table->string('code');
-            $table->string('id_nhan_vien');
+            $table->string('ten_khach_hang');
+            $table->string('email_khach_hang');
+            $table->string('so_dien_thoai');
+            $table->string('otp')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('thanh_toans');
+        Schema::dropIfExists('khach_hangs');
     }
 };

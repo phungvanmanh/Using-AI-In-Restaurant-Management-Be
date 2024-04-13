@@ -6,6 +6,7 @@ use App\Models\ChiTietHoaDonBanHang;
 use App\Models\HoaDonBanHang;
 use App\Models\MonAn;
 use App\Http\Controllers\Controller;
+use App\Models\KhachHang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,8 +116,20 @@ class DichVuController extends Controller
                                     ->where('chi_tiet_hoa_don_ban_hangs.is_done',0)
                                     ->select('chi_tiet_hoa_don_ban_hangs.*','mon_ans.food_name')
                                     ->get();
+        $khach_hang = HoaDonBanHang::join('khach_hangs', 'hoa_don_ban_hangs.id_khach_hang', 'khach_hangs.id')
+                                    ->where('hoa_don_ban_hangs.id', $request->id_hoa_don)
+                                    ->select('khach_hangs.ten_khach_hang', 'khach_hangs.email_khach_hang', 'khach_hangs.so_dien_thoai')
+                                    ->first();
+        if($khach_hang == null) {
+            $khach_hang = new KhachHang();
+            $khach_hang->ten_khach_hang = '';
+            $khach_hang->email_khach_hang = '';
+            $khach_hang->so_dien_thoai = '';
+        }
+
         return response()->json([
             'data'=>$chiTiet,
+            'kh' => $khach_hang
         ]);
     }
     public function updateChiTietBanHang(Request $request)

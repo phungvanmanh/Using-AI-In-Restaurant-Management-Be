@@ -6,6 +6,7 @@ use App\Models\HoaDonBanHang;
 use App\Models\ThanhToan;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ThanhToanController extends Controller
 {
@@ -20,11 +21,13 @@ class ThanhToanController extends Controller
 
     public function store(Request $request)
     {
+        $id_nhan_vien = Auth::guard('admin')->user()->id;
         $payment = ThanhToan::firstOrCreate(
             ['code' => $request->code],
             [
                 'so_tien' => $request->so_tien,
                 'noi_dung' => $request->noi_dung,
+                'id_nhan_vien' => $id_nhan_vien,
             ]
         );
         //wasRecentlyCreated => true/false

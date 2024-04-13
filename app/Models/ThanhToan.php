@@ -15,5 +15,6 @@ class ThanhToan extends Model
         'so_tien',
         'noi_dung',
         'code',
+        'id_nhan_vien'
     ];
 }

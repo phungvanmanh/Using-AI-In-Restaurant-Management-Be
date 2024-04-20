@@ -12,6 +12,7 @@ class Quyen extends Model
     protected $fillable = [
         'name_permission',
         'status',
+        'amount',
         'list_id_function',
     ];
 }

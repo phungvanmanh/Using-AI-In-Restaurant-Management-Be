@@ -18,8 +18,10 @@ use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\HoaDonBanHangController;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\LogControlter;
+use App\Http\Controllers\LuongController;
 use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\TransactionController;
+use App\Models\Luong;
 use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('upload', [FileController::class, 'uploadFile']);
@@ -150,6 +152,9 @@ Route::group(['prefix' => '/admin'], function () {
     });
     Route::group(['prefix'  =>  '/khach-hang'], function () {
         Route::post('/store', [KhachHangController::class, 'store']);
+    });
+    Route::group(['prefix'  =>  '/tinh-luong'], function () {
+        Route::get('/store', [LuongController::class, 'store']);
     });
 });
 

@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_permission');
             $table->integer('status');
+            $table->integer('amount')->nullable();
             $table->string('list_id_function')->nullable();
             $table->timestamps();
         });

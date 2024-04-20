@@ -16,6 +16,7 @@ class CreateQuyenRequest extends FormRequest
         return [
             'name_permission'         => 'required|min:4',
             'status'                  => 'required|numeric',
+            'amount'                  => 'required|numeric',
         ];
     }
 
@@ -33,6 +34,7 @@ class CreateQuyenRequest extends FormRequest
         return [
             'name_permission'         => 'Name Permission',
             'status'                  => 'Status',
+            'amount'                  => 'Amount',
         ];
     }
 }

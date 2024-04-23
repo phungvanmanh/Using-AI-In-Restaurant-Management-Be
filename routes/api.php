@@ -30,6 +30,7 @@ Route::post('/transactions', [ThanhToanController::class, 'store']);
 Route::get('/historyviettelpay', [ThanhToanController::class, 'fetchHistory']);
 
 Route::group(['prefix' => '/admin'], function () {
+    Route::get('/export', [AdminController::class, 'export']);
     Route::get('get-user', [AuthController::class, 'getUser']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('/create', [AdminController::class, 'createAdmin']);

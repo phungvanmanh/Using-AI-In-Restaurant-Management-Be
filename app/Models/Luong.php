@@ -14,6 +14,8 @@ class Luong extends Model
         'so_buoi_lam',
         'hoa_hong',
         'tong_luong',
+        'thang',
+        'nam',
         'ngay_nhan_luong',
         'is_nhan',
     ];

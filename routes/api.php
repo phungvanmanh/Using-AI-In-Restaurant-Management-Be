@@ -31,6 +31,7 @@ Route::post('/transactions', [ThanhToanController::class, 'store']);
 Route::get('/historyviettelpay', [ThanhToanController::class, 'fetchHistory']);
 
 Route::group(['prefix' => '/admin'], function () {
+    Route::get('/export', [AdminController::class, 'export']);
     Route::get('get-user', [AuthController::class, 'getUser']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('/create', [AdminController::class, 'createAdmin']);
@@ -156,6 +157,9 @@ Route::group(['prefix' => '/admin'], function () {
     });
     Route::group(['prefix'  =>  '/tinh-luong'], function () {
         Route::post('/store', [LuongController::class, 'store']);
+        Route::post('/update-rose', [LuongController::class, 'updateRose']);
+        Route::post('/update-receive', [LuongController::class, 'updateReceive']);
+        Route::post('/detal', [LuongController::class, 'Detal']);
     });
     Route::group(['prefix'  =>  '/nhap-kho'], function () {
         Route::get('/lay-du-lieu', [NhapKhoController::class, 'getdata']);
@@ -163,7 +167,6 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/cap-nhat-nhap-kho', [NhapKhoController::class, 'updateNhapKho']);
         Route::post('/xoa-nhap-kho/{id}', [NhapKhoController::class, 'xoaNguyenLieu']);
         Route::post('/tao-hoa-don-nhap-kho', [NhapKhoController::class, 'createHoaDonNhapKho']);
-
     });
 });
 

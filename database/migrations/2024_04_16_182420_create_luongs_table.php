@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('so_buoi_lam');
             $table->integer('hoa_hong')->default(0);
             $table->integer('tong_luong')->default(0);
+            $table->integer('thang');
+            $table->integer('nam');
             $table->dateTime('ngay_nhan_luong')->nullable();
             $table->integer('is_nhan')->default(0)->comment("0: Chưa Nhận, 1: Đã Nhận");
             $table->timestamps();

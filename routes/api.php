@@ -19,6 +19,7 @@ use App\Http\Controllers\HoaDonBanHangController;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\LogControlter;
 use App\Http\Controllers\LuongController;
+use App\Http\Controllers\NhapKhoController;
 use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Luong;
@@ -159,6 +160,13 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update-rose', [LuongController::class, 'updateRose']);
         Route::post('/update-receive', [LuongController::class, 'updateReceive']);
         Route::post('/detal', [LuongController::class, 'Detal']);
+    });
+    Route::group(['prefix'  =>  '/nhap-kho'], function () {
+        Route::get('/lay-du-lieu', [NhapKhoController::class, 'getdata']);
+        Route::post('/them-nguyen-lieu', [NhapKhoController::class, 'addNguyenLieu']);
+        Route::post('/cap-nhat-nhap-kho', [NhapKhoController::class, 'updateNhapKho']);
+        Route::post('/xoa-nhap-kho/{id}', [NhapKhoController::class, 'xoaNguyenLieu']);
+        Route::post('/tao-hoa-don-nhap-kho', [NhapKhoController::class, 'createHoaDonNhapKho']);
     });
 });
 

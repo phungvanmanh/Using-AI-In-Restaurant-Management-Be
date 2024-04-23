@@ -154,7 +154,10 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/store', [KhachHangController::class, 'store']);
     });
     Route::group(['prefix'  =>  '/tinh-luong'], function () {
-        Route::get('/store', [LuongController::class, 'store']);
+        Route::post('/store', [LuongController::class, 'store']);
+        Route::post('/update-rose', [LuongController::class, 'updateRose']);
+        Route::post('/update-receive', [LuongController::class, 'updateReceive']);
+        Route::post('/detal', [LuongController::class, 'Detal']);
     });
 });
 

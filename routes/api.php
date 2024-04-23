@@ -16,6 +16,7 @@ use App\Http\Controllers\NhaCungCapController;
 use App\Http\Controllers\DichVuController;
 use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\HoaDonBanHangController;
+use App\Http\Controllers\HoaDonNhapKhoController;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\LogControlter;
 use App\Http\Controllers\LuongController;
@@ -162,11 +163,11 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/detal', [LuongController::class, 'Detal']);
     });
     Route::group(['prefix'  =>  '/nhap-kho'], function () {
-        Route::get('/lay-du-lieu', [NhapKhoController::class, 'getdata']);
-        Route::post('/them-nguyen-lieu', [NhapKhoController::class, 'addNguyenLieu']);
-        Route::post('/cap-nhat-nhap-kho', [NhapKhoController::class, 'updateNhapKho']);
-        Route::post('/xoa-nhap-kho/{id}', [NhapKhoController::class, 'xoaNguyenLieu']);
-        Route::post('/tao-hoa-don-nhap-kho', [NhapKhoController::class, 'createHoaDonNhapKho']);
+        Route::get('/lay-du-lieu', [HoaDonNhapKhoController::class, 'getdata']);
+        Route::post('/them-nguyen-lieu', [HoaDonNhapKhoController::class, 'addNguyenLieu']);
+        Route::post('/cap-nhat-nhap-kho', [HoaDonNhapKhoController::class, 'updateNhapKho']);
+        Route::post('/xoa-nhap-kho/{id}', [HoaDonNhapKhoController::class, 'xoaNguyenLieu']);
+        Route::post('/tao-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'createHoaDonNhapKho']);
     });
 });
 

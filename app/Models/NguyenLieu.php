@@ -12,7 +12,6 @@ class NguyenLieu extends Model
     protected $fillable=[
         'ten_nguyen_lieu',
         'slug_nguyen_lieu',
-        'so_luong',
         'gia',
         'don_vi_tinh',
         'tinh_trang',

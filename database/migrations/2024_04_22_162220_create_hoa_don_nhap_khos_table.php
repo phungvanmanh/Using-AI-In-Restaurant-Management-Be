@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('tong_tien')->nullable();
             $table->integer('id_nhan_vien');
             $table->string('id_nha_cung_cap');
+            $table->dateTime('ngay_nhap');
             $table->string('ghi_chu')->nullable();
-
             $table->timestamps();
         });
     }

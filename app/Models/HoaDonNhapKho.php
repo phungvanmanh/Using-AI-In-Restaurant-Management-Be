@@ -14,6 +14,7 @@ class HoaDonNhapKho extends Model
         'tong_tien',
         'id_nhan_vien',
         'id_nha_cung_cap',
-        'ghi_chu',
+        'ngay_nhap',
+        'ghi_chu'
     ];
 }

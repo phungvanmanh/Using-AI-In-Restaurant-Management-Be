@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nhap_khos', function (Blueprint $table) {
+        Schema::create('chi_tiet_hoa_don_nhaps', function (Blueprint $table) {
             $table->id();
             $table->integer('id_nguyen_lieu');
-            $table->integer('id_hoa_don_nhap_kho');
+            $table->string('id_hoa_don_nhap')->nullable();
             $table->integer('so_luong')->default(1);
-            $table->integer('don_gia')->default(0);
-            $table->integer('thanh_tien')->default(0);
-            $table->integer('id_nhan_vien');
+            $table->integer('don_gia');
+            $table->integer('thanh_tien');
+            // $table->string('ghi_chu')->nullable();
+            $table->integer('is_done')->default(0)->comment("0: Chưa nhập, 1: Đã nhập");
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nhap_khos');
+        Schema::dropIfExists('chi_tiet_hoa_don_nhaps');
     }
 };

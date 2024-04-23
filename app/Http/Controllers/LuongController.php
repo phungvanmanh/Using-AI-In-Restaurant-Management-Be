@@ -53,7 +53,7 @@ class LuongController extends Controller
                 $luong->save();
             }
 
-            $data.array_push([
+            array_push($data, [
                 'id'                => $luong->id,
                 'id_nhan_vien'      => $value['id'],
                 'tong_luong'        => $luong->tong_luong,

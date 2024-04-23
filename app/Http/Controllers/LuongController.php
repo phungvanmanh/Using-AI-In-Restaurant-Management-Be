@@ -53,16 +53,16 @@ class LuongController extends Controller
                 $luong->save();
             }
 
-            $data[] = [
+            $data.array_push([
                 'id'                => $luong->id,
-                'id_nhan_vien'      => $value->id,
+                'id_nhan_vien'      => $value['id'],
                 'tong_luong'        => $luong->tong_luong,
                 'hoa_hong'          => $luong->hoa_hong,
                 'check'             => $luong->is_nhan,
                 'so_buoi_lam'       => $luong->so_buoi_lam,
-                'first_last_name'   => $value->first_last_name,
-                'amount'            => $value->amount,
-            ];
+                'first_last_name'   => $value['first_last_name'],
+                'amount'            => $value['amount'],
+            ]);
         }
 
         return response()->json([

@@ -26,7 +26,7 @@ class LuongController extends Controller
                             ->where('admins.status', 1)
                             ->select('admins.id','admins.first_last_name', 'quyens.name_permission', 'quyens.amount')
                             ->get();
-
+        $data = [];
         foreach($nhan_vien as $value) {
             $lich_lam = LichLamViec::whereDate('ngay_lam_viec', '>=', $begin)
                                     ->whereDate('ngay_lam_viec', "<=", $end)
@@ -55,13 +55,13 @@ class LuongController extends Controller
 
             $data[] = [
                 'id'                => $luong->id,
-                'id_nhan_vien'      => $value['id'],
+                'id_nhan_vien'      => $value->id,
                 'tong_luong'        => $luong->tong_luong,
                 'hoa_hong'          => $luong->hoa_hong,
                 'check'             => $luong->is_nhan,
                 'so_buoi_lam'       => $luong->so_buoi_lam,
-                'first_last_name'   => $value['first_last_name'],
-                'amount'            => $value['amount'],
+                'first_last_name'   => $value->first_last_name,
+                'amount'            => $value->amount,
             ];
         }
 

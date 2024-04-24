@@ -20,8 +20,6 @@ class HoaDonNhapKhoController extends Controller
         $nhap_kho = ChiTietHoaDonNhap::where('id_nguyen_lieu', $request->id)
                                     ->where('is_done', 0)
                                     ->first();
-        $today = Carbon::now()->format('Y-m-d');
-
         if ($nhap_kho) {
             $nhap_kho->so_luong += 1;
             $nhap_kho->thanh_tien = $nhap_kho->so_luong * $nhap_kho->don_gia;
@@ -34,17 +32,6 @@ class HoaDonNhapKhoController extends Controller
                 'don_gia' => $request->gia,   // Giả sử bạn cần đặt giá đơn ban đầu là 0, cần cập nhật sau
                 'id_nhan_vien' => $user->id,  // Bỏ comment này nếu cần thiết
                 'thanh_tien'    => $request->gia,
-            ]);
-        }
-
-        $records = TonKhoNguyenLieu::whereDate('ngay', $today)
-                                    ->where('id_nguyen_lieu', $request->id)
-                                    ->first();
-        if(!$records) {
-            TonKhoNguyenLieu::create([
-                'id_nguyen_lieu' => $request->id,
-                'so_luong'       => 0,
-                'ngay'           => $today
             ]);
         }
 
@@ -93,10 +80,18 @@ class HoaDonNhapKhoController extends Controller
             $chi_tiet_hdnk->id_hoa_don_nhap = $hoa_don_nhap->ma_hoa_don;
             $chi_tiet_hdnk->is_done = 1;
             $chi_tiet_hdnk->save();
-            $tkNguyenLieu = TonKhoNguyenLieu::where('id_nguyen_lieu', $value['id_nguyen_lieu'])->whereDate('ngay', $now->format('Y-m-d'))->first();
+            $tkNguyenLieu = TonKhoNguyenLieu::where('id_nguyen_lieu', $value['id_nguyen_lieu'])
+                                            ->whereDate('ngay', $now->format('Y-m-d'))
+                                            ->first();
             if($tkNguyenLieu) {
                 $tkNguyenLieu->so_luong += $value['so_luong'];
                 $tkNguyenLieu->save();
+            } else {
+                TonKhoNguyenLieu::create([
+                    'id_nguyen_lieu' => $value['id_nguyen_lieu'],
+                    'so_luong'       => $value['so_luong'],
+                    'ngay'           => $now->format('Y-m-d')
+                ]);
             }
 
         }

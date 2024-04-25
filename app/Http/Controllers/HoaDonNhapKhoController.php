@@ -138,4 +138,35 @@ class HoaDonNhapKhoController extends Controller
             ]);
         }
     }
+    public function getDataHoaDonNhapKho(Request $request)
+    {
+        $data =HoaDonNhapKho::join('admins','admins.id','hoa_don_nhap_khos.id_nhan_vien')
+                            ->join('nha_cung_caps','nha_cung_caps.id','hoa_don_nhap_khos.id_nha_cung_cap')
+                            ->whereDate('hoa_don_nhap_khos.created_at','>=',$request->begin)
+                            ->whereDate('hoa_don_nhap_khos.created_at','<=',$request->end)
+                            ->select(
+                                'hoa_don_nhap_khos.id',
+                                'hoa_don_nhap_khos.ma_hoa_don',
+                                'hoa_don_nhap_khos.tong_tien',
+                                'hoa_don_nhap_khos.ghi_chu',
+                                'nha_cung_caps.ten_cong_ty',
+                                'admins.first_last_name',
+                            )
+                            ->get();
+        return response()->json([
+            'data'=>$data,
+            'tong_tien'=>$data->sum('tong_tien')
+        ]);
+    }
+    public function getDataChiTietHoaDonNhapKho(Request $request)
+    {
+        $data=ChiTietHoaDonNhap::join('hoa_don_nhap_khos','hoa_don_nhap_khos.id','chi_tiet_hoa_don_nhaps.id_hoa_don_nhap')
+                                ->join('nguyen_lieus','nguyen_lieus.id','chi_tiet_hoa_don_nhaps.id_nguyen_lieu')
+                                ->where('hoa_don_nhap_khos.id',$request->id)
+                                ->select('chi_tiet_hoa_don_nhaps.*','nguyen_lieus.ten_nguyen_lieu')
+                                ->get();
+        return response()->json([
+            'data'=>$data
+        ]);
+    }
 }

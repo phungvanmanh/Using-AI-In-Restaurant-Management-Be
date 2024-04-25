@@ -170,6 +170,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/tao-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'createHoaDonNhapKho']);
         Route::post('/data-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataHoaDonNhapKho']);
         Route::post('/data-chi-tiet-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataChiTietHoaDonNhapKho']);
+        Route::post('/export', [HoaDonNhapKhoController::class, 'export']);
 
     });
 });

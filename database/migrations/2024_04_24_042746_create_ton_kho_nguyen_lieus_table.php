@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_nguyen_lieu');
             $table->integer('so_luong');
             $table->integer('so_luong_ton')->default(0);
-            $table->date('ngay')->default(0);
+            $table->date('ngay');
             $table->timestamps();
         });
     }

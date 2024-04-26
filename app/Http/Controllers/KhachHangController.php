@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KhachHangExport;
 use App\Models\HoaDonBanHang;
 use App\Models\KhachHang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KhachHangController extends Controller
 {
@@ -40,5 +43,29 @@ class KhachHangController extends Controller
         return response()->json(['message' => 'Operation successful'], 201);
     }
 
+    public function getData()
+    {
+        $data = KhachHang::get();
+        return response()->json([
+            'status'    => true,
+            'data'   => $data,
+        ]);
+    }
 
+    public function updateKh(Request $request)
+    {
+        return $this->changeStatusOrUpdateModel($request, KhachHang::class, 'update');
+    }
+
+    public function deleteKh(Request $request)
+    {
+        return $this->deleteModel($request, KhachHang::class, 'ten_khach_hang');
+    }
+
+    public function export()
+    {
+        $data = KhachHang::get();
+        Log::info('Exporting data:', $data->toArray());
+        return Excel::download(new KhachHangExport($data), 'khachhang.xlsx');
+    }
 }

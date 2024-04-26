@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MonAn\createMonAnRequest;
 use App\Models\MonAn;
+use App\Models\Token;
 use Illuminate\Http\Request;
 
 class MonAnController extends Controller
@@ -28,6 +29,23 @@ class MonAnController extends Controller
             'data'   => $data,
         ]);
     }
+
+    public function getDataMonAnToken($token) {
+        $check = Token::where('token', $token)->first();
+        if($check) {
+            $data = MonAn::join('danh_mucs', 'mon_ans.id_category', 'danh_mucs.id')
+                        ->select('mon_ans.*', 'danh_mucs.name_category')
+                        ->get();
+            return response()->json([
+                'data'   => $data,
+            ]);
+        }
+
+        return response()->json([
+            'status'    => false,
+        ]);
+    }
+
     public function deleteMonAn(Request $request)
     {
         // Tìm món ăn với id được cung cấp

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Login\CheckLogin;
 use App\Models\Admin;
+use App\Models\HoaDonBanHang;
 use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,9 +68,9 @@ class AuthController extends Controller
             ['id_ban' => $id_ban],
             ['token' => Str::random(40)]
         );
-
+        $id_hoa_don = HoaDonBanHang::where('id_ban', $id_ban)->where('is_done', 0)->first();
         // Xây dựng URL với token tìm được hoặc token mới tạo
-        $url = "/mon-an/{$id_ban}?token={$tokenModel->token}";
+        $url = "/mon-an/{$id_ban}/{$id_hoa_don->id}?token={$tokenModel->token}";
 
         return response()->json(['url' => $url]);
     }

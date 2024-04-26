@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\sendMailBill;
 use App\Models\Ban;
 use App\Models\KhachHang;
+use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -77,6 +78,11 @@ class HoaDonBanHangController extends Controller
             if ($ban && $ban->is_open_table == 1) {
                 $ban->is_open_table = 0;
                 $ban->save();
+            }
+            //xóa token
+            $token = Token::where('id_ban', $hoa_don->id_ban)->first();
+            if($token) {
+                $token->delete();
             }
         }
 

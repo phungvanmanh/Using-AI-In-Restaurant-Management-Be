@@ -30,7 +30,8 @@ Route::post('upload', [FileController::class, 'uploadFile']);
 Route::get('get-upload', [FileController::class, 'getData']);
 Route::post('/transactions', [ThanhToanController::class, 'store']);
 Route::get('/historyviettelpay', [ThanhToanController::class, 'fetchHistory']);
-
+Route::get('/get-data-mon-an/{token}', [MonAnController::class, 'getDataMonAnToken']);
+Route::post('/them-mon-an', [DichVuController::class, 'themMonAn']);
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/export', [AdminController::class, 'export']);
     Route::get('get-user', [AuthController::class, 'getUser']);
@@ -155,6 +156,10 @@ Route::group(['prefix' => '/admin'], function () {
     });
     Route::group(['prefix'  =>  '/khach-hang'], function () {
         Route::post('/store', [KhachHangController::class, 'store']);
+        Route::post('/update', [KhachHangController::class, 'updateKh']);
+        Route::post('/delete', [KhachHangController::class, 'deleteKh']);
+        Route::get('/get-data', [KhachHangController::class, 'getData']);
+        Route::get('/export', [KhachHangController::class, 'export']);
     });
     Route::group(['prefix'  =>  '/tinh-luong'], function () {
         Route::post('/store', [LuongController::class, 'store']);

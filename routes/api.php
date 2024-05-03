@@ -20,6 +20,7 @@ use App\Http\Controllers\HoaDonNhapKhoController;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\LogControlter;
 use App\Http\Controllers\LuongController;
+use App\Http\Controllers\MaGiamGiaController;
 use App\Http\Controllers\NhapKhoController;
 use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\TransactionController;
@@ -182,6 +183,14 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/data-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataHoaDonNhapKho']);
         Route::post('/data-chi-tiet-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataChiTietHoaDonNhapKho']);
         Route::post('/export', [HoaDonNhapKhoController::class, 'export']);
+
+    });
+    Route::group(['prefix'  =>  '/ma-giam-gia'], function () {
+        Route::post('/tao-ma-giam-gia', [MaGiamGiaController::class, 'createMaGiamGia']);
+        Route::get('/lay-du-lieu', [MaGiamGiaController::class, 'getdulieu']);
+        Route::post('/doi-trang-thai', [MaGiamGiaController::class, 'changesMaGiamGia']);
+        Route::post('/update-ma-giam-gia', [MaGiamGiaController::class, 'updateMaGiamGia']);
+        Route::post('/xoa-ma-giam-gia', [MaGiamGiaController::class, 'deleteMaGiamGia']);
 
     });
 });

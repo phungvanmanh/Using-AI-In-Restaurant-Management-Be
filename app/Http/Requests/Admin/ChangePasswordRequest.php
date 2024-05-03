@@ -4,8 +4,13 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckIdAdminRequest extends FormRequest
+class ChangePasswordRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize()
     {
         return true;
@@ -15,6 +20,7 @@ class CheckIdAdminRequest extends FormRequest
     {
         return [
             'id'         => 'exists:admins,id',
+            'password'   => 'required',
         ];
     }
 
@@ -22,6 +28,7 @@ class CheckIdAdminRequest extends FormRequest
     {
         return [
             'exists'            => ':attribute does not exist!',
+            'required'          => ':attribute cannot be left blank!',
         ];
     }
 
@@ -29,6 +36,7 @@ class CheckIdAdminRequest extends FormRequest
     {
         return [
             'id'                      => 'Staff',
+            'password'                => 'Password',
         ];
     }
 }

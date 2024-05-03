@@ -19,7 +19,6 @@ class UpdateAdminRequest extends FormRequest
             'email'                   => 'required|email',
             'phone_number'            => 'required|numeric',
             'date_birth'              => 'required|date',
-            'password'                => 'required',
             'status'                  => 'required|numeric',
             'id_permission'           => 'required|exists:quyens,id'
         ];
@@ -46,7 +45,6 @@ class UpdateAdminRequest extends FormRequest
             'email'                   => 'Email',
             'phone_number'            => 'Phone number',
             'date_birth'              => 'Date of birth',
-            'password'                => 'Password',
             'status'                  => 'Status',
             'id_permission'           => 'Permission',
         ];

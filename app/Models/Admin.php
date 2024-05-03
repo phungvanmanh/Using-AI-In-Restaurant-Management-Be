@@ -22,6 +22,7 @@ class Admin extends Authenticatable implements JWTSubject
         'password',
         'status',
         'id_permission',
+        'hash_reset'
     ];
 
     protected $hidden = [

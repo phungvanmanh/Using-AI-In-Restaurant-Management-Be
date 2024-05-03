@@ -32,6 +32,9 @@ Route::post('/transactions', [ThanhToanController::class, 'store']);
 Route::get('/historyviettelpay', [ThanhToanController::class, 'fetchHistory']);
 Route::get('/get-data-mon-an/{token}', [MonAnController::class, 'getDataMonAnToken']);
 Route::post('/them-mon-an', [DichVuController::class, 'themMonAn']);
+Route::post('/forgot-password', [AdminController::class, 'forgotPasswordAdmin']);
+Route::post('/update-password', [AdminController::class, 'updatePasswordAdmin']);
+
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/export', [AdminController::class, 'export']);
     Route::get('get-user', [AuthController::class, 'getUser']);
@@ -39,8 +42,11 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/create', [AdminController::class, 'createAdmin']);
     Route::get('/get-data', [AdminController::class, 'getDataAdmin']);
     Route::post('/search', [AdminController::class, 'searchAdmin']);
+    Route::post('/change-password', [AdminController::class, 'changePasswordAdmin']);
+    Route::post('/update-user', [AdminController::class, 'updateAdmin']);
+    Route::post('/delete-user', [AdminController::class, 'deleteAdmin']);
     Route::post('/change-status', [AdminController::class, 'changeStatus']);
-    Route::post('/update', [AdminController::class, 'updateAdmin']);
+    // Route::post('/update', [AdminController::class, 'updateAdmin']);
     Route::get('/create-token/{id_ban}', [AuthController::class, 'generateQRCode']);
     Route::post('/get-qrcode', [AuthController::class, 'getQRCode']);
     Route::post('/change-status-hoa-don', [HoaDonBanHangController::class, 'changeStatus']);

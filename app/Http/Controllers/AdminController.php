@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AdminExport;
+use App\Http\Requests\Admin\ChangePasswordRequest;
 use App\Http\Requests\Admin\CheckIdAdminRequest;
 use App\Http\Requests\Admin\CreateAdminRequest;
 use App\Http\Requests\Admin\UpdateAdminRequest;
-use App\Jobs\SendEmailJob;
+use App\Mail\sendMailForgotPassword;
 use App\Models\Admin;
-use App\Models\LichLamViec;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-
+use Illuminate\Support\Str;
 class AdminController extends Controller
 {
     public function createAdmin(CreateAdminRequest $request)
@@ -42,7 +40,7 @@ class AdminController extends Controller
     public function getDataAdmin()
     {
         $data = Admin::join('quyens', 'admins.id_permission', 'quyens.id')
-            ->select('admins.id', 'admins.first_last_name', 'admins.email', 'admins.phone_number', 'admins.status', 'admins.id_permission', DB::raw("DATE_FORMAT(admins.date_birth, '%d-%m-%Y') as date_birth"), 'quyens.name_permission')
+            ->select('admins.id', 'admins.first_last_name', 'admins.email', 'admins.phone_number', 'admins.status', 'admins.id_permission', "admins.date_birth", 'quyens.name_permission')
             ->paginate(10);
         $response = [
             'pagination' => [
@@ -72,15 +70,12 @@ class AdminController extends Controller
 
     public function updateAdmin(UpdateAdminRequest $request)
     {
-        $data = $request->all();
-        $admin = Admin::where('id', $request->id)->first();
+        return $this->changeStatusOrUpdateModel($request, Admin::class, 'update');
+    }
 
-        $admin->update($data);
-
-        return response()->json([
-            'status'    => 1,
-            'message'   => 'Updated successfully!',
-        ]);
+    public function deleteAdmin(CheckIdAdminRequest $request)
+    {
+        return $this->deleteModel($request, Admin::class, 'first_last_name');
     }
 
     public function searchAdmin(Request $request)
@@ -140,4 +135,63 @@ class AdminController extends Controller
     //         'url'  => asset('storage/' . $fileName)
     //     ]);
     // }
+
+    public function changePasswordAdmin(ChangePasswordRequest $request)
+    {
+        $admin = Admin::find($request->id);
+        $admin->password = bcrypt($request->password);
+        $admin->save();
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Updated successfully!',
+        ]);
+    }
+
+    public function forgotPasswordAdmin(Request $request)
+    {
+        $admin = Admin::where('email', $request->email)->where('status', 1)->first();
+        if(!$admin) {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Account does not exist or has been locked! ',
+            ]);
+        }
+        if($admin->hash_reset) {
+            return response()->json([
+                "status"    => true,
+                "message"   => "Please check your email!"
+            ]);
+        }
+        $hash_reset = Str::uuid();
+        $admin->hash_reset = $hash_reset;
+        $admin->save();
+
+        $data['email'] = $admin->email;
+        $data['URL'] = "http://192.168.1.174:8001/change-password/" . $hash_reset;
+
+        Mail::to($admin->email)->queue(new SendMailForgotPassword($data));
+
+        return response()->json([
+            "status"    => true,
+            "message"   => "Please check your email!"
+        ]);
+    }
+
+    public function updatePasswordAdmin(Request $request)
+    {
+        $admin = Admin::where('hash_reset', $request->uuid)->where('status', 1)->first();
+        if(!$admin) {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'You cannot update your password due to some problem!',
+            ]);
+        }
+        $admin->password   = bcrypt($request->password);
+        $admin->hash_reset = null;
+        $admin->save();
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Updated successfully!',
+        ]);
+    }
 }

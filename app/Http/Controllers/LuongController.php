@@ -35,34 +35,36 @@ class LuongController extends Controller
                                     ->select('id_nhan_vien', DB::raw('COUNT(is_done) AS So_buoi_lam'))
                                     ->groupBy('id_nhan_vien')
                                     ->first();
-            $luong = Luong::firstOrCreate(
-                [
-                    'thang'        => $month,
-                    'nam'          => $year,
-                    'id_nhan_vien' => $lich_lam->id_nhan_vien,
-                ],
-                [
-                    'so_buoi_lam'  => $lich_lam->So_buoi_lam,
-                    'tong_luong'   => ($lich_lam->So_buoi_lam * $value['amount']),
-                ],
-            );
+            if($lich_lam) {
+                $luong = Luong::firstOrCreate(
+                    [
+                        'thang'        => $month,
+                        'nam'          => $year,
+                        'id_nhan_vien' => $lich_lam->id_nhan_vien,
+                    ],
+                    [
+                        'so_buoi_lam'  => $lich_lam->So_buoi_lam,
+                        'tong_luong'   => ($lich_lam->So_buoi_lam * $value['amount']),
+                    ],
+                );
 
-            if(!$luong->wasRecentlyCreated) {
-                $luong->so_buoi_lam = $lich_lam->So_buoi_lam;
-                $luong->tong_luong  = ($lich_lam->So_buoi_lam * $value['amount']) + $luong->hoa_hong;
-                $luong->save();
+                if(!$luong->wasRecentlyCreated) {
+                    $luong->so_buoi_lam = $lich_lam->So_buoi_lam;
+                    $luong->tong_luong  = ($lich_lam->So_buoi_lam * $value['amount']) + $luong->hoa_hong;
+                    $luong->save();
+                }
+
+                array_push($data, [
+                    'id'                => $luong->id,
+                    'id_nhan_vien'      => $value['id'],
+                    'tong_luong'        => $luong->tong_luong,
+                    'hoa_hong'          => $luong->hoa_hong,
+                    'check'             => $luong->is_nhan,
+                    'so_buoi_lam'       => $luong->so_buoi_lam,
+                    'first_last_name'   => $value['first_last_name'],
+                    'amount'            => $value['amount'],
+                ]);
             }
-
-            array_push($data, [
-                'id'                => $luong->id,
-                'id_nhan_vien'      => $value['id'],
-                'tong_luong'        => $luong->tong_luong,
-                'hoa_hong'          => $luong->hoa_hong,
-                'check'             => $luong->is_nhan,
-                'so_buoi_lam'       => $luong->so_buoi_lam,
-                'first_last_name'   => $value['first_last_name'],
-                'amount'            => $value['amount'],
-            ]);
         }
 
         return response()->json([

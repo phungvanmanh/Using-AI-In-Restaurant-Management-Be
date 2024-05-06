@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\HoaDonBanHangExport;
 use App\Models\HoaDonBanHang;
 use App\Models\ChiTietHoaDonBanHang;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use App\Models\KhachHang;
 use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HoaDonBanHangController extends Controller
 {
@@ -103,5 +105,13 @@ class HoaDonBanHangController extends Controller
         return response()->json([
             "status"    => 200
         ]);
+    }
+    public function export()
+    {
+        $data = HoaDonBanHang::join('admins','hoa_don_ban_hangs.id_nhan_vien','admins.id')
+                              ->join('bans','hoa_don_ban_hangs.id_ban','bans.id')
+            ->select('hoa_don_ban_hangs.*','bans.name_table','admins.first_last_name')
+            ->get();
+        return Excel::download(new HoaDonBanHangExport($data), 'hoa_don_ban_hangs.xlsx');
     }
 }

@@ -23,7 +23,9 @@ use App\Http\Controllers\LuongController;
 use App\Http\Controllers\MaGiamGiaController;
 use App\Http\Controllers\NhapKhoController;
 use App\Http\Controllers\ThanhToanController;
+use App\Http\Controllers\ThongKecontroller;
 use App\Http\Controllers\TransactionController;
+use App\Models\HoaDonBanHang;
 use App\Models\Luong;
 use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
@@ -93,6 +95,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update', [MonAnController::class, 'updateMonAn']);
         Route::post('/delete', [MonAnController::class, 'deleteMonAn']);
         Route::post('/tim-mon', [MonAnController::class, 'searchMonAn']);
+        Route::post('/get-mon-id', [MonAnController::class, 'getMonTheoID']);
     });
 
     Route::group(['prefix' => '/ban'], function () {
@@ -155,6 +158,8 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/data-bill', [HoaDonBanHangController::class, 'dataBill']);
         Route::post('/hoa-don', [HoaDonBanHangController::class, 'hoaDon']);
         Route::post('/chi-tiet-hoa-don', [HoaDonBanHangController::class, 'chitietHoaDon']);
+        Route::get('/export', [HoaDonBanHangController::class, 'export']);
+
 
 
     });
@@ -192,6 +197,9 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update-ma-giam-gia', [MaGiamGiaController::class, 'updateMaGiamGia']);
         Route::post('/xoa-ma-giam-gia', [MaGiamGiaController::class, 'deleteMaGiamGia']);
 
+    });
+    Route::group(['prefix'  =>  '/thong-ke'], function () {
+        Route::post('data-thong-ke-1',[ThongKecontroller::class,'getDataThongKe1']);
     });
 });
 

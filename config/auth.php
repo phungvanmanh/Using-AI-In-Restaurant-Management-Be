@@ -44,6 +44,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'admin',
         ],
+        'khach_hang' => [
+            'driver' => 'jwt',
+            'provider' => 'khach_hang',
+        ],
     ],
 
     /*
@@ -71,6 +75,10 @@ return [
         'admin' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+        'khach_hang' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\KhachHang::class,
         ],
 
         // 'users' => [

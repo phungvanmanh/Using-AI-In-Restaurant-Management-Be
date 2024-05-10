@@ -28,6 +28,7 @@ use App\Http\Controllers\TransactionController;
 use App\Models\HoaDonBanHang;
 use App\Models\Luong;
 use Illuminate\Support\Facades\Route;
+Route::post('khach-hang/login',[KhachHangController::class,'login']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('upload', [FileController::class, 'uploadFile']);
 Route::get('get-upload', [FileController::class, 'getData']);
@@ -205,5 +206,10 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['prefix'  =>  '/thong-ke'], function () {
         Route::post('data-thong-ke-1',[ThongKecontroller::class,'getDataThongKe1']);
     });
+});
+
+Route::group(['prefix'  =>  '/khach-hang'], function () {
+    Route::post('send-mail-otp',[KhachHangController::class,'sendMailOtp']);
+    Route::get('logout', [KhachHangController::class, 'logout']);
 });
 

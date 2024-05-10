@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('khach_hangs', function (Blueprint $table) {
             $table->id();
             $table->string('ten_khach_hang');
-            $table->string('email_khach_hang');
+            $table->string('email');
             $table->string('so_dien_thoai');
             $table->string('otp')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

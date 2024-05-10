@@ -105,6 +105,10 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update', [BanController::class, 'updateBan']);
         Route::post('/delete', [BanController::class, 'deleteBan']);
         Route::post('/tim-ban', [BanController::class, 'searchBan']);
+        Route::post('/mon-an-theo-ban', [BanController::class, 'getMonAnTheoBan']);
+        Route::post('/gop-ban', [BanController::class, 'gopBan']);
+
+
     });
     Route::group(['prefix'  =>  '/nha-cung-cap'], function () {
         // Lấy dữ liệu  -> get

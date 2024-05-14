@@ -24,13 +24,12 @@ class AdminController extends Controller
 
         Admin::create($data);
 
-        $emailDetails = [
-            'tieu_de'   => "Tài Khoản Đăng Nhập Hệ Thống",
-            'email'     => $request->email,
-            'password'  => $request->password,
-        ];
-        //gửi email tới tài khoản khi tạo thành công
-        // dispatch(new SendEmailJob($emailDetails));
+        // $emailDetails = [
+        //     'tieu_de'   => "Tài Khoản Đăng Nhập Hệ Thống",
+        //     'email'     => $request->email,
+        //     'password'  => $request->password,
+        // ];
+
         return response()->json([
             'status'    => 1,
             'message'   => 'New account successfully added!',

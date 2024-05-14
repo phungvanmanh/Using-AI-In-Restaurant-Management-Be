@@ -7,6 +7,7 @@ use App\Models\DanhMuc;
 use App\Models\MonAn;
 use App\Models\Token;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MonAnController extends Controller
 {
@@ -121,6 +122,29 @@ class MonAnController extends Controller
             'monAn'     => $monAn,
         ]);
     }
+
+    public function getMonAnPhoBien()
+    {
+        $monAnPhoBien = MonAn::join('chi_tiet_hoa_don_ban_hangs', 'mon_ans.id', '=', 'chi_tiet_hoa_don_ban_hangs.id_mon_an')
+            ->select(
+                'mon_ans.id',
+                'mon_ans.food_name',
+                'mon_ans.status',
+                'mon_ans.price',
+                'mon_ans.image',
+                DB::raw('SUM(chi_tiet_hoa_don_ban_hangs.so_luong) as total_sold')
+            )
+            ->groupBy('mon_ans.id', 'mon_ans.food_name', 'mon_ans.status', 'mon_ans.price', 'mon_ans.image')
+            ->orderBy('total_sold', 'DESC')
+            ->get();
+
+        return response()->json([
+            'status' => true,
+            'data' => $monAnPhoBien
+        ], 200);
+    }
+
+
 
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HoaDonBanHang;
+use App\Models\HoaDonNhapKho;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,5 +34,30 @@ class ThongKecontroller extends Controller
             'list_data' => $list_data,
         ]);
     }
+    public function tinhDoanhThu(Request $request)
+    {
+        $ngayBatDau = $request->input('ngay_bat_dau');
+        $ngayKetThuc = $request->input('ngay_ket_thuc');
 
+        // Tổng tiền nhập kho
+        $tongTienNhapKho = HoaDonNhapKho::whereBetween('ngay_nhap', [$ngayBatDau, $ngayKetThuc])
+            ->sum('tong_tien');
+
+        // Tổng tiền bán hàng
+        $tongTienBanHang = HoaDonBanHang::whereBetween('created_at', [$ngayBatDau, $ngayKetThuc])
+            ->sum('tien_thuc_nhan');
+
+        // Lợi nhuận
+        $loiNhuan = $tongTienBanHang - $tongTienNhapKho;
+
+        // Trả về response JSON
+        return response()->json([
+            'status' => true,
+            'data' => [
+                'tong_tien_nhap_kho' => $tongTienNhapKho,
+                'tong_tien_ban_hang' => $tongTienBanHang,
+                'loi_nhuan' => $loiNhuan,
+            ],
+        ], 200);
+    }
 }

@@ -15,7 +15,7 @@ class createNguyenLieu extends FormRequest
     public function rules(): array
     {
         return [
-            'ten_nguyen_lieu'       =>'required|min:2|max:30',
+            'ten_nguyen_lieu' => 'required|min:1|max:20|regex:/^[a-zA-Z_\p{L}\s.,]+$/u',
             'slug_nguyen_lieu'      =>'required|min:2|unique:nguyen_lieus,slug_nguyen_lieu',
             'gia'                   =>'required|numeric|min:0',
             'don_vi_tinh'                   =>'required|min:1',

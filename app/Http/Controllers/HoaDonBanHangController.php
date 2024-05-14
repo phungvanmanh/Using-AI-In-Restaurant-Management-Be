@@ -98,9 +98,9 @@ class HoaDonBanHangController extends Controller
         $data['phan_tram_giam'] = $hoa_don->phan_tram_giam;
         $data['total'] = $hoa_don->tien_thuc_nhan;
         $data['code_bill'] = $hoa_don->id;
-        $data['email'] = $khach_hang->email_khach_hang;
+        $data['email'] = $khach_hang->email;
         // dd($data);
-        Mail::to($khach_hang->email_khach_hang)->queue(new sendMailBill($data));
+        Mail::to($khach_hang->email)->queue(new sendMailBill($data));
 
         return response()->json([
             "status"    => 200

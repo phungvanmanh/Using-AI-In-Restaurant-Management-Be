@@ -38,7 +38,7 @@ class KhachHangExport implements FromCollection, WithHeadings, WithMapping, Shou
         return [
             $item['index'],
             $item['ten_khach_hang'] ?? 'N/A',  // Default to 'N/A' if not set
-            $item['email_khach_hang'] ?? 'N/A',  // Default to 'N/A' if not set
+            $item['email'] ?? 'N/A',  // Default to 'N/A' if not set
             $item['so_dien_thoai'] ?? 'N/A',  // Default to 'N/A' if not set
         ];
     }
@@ -48,7 +48,7 @@ class KhachHangExport implements FromCollection, WithHeadings, WithMapping, Shou
         return [
             'STT',
             'ten_khach_hang',
-            'email_khach_hang',
+            'email',
             'so_dien_thoai',
         ];
     }

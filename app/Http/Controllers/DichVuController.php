@@ -118,12 +118,12 @@ class DichVuController extends Controller
                                     ->get();
         $khach_hang = HoaDonBanHang::join('khach_hangs', 'hoa_don_ban_hangs.id_khach_hang', 'khach_hangs.id')
                                     ->where('hoa_don_ban_hangs.id', $request->id_hoa_don)
-                                    ->select('khach_hangs.ten_khach_hang', 'khach_hangs.email_khach_hang', 'khach_hangs.so_dien_thoai')
+                                    ->select('khach_hangs.ten_khach_hang', 'khach_hangs.email', 'khach_hangs.so_dien_thoai')
                                     ->first();
         if($khach_hang == null) {
             $khach_hang = new KhachHang();
             $khach_hang->ten_khach_hang = '';
-            $khach_hang->email_khach_hang = '';
+            $khach_hang->email = '';
             $khach_hang->so_dien_thoai = '';
         }
 

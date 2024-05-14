@@ -24,6 +24,7 @@ use App\Http\Controllers\MaGiamGiaController;
 use App\Http\Controllers\NhapKhoController;
 use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\ThongKecontroller;
+use App\Http\Controllers\TonKhoNguyenLieuController;
 use App\Http\Controllers\TransactionController;
 use App\Models\HoaDonBanHang;
 use App\Models\Luong;
@@ -177,6 +178,8 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/delete', [KhachHangController::class, 'deleteKh']);
         Route::get('/get-data', [KhachHangController::class, 'getData']);
         Route::get('/export', [KhachHangController::class, 'export']);
+        Route::post('/search-khach-hang', [KhachHangController::class, 'searchKhachHang']);
+
     });
     Route::group(['prefix'  =>  '/tinh-luong'], function () {
         Route::post('/store', [LuongController::class, 'store']);
@@ -193,6 +196,9 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/data-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataHoaDonNhapKho']);
         Route::post('/data-chi-tiet-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataChiTietHoaDonNhapKho']);
         Route::post('/export', [HoaDonNhapKhoController::class, 'export']);
+    });
+    Route::group(['prefix'  =>  '/ton-kho'], function () {
+        Route::post('/store', [TonKhoNguyenLieuController::class, 'store']);
 
     });
     Route::group(['prefix'  =>  '/ma-giam-gia'], function () {

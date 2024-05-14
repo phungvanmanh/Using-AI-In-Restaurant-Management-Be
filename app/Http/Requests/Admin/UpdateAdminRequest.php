@@ -15,10 +15,10 @@ class UpdateAdminRequest extends FormRequest
     {
         return [
             'id'                      => 'exists:admins,id',
-            'first_last_name'         => 'required|min:4',
-            'email'                   => 'required|email',
-            'phone_number'            => 'required|numeric',
-            'date_birth'              => 'required|date',
+            'first_last_name'         => 'required|min:2|regex:/^[a-zA-Z_\p{L}\s.,]+$/u',
+            'email' => 'required|email|regex:/^[a-zA-Z0-9_]+@gmail\.com$/i',
+            'phone_number' => 'required|numeric|digits:10',
+            'date_birth' => 'required|date|before_or_equal:today',
             'status'                  => 'required|numeric',
             'id_permission'           => 'required|exists:quyens,id'
         ];
@@ -29,10 +29,12 @@ class UpdateAdminRequest extends FormRequest
         return [
             'exists'            => ':attribute does not exist!',
             'required'          => ':attribute cannot be left blank!',
-            'regex'             => ':attribute Malformed!',
-            'email'             => ':attribute Must be a valid email address!',
-            'numeric'           => ':attribute must be a number!',
+            'regex' => ':attribute contains invalid characters!',
+            'email' => ':attribute must be a valid email address!',
+            'numeric' => ':attribute must be a number!',
             'date'              => ':attribute must be date format!',
+            'date' => ':attribute must be a valid date!',
+            'before_or_equal' => ':attribute must be a date before or equal to today!',
             'min'               => ':attribute must have at least :min characters',
         ];
     }

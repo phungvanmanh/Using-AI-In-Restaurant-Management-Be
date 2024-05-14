@@ -14,11 +14,11 @@ class CreateAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_last_name'         => 'required|min:4',
-            'email'                   => 'required|email',
-            'phone_number'            => 'required|numeric',
-            'date_birth'              => 'required|date',
-            'password'                => 'required',
+            'first_last_name'         => 'required|min:2|regex:/^[a-zA-Z_\p{L}\s.,]+$/u',
+            'email' => 'required|email|regex:/^[a-zA-Z0-9_]+@gmail\.com$/i',
+            'phone_number' => 'required|numeric|digits:10',
+            'date_birth' => 'required|date|before_or_equal:today',
+            'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'status'                  => 'required|numeric',
             'id_permission'           => 'required|exists:quyens,id'
         ];
@@ -28,11 +28,16 @@ class CreateAdminRequest extends FormRequest
     {
         return [
             'required'          => ':attribute cannot be left blank!',
-            'regex'             => ':attribute Malformed!',
-            'email'             => ':attribute Must be a valid email address!',
-            'numeric'           => ':attribute must be a number!',
+            'regex' => ':attribute contains invalid characters!',
+            'min' => ':attribute must be at least :min characters long!',
+            'regex' => ':attribute must contain at least one uppercase letter, one lowercase letter, one digit, and one special character!',
+            'email' => ':attribute must be a valid email address!',
+            'numeric' => ':attribute must be a number!',
             'date'              => ':attribute must be date format!',
-            'min'               => ':attribute must have at least :min characters',
+            'date' => ':attribute must be a valid date!',
+            'before_or_equal' => ':attribute must be a date before or equal to today!',
+            'email.regex' => ':attribute must be an email address of @gmail.com!'
+
         ];
     }
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\KhachHangExport;
+use App\Http\Requests\CreateKhachHangRequest;
+use App\Http\Requests\UpdateKhachHangRequest;
 use App\Mail\SendMaiOTP;
 use App\Models\HoaDonBanHang;
 use App\Models\KhachHang;
@@ -15,7 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class KhachHangController extends Controller
 {
 
-    public function store(Request $request)
+    public function store(CreateKhachHangRequest $request)
     {
         $validated = $request->validate([
             'ten_khach_hang'    => 'required|string|max:255',
@@ -43,7 +45,9 @@ class KhachHangController extends Controller
         $hoa_don->id_khach_hang = $khach_hang->id;
         $hoa_don->save();
 
-        return response()->json(['message' => 'Operation successful'], 201);
+        return response()->json([
+            'status'=>1,
+            'message' => 'Operation successful']);
     }
 
     public function getData()
@@ -55,7 +59,7 @@ class KhachHangController extends Controller
         ]);
     }
 
-    public function updateKh(Request $request)
+    public function updateKh(UpdateKhachHangRequest $request)
     {
         return $this->changeStatusOrUpdateModel($request, KhachHang::class, 'update');
     }
@@ -121,5 +125,19 @@ class KhachHangController extends Controller
             'status'  => 1,
             'message' => 'Logout successful'
         ]);
+    }
+    public function searchKhachHang(Request $request)
+    {
+        {
+
+            $key = '%' . $request->abc . '%';
+
+            $data   = KhachHang::where('ten_khach_hang', 'like', $key)
+                ->get();
+
+            return response()->json([
+                'data'  =>  $data,
+            ]);
+        }
     }
 }

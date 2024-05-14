@@ -42,8 +42,8 @@ Route::post('/update-password', [AdminController::class, 'updatePasswordAdmin'])
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/export', [AdminController::class, 'export']);
-    Route::get('get-user', [AuthController::class, 'getUser']);
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('/get-user', [AuthController::class, 'getUser']);
+    Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/create', [AdminController::class, 'createAdmin']);
     Route::get('/get-data', [AdminController::class, 'getDataAdmin']);
     Route::post('/search', [AdminController::class, 'searchAdmin']);

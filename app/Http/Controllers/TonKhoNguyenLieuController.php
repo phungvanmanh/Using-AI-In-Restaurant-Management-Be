@@ -35,13 +35,13 @@ class TonKhoNguyenLieuController extends Controller
             // Return a successful response
             return response()->json([
                 'status' => true,
-                'message' => 'Đã cập nhật thành công'
+                'message' => 'Successfully updated'
             ]);
         } catch (\Exception $e) {
             // Handle any exceptions and return an error response
             return response()->json([
                 'status' => false,
-                'message' => 'Cập nhật thất bại',
+                'message' => 'Update failed',
                 'error' => $e->getMessage()
             ], 500);
         }

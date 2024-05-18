@@ -19,7 +19,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!$token = Auth::guard('admin')->attempt($credentials)) {
-            return response()->json(['message' => 'Tài khoản mật khẩu không chính xác!'], 401);
+            return response()->json(['message' => 'Account password incorrect!'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -55,7 +55,7 @@ class AuthController extends Controller
             ->first();
 
         if (!$user) {
-            return response()->json(['message' => 'Không tìm thấy thông tin người dùng'], 404);
+            return response()->json(['message' => 'User information not found'], 404);
         }
 
         return response()->json($user, 200);

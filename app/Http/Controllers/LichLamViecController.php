@@ -17,7 +17,7 @@ class LichLamViecController extends Controller
         $now = Carbon::today();
 
         if ($now->greaterThan(Carbon::parse($data['ngay_lam_viec']))) {
-            return response()->json(['status' => 0, 'message' => 'Không được thêm lịch làm việc cũ!']);
+            return response()->json(['status' => 0, 'message' => 'Don not add old work schedules!']);
         }
 
         $data['gio_bat_dau'] = ($data['buoi_lam_viec'] == 0) ? "8:00:00" : "17:00:00";
@@ -31,7 +31,7 @@ class LichLamViecController extends Controller
             LichLamViec::create($data);
         }
 
-        return response()->json(['status' => 1, 'message' => 'Đã thêm mới lịch làm việc']);
+        return response()->json(['status' => 1, 'message' => 'Added new work schedule']);
     }
 
     public function updateLichLamViec(Request $request) {

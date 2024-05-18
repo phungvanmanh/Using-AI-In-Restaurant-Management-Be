@@ -43,8 +43,9 @@ class ThongKecontroller extends Controller
         $tongTienNhapKho = HoaDonNhapKho::whereBetween('ngay_nhap', [$ngayBatDau, $ngayKetThuc])
             ->sum('tong_tien');
 
-        // Tổng tiền bán hàng
+        // Tổng tiền bán hàng chỉ bao gồm các hóa đơn đã hoàn thành
         $tongTienBanHang = HoaDonBanHang::whereBetween('created_at', [$ngayBatDau, $ngayKetThuc])
+            ->where('is_done', 1)
             ->sum('tien_thuc_nhan');
 
         // Lợi nhuận
@@ -60,4 +61,5 @@ class ThongKecontroller extends Controller
             ],
         ], 200);
     }
+
 }

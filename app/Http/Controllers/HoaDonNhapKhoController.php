@@ -40,7 +40,7 @@ class HoaDonNhapKhoController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "Thêm nguyên liệu thành công"
+            'message' => "Add ingredients successfully"
         ]);
     }
 
@@ -64,7 +64,7 @@ class HoaDonNhapKhoController extends Controller
         if (!$nha_cung_cap) {
             return response()->json([
                 'status' => false,
-                'message' => "Vui lòng chọn nhà cung cấp",
+                'message' => "Please select a provider",
             ]);
         }
         $hoa_don_nhap = HoaDonNhapKho::firstOrCreate(
@@ -100,7 +100,7 @@ class HoaDonNhapKhoController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "Bạn đã cập nhật thành công"
+            'message' => "You have successfully updated"
         ]);
     }
 
@@ -115,12 +115,12 @@ class HoaDonNhapKhoController extends Controller
             ]);
             return response()->json([
                 'status' => true,
-                'message' => 'cập nhật thành công',
+                'message' => 'Successful update',
             ]);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'lỗi của hệ thống',
+                'message' => 'System errors',
             ]);
         }
     }
@@ -130,13 +130,13 @@ class HoaDonNhapKhoController extends Controller
             ChiTietHoaDonNhap::where('id', $id)->delete();
             return response()->json([
                 'status' => true,
-                'message' => 'đã xoá thành công',
+                'message' => 'Successfully removed',
             ]);
         } catch (Exception $e) {
             Log::info("Lỗi", $e);
             return response()->json([
                 'status' => true,
-                'message' => "đã xoá thành công"
+                'message' => "Successfully removed"
             ]);
         }
     }

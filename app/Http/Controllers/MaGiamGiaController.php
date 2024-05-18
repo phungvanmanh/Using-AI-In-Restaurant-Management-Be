@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateMaGiamGiaRequest;
+use App\Http\Requests\UpdateMaGiamGiaRequest;
 use App\Models\MaGiamGia;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 
 class MaGiamGiaController extends Controller
 {
-    public function createMaGiamGia(Request $request)
+    public function createMaGiamGia(CreateMaGiamGiaRequest $request)
     {
-        return $this->createModel($request, MaGiamGia::class, ['message' => 'Đã Tạo Mã Thành Công!']);
+        return $this->createModel($request, MaGiamGia::class, ['message' => 'Successfully generated code!']);
     }
     public function getdulieu()
     {
@@ -25,7 +27,7 @@ class MaGiamGiaController extends Controller
     {
         return $this->changeStatusOrUpdateModel($request, MaGiamGia::class, 'changeStatus');
     }
-    public function updateMaGiamGia(Request $request)
+    public function updateMaGiamGia(UpdateMaGiamGiaRequest $request)
     {
         return $this->changeStatusOrUpdateModel($request, MaGiamGia::class, 'update');
     }

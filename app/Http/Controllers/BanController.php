@@ -63,7 +63,7 @@ class BanController extends Controller
         if (!$ban) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Không tìm thấy bàn',
+                'message'   => 'Table not found',
             ]);
         }
         // Tìm hoá đơn của bàn đang mở
@@ -74,7 +74,7 @@ class BanController extends Controller
         if (!$hoaDon) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Không tìm thấy hoá đơn cho bàn này',
+                'message'   => 'No invoice found for this desk',
             ]);
         }
         // Lấy danh sách chi tiết hoá đơn của hoá đơn này
@@ -122,7 +122,7 @@ class BanController extends Controller
         if (!$hoaDonHienTai || !$hoaDonCanGop) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Không tìm thấy hoá đơn của ít nhất một trong hai bàn',
+                'message'   => 'Receipts of at least one of the two desks could not be found',
             ]);
         }
 
@@ -168,7 +168,7 @@ class BanController extends Controller
         // Trả về kết quả cho client
         return response()->json([
             'status' => 1,
-            'message' => 'Gộp bàn thành công, bàn đã gộp được đóng.',
+            'message' => 'Successfully merged tables, pooled tables are closed.',
         ]);
     }
 

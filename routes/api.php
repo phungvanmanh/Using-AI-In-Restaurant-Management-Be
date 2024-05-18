@@ -202,6 +202,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/data-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataHoaDonNhapKho']);
         Route::post('/data-chi-tiet-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataChiTietHoaDonNhapKho']);
         Route::post('/export', [HoaDonNhapKhoController::class, 'export']);
+
     });
     Route::group(['prefix'  =>  '/ton-kho'], function () {
         Route::get('/get-data', [TonKhoNguyenLieuController::class, 'getdataTonKho']);

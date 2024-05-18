@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckidNhaCungCapRequest;
 use App\Http\Requests\CreateNhaCungCap;
 use App\Http\Requests\NhapCungCap\CreateNhaCungCapcRequest;
 use App\Http\Requests\NhapCungCap\UpdateNhaCungCapcRequest;
@@ -53,23 +54,11 @@ class NhaCungCapController extends Controller
             'message'   => 'Create a new supplier successfully!',
         ]);
     }
-    public function xoaNhaCungCap($id)
+    public function xoaNhaCungCap(CheckidNhaCungCapRequest $request)
     {
-
-        try {
-            NhaCungCap::where('id', $id)->delete();
-            return response()->json([
-                'status'            =>   true,
-                'message'           =>   'Xóa nhà cung cấp thành công!',
-            ]);
-        } catch (Exception $e) {
-            Log::info("Lỗi", $e);
-            return response()->json([
-                'status'            =>   false,
-                'message'           =>   'Có lỗi',
-            ]);
-        }
+        return $this->deleteModel($request, NhaCungCap::class, 'ten_cong_ty');
     }
+
     public function capNhatNhaCungCap(UpdateNhaCungCap $request)
     {
 

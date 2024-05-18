@@ -15,7 +15,7 @@ class ChiTietHoaDonNhap extends Model
         'so_luong',
         'don_gia',
         'thanh_tien',
-        // 'ghi_chu',
+
         'is_done',
     ];
 }

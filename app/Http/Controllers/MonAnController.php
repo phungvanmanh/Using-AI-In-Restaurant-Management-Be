@@ -19,18 +19,38 @@ class MonAnController extends Controller
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã thêm mới món ăn thành công',
+            'message'   => 'Successfully added new dishes',
         ]);
     }
     public function getDataMonAn()
     {
-        $data = MonAn::join('danh_mucs', 'mon_ans.id_category', 'danh_mucs.id')
+        // Join the tables and select required fields
+        $data = MonAn::join('danh_mucs', 'mon_ans.id_category', '=', 'danh_mucs.id')
+            ->select('mon_ans.*', 'danh_mucs.name_category', 'danh_mucs.status as category_status')
+            ->get();
+
+        foreach ($data as $item) {
+            $monAn = MonAn::find($item->id);
+            $danhMuc = DanhMuc::find($item->id_category);
+
+            if ($danhMuc->status == 0 && $monAn->status != 0) {
+                $monAn->status = 0;
+                $monAn->save();
+            } else if($danhMuc->status == 1 && $monAn->status != 1) {
+                $monAn->status = 1;
+                $monAn->save();
+            }
+        }
+
+        $updatedData = MonAn::join('danh_mucs', 'mon_ans.id_category', '=', 'danh_mucs.id')
             ->select('mon_ans.*', 'danh_mucs.name_category')
             ->get();
+
         return response()->json([
-            'data'   => $data,
+            'data' => $updatedData,
         ]);
     }
+
 
     public function getDataMonAnToken($token)
     {
@@ -56,14 +76,14 @@ class MonAnController extends Controller
         if (!$monan) {
             return response()->json([
                 'status'  => 0,
-                'message' => 'Không tìm thấy món ăn',
+                'message' => 'Food not found',
             ]);
         }
         $food_name = $monan->food_name;
         $monan->delete();
         return response()->json([
             'status'  => 1,
-            'message' => 'Đã xóa món ' . $food_name . ' thành công',
+            'message' => 'Item removed ' . $food_name . ' successful',
         ]);
     }
 
@@ -75,7 +95,7 @@ class MonAnController extends Controller
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã đổi trạng thái thành công',
+            'message'   => 'Successfully restated',
         ]);
     }
     public function updateMonAn(Request $request)
@@ -87,7 +107,7 @@ class MonAnController extends Controller
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã cập nhật thành công',
+            'message'   => 'Successfully updated',
         ]);
     }
     public function searchMonAn(Request $request)
@@ -106,14 +126,14 @@ class MonAnController extends Controller
         if (!$id) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Không có ID được cung cấp',
+                'message'   => 'No ID provided',
             ]);
         }
         $danhMuc = DanhMuc::find($id);
         if (!$danhMuc) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Không tìm thấy danh mục',
+                'message'   => 'Category not found',
             ]);
         }
         $monAn = MonAn::where('id_category', $id)->get();
@@ -136,6 +156,7 @@ class MonAnController extends Controller
             )
             ->groupBy('mon_ans.id', 'mon_ans.food_name', 'mon_ans.status', 'mon_ans.price', 'mon_ans.image')
             ->orderBy('total_sold', 'DESC')
+            ->take(8) // Lấy ra chỉ 12 món
             ->get();
 
         return response()->json([

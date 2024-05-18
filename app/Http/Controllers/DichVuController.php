@@ -209,4 +209,36 @@ class DichVuController extends Controller
             ]);
         }
     }
+    public function DongBan(Request $request)
+{
+    $ban = Ban::find($request->id_ban);
+    if ($ban && $ban->is_open_table == 1) {
+        $hoaDon = HoaDonBanHang::where('id_ban', $request->id_ban)
+        ->where('is_done',0)
+        ->first();
+        if ($hoaDon) {
+            $chiTietHoaDon = ChiTietHoaDonBanHang::where('id_hoa_don', $hoaDon->id)->get();
+            foreach($chiTietHoaDon as $chiTiet) {
+                $chiTiet->delete();
+            }
+
+            $hoaDon->delete();
+        }
+        $ban->is_open_table = 0;
+        $ban->save();
+        return response()->json([
+            'status' => 1,
+            'message' => 'The table has been successfully closed!',
+        ]);
+    } else {
+        return response()->json([
+            'status' => 0,
+            'message' => 'The table cannot be closed!',
+        ]);
+    }
+}
+
+
+
+
 }

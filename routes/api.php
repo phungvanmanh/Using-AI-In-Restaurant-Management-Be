@@ -155,6 +155,8 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update-chi-tiet-ban-hang', [DichVuController::class, 'updateChiTietBanHang']);
         Route::post('/xoa-chi-tiet', [DichVuController::class, 'xoaChiTietBanHang']);
         Route::post('/update-hoa-don-ban-hang', [DichVuController::class, 'updateHoaDonBanHang']);
+        Route::post('/dong-ban', [DichVuController::class, 'DongBan']);
+
 
     });
     Route::group(['prefix'  =>  '/nguyen-lieu'], function () {

@@ -90,6 +90,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [KhuVucController::class, 'changeStatus']);
         Route::post('/update', [KhuVucController::class, 'updateKhuVuc']);
         Route::post('/delete', [KhuVucController::class, 'deleteKhuVuc']);
+        Route::post('/get-data-staff-area', [KhuVucController::class, 'getDataStaffArea']);
     });
 
     Route::group(['prefix' => '/mon-an'], function () {

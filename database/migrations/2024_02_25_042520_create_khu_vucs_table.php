@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name_area');
             $table->string('slug_area');
             $table->integer('status');
+            $table->string('list_admin')->nullable();
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Login\CheckLogin;
 use App\Models\Admin;
 use App\Models\HoaDonBanHang;
+use App\Models\KhuVuc;
 use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class AuthController extends Controller
 
     public function getUser()
     {
-        $userId = Auth::guard('admin')->user()->id; // Lấy ID của người dùng đang đăng nhập
+        $userId = Auth::guard('admin')->user()->id; // Get the ID of the logged-in user
         $user = Admin::join('quyens', 'admins.id_permission', '=', 'quyens.id')
             ->where('admins.id', $userId)
             ->select('admins.id', 'admins.first_last_name', 'quyens.name_permission')
@@ -58,8 +59,23 @@ class AuthController extends Controller
             return response()->json(['message' => 'User information not found'], 404);
         }
 
+        $dataKhu = KhuVuc::get();
+        $str_khu = "";
+
+        foreach ($dataKhu as $key => $value) {
+            if (strpos($value->list_admin, (string)$user->id) !== false) {
+                $str_khu .= $value->id . ",";
+            }
+        }
+
+        // Remove trailing comma
+        $str_khu = rtrim($str_khu, ',');
+
+        $user->list_khu = $str_khu; // Add the list of khu to the user object
+
         return response()->json($user, 200);
     }
+
 
     public function generateQRCode($id_ban)
     {

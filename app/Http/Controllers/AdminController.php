@@ -9,12 +9,14 @@ use App\Http\Requests\Admin\CreateAdminRequest;
 use App\Http\Requests\Admin\UpdateAdminRequest;
 use App\Mail\sendMailForgotPassword;
 use App\Models\Admin;
+use App\Models\KhuVuc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
+
 class AdminController extends Controller
 {
     public function createAdmin(CreateAdminRequest $request)
@@ -149,13 +151,13 @@ class AdminController extends Controller
     public function forgotPasswordAdmin(Request $request)
     {
         $admin = Admin::where('email', $request->email)->where('status', 1)->first();
-        if(!$admin) {
+        if (!$admin) {
             return response()->json([
                 'status'    => false,
                 'message'   => 'Account does not exist or has been locked! ',
             ]);
         }
-        if($admin->hash_reset) {
+        if ($admin->hash_reset) {
             return response()->json([
                 "status"    => true,
                 "message"   => "Please check your email!"
@@ -177,36 +179,35 @@ class AdminController extends Controller
     }
 
     public function updatePasswordAdmin(Request $request)
-{
-    // Xác thực yêu cầu đầu vào
-    $request->validate([
-        'password' => [
-            'required',
-            'string',
-            'min:8',             // Độ dài tối thiểu 8 ký tự
-            'regex:/[A-Z]/',     // Ít nhất một chữ hoa
-            'regex:/[@$!%*#?&\/]/' // Ít nhất một ký tự đặc biệt bao gồm cả dấu /
-        ],
-        'uuid' => 'required|exists:admins,hash_reset' // Đảm bảo uuid tồn tại trong cơ sở dữ liệu
-    ]);
+    {
+        // Xác thực yêu cầu đầu vào
+        $request->validate([
+            'password' => [
+                'required',
+                'string',
+                'min:8',             // Độ dài tối thiểu 8 ký tự
+                'regex:/[A-Z]/',     // Ít nhất một chữ hoa
+                'regex:/[@$!%*#?&\/]/' // Ít nhất một ký tự đặc biệt bao gồm cả dấu /
+            ],
+            'uuid' => 'required|exists:admins,hash_reset' // Đảm bảo uuid tồn tại trong cơ sở dữ liệu
+        ]);
 
-    $admin = Admin::where('hash_reset', $request->uuid)->where('status', 1)->first();
+        $admin = Admin::where('hash_reset', $request->uuid)->where('status', 1)->first();
 
-    if(!$admin) {
+        if (!$admin) {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'You cannot update your password due to some problem!',
+            ]);
+        }
+
+        $admin->password = bcrypt($request->password);
+        $admin->hash_reset = null;
+        $admin->save();
+
         return response()->json([
-            'status'    => false,
-            'message'   => 'You cannot update your password due to some problem!',
+            'status'    => 1,
+            'message'   => 'Updated successfully!',
         ]);
     }
-
-    $admin->password = bcrypt($request->password);
-    $admin->hash_reset = null;
-    $admin->save();
-
-    return response()->json([
-        'status'    => 1,
-        'message'   => 'Updated successfully!',
-    ]);
-}
-
 }

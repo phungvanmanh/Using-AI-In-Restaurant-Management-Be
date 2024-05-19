@@ -13,5 +13,6 @@ class KhuVuc extends Model
         'name_area',
         'slug_area',
         'status',
+        'list_admin',
     ];
 }

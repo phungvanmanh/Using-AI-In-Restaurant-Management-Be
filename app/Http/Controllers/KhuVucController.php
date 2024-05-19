@@ -38,4 +38,12 @@ class KhuVucController extends Controller
     {
         return $this->deleteModel($request, KhuVuc::class, 'name_area');
     }
+
+    function getDataStaffArea(Request $request) {
+        $data = KhuVuc::where('id', $request->id)->select('list_admin')->first();
+        return response()->json([
+            'status'    => 1,
+            'data'   => $data->list_admin,
+        ]);
+    }
 }

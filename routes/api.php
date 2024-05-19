@@ -99,11 +99,6 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update', [MonAnController::class, 'updateMonAn']);
         Route::post('/delete', [MonAnController::class, 'deleteMonAn']);
         Route::post('/tim-mon', [MonAnController::class, 'searchMonAn']);
-        Route::post('/get-mon-id', [MonAnController::class, 'getMonTheoID']);
-        Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
-
-
-
     });
 
     Route::group(['prefix' => '/ban'], function () {
@@ -227,13 +222,14 @@ Route::group(['prefix' => '/admin'], function () {
 Route::group(['prefix'  =>  '/khach-hang'], function () {
     Route::post('send-mail-otp',[KhachHangController::class,'sendMailOtp']);
     Route::get('logout', [KhachHangController::class, 'logout']);
+    Route::group(['prefix'  =>  '/khach-hang'], function () {
+        Route::post('/get-mon-id', [MonAnController::class, 'getMonTheoID']);
+        Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
+        Route::post('/tim-mon', [MonAnController::class, 'searchMonAn']);
+    });
+    Route::group(['prefix'  =>  '/review'], function () {
+        Route::get('/{id_mon_an}', [ReViewMonAnController::class, 'getData']);
+        Route::post('/tao-danh-gia', [ReViewMonAnController::class, 'createReView']);
+        Route::post('/xoa-danh-gia', [ReViewMonAnController::class, 'deleteReview']);
+    });
 });
-Route::group(['prefix'  =>  '/review'], function () {
-    Route::get('/{id_mon_an}', [ReViewMonAnController::class, 'getData']);
-    Route::post('/tao-danh-gia', [ReViewMonAnController::class, 'createReView']);
-    Route::post('/xoa-danh-gia', [ReViewMonAnController::class, 'deleteReview']);
-
-
-});
-
-

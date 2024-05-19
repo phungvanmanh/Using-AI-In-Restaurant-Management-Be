@@ -49,13 +49,13 @@ class ChuyenMucBaiVietController extends Controller
                 ]);
             return response()->json([
                 'status'            =>   true,
-                'message'           =>   'Đã cập nhật thành công chuyên mục ' . $request->ten_chuyen_muc,
+                'message'           =>   'Successfully updated category' . $request->ten_chuyen_muc,
             ]);
         } catch (Exception $e) {
             Log::info("Lỗi", $e);
             return response()->json([
                 'status'            =>   false,
-                'message'           =>   'Có lỗi',
+                'message'           =>   'There are errors',
             ]);
         }
     }
@@ -74,13 +74,13 @@ class ChuyenMucBaiVietController extends Controller
                 ]);
             return response()->json([
                 'status'            =>   true,
-                'message'           =>   'Đã đổi trạng thái thành công',
+                'message'           =>   'Successfully restated',
             ]);
         } catch (Exception $e) {
             Log::info("Lỗi", $e);
             return response()->json([
                 'status'            =>   false,
-                'message'           =>   'Có lỗi',
+                'message'           =>   'There are errors',
             ]);
         }
     }

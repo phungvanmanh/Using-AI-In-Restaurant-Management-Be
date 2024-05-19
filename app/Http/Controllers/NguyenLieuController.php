@@ -52,13 +52,13 @@ class NguyenLieuController extends Controller
                 ]);
             return response()->json([
                 'status' => true,
-                'message' => 'đã  đổi trạng thái thành công'
+                'message' => 'Successfully restated'
             ]);
         } catch (Exception $e) {
             Log::info("Lỗi", $e);
             return response()->json([
                 'status' => false,
-                'message' => 'đã có lỗi'
+                'message' => 'There was an error'
             ]);
         }
     }

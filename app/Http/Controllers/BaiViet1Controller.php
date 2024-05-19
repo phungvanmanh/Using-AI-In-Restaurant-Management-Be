@@ -18,7 +18,7 @@ class BaiViet1Controller extends Controller
 
         return response()->json([
             'status'    => 1,
-            'message'   => 'Đã thêm mới thành công',
+            'message'   => 'New successfully added',
         ]);
     }
     public function getData()

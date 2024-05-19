@@ -110,10 +110,17 @@ class KhachHangController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        return $this->respondWithToken($token);
+    }
+
+    protected function respondWithToken($token)
+    {
         return response()->json([
-            'status'       => 1,
-            'message'      => "Logged in successfully!",
+            'status' => 1,
+            'message' => 'Logged in successfully!',
             'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => Auth::guard('khach_hang')->factory()->getTTL() * 60
         ]);
     }
 

@@ -7,79 +7,44 @@ use Illuminate\Http\Request;
 
 class TonKhoNguyenLieuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getdataTonkho()
     {
-        //
+        $data = TonKhoNguyenLieu::join('nguyen_lieus','nguyen_lieus.id','ton_kho_nguyen_lieus.id_nguyen_lieu')
+        ->select('ton_kho_nguyen_lieus.*','nguyen_lieus.ten_nguyen_lieu')
+        ->get();
+        return response()->json([
+            'status'    => true,
+            'data'   => $data,
+        ]);
+    }
+    public function updateTonKho(Request $request)
+    {
+        // First, validate the request to ensure necessary data is present and correct
+        $validatedData = $request->validate([
+            'id' => 'required|integer|exists:ton_kho_nguyen_lieus,id', // Check if the ID exists in the database
+            'so_luong_ton' => 'required|numeric|min:0', // Ensure the provided value is numeric and non-negative
+        ]);
+
+        try {
+            // Update the record
+            TonKhoNguyenLieu::where('id', $validatedData['id'])->update([
+                'so_luong' => $validatedData['so_luong_ton'], // Set so_luong to the same value as so_luong_ton
+                'so_luong_ton' => $validatedData['so_luong_ton'], // Update so_luong_ton with the validated value
+            ]);
+
+            // Return a successful response
+            return response()->json([
+                'status' => true,
+                'message' => 'Successfully updated'
+            ]);
+        } catch (\Exception $e) {
+            // Handle any exceptions and return an error response
+            return response()->json([
+                'status' => false,
+                'message' => 'Update failed',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TonKhoNguyenLieu  $tonKhoNguyenLieu
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TonKhoNguyenLieu $tonKhoNguyenLieu)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TonKhoNguyenLieu  $tonKhoNguyenLieu
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TonKhoNguyenLieu $tonKhoNguyenLieu)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TonKhoNguyenLieu  $tonKhoNguyenLieu
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TonKhoNguyenLieu $tonKhoNguyenLieu)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TonKhoNguyenLieu  $tonKhoNguyenLieu
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TonKhoNguyenLieu $tonKhoNguyenLieu)
-    {
-        //
-    }
 }

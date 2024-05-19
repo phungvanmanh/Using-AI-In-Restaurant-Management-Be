@@ -24,13 +24,12 @@ class AdminController extends Controller
 
         Admin::create($data);
 
-        $emailDetails = [
-            'tieu_de'   => "Tài Khoản Đăng Nhập Hệ Thống",
-            'email'     => $request->email,
-            'password'  => $request->password,
-        ];
-        //gửi email tới tài khoản khi tạo thành công
-        // dispatch(new SendEmailJob($emailDetails));
+        // $emailDetails = [
+        //     'tieu_de'   => "Tài Khoản Đăng Nhập Hệ Thống",
+        //     'email'     => $request->email,
+        //     'password'  => $request->password,
+        // ];
+
         return response()->json([
             'status'    => 1,
             'message'   => 'New account successfully added!',
@@ -167,7 +166,7 @@ class AdminController extends Controller
         $admin->save();
 
         $data['email'] = $admin->email;
-        $data['URL'] = "http://192.168.1.4:8001/change-password/" . $hash_reset;
+        $data['URL'] = "http://192.168.1.6:8001/change-password/" . $hash_reset;
 
         Mail::to($admin->email)->queue(new SendMailForgotPassword($data));
 
@@ -178,20 +177,36 @@ class AdminController extends Controller
     }
 
     public function updatePasswordAdmin(Request $request)
-    {
-        $admin = Admin::where('hash_reset', $request->uuid)->where('status', 1)->first();
-        if(!$admin) {
-            return response()->json([
-                'status'    => false,
-                'message'   => 'You cannot update your password due to some problem!',
-            ]);
-        }
-        $admin->password   = bcrypt($request->password);
-        $admin->hash_reset = null;
-        $admin->save();
+{
+    // Xác thực yêu cầu đầu vào
+    $request->validate([
+        'password' => [
+            'required',
+            'string',
+            'min:8',             // Độ dài tối thiểu 8 ký tự
+            'regex:/[A-Z]/',     // Ít nhất một chữ hoa
+            'regex:/[@$!%*#?&\/]/' // Ít nhất một ký tự đặc biệt bao gồm cả dấu /
+        ],
+        'uuid' => 'required|exists:admins,hash_reset' // Đảm bảo uuid tồn tại trong cơ sở dữ liệu
+    ]);
+
+    $admin = Admin::where('hash_reset', $request->uuid)->where('status', 1)->first();
+
+    if(!$admin) {
         return response()->json([
-            'status'    => 1,
-            'message'   => 'Updated successfully!',
+            'status'    => false,
+            'message'   => 'You cannot update your password due to some problem!',
         ]);
     }
+
+    $admin->password = bcrypt($request->password);
+    $admin->hash_reset = null;
+    $admin->save();
+
+    return response()->json([
+        'status'    => 1,
+        'message'   => 'Updated successfully!',
+    ]);
+}
+
 }

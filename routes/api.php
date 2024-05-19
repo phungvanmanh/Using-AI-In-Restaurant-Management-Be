@@ -22,6 +22,7 @@ use App\Http\Controllers\LogControlter;
 use App\Http\Controllers\LuongController;
 use App\Http\Controllers\MaGiamGiaController;
 use App\Http\Controllers\NhapKhoController;
+use App\Http\Controllers\ReViewMonAnController;
 use App\Http\Controllers\ThanhToanController;
 use App\Http\Controllers\ThongKecontroller;
 use App\Http\Controllers\TonKhoNguyenLieuController;
@@ -39,6 +40,7 @@ Route::get('/get-data-mon-an/{token}', [MonAnController::class, 'getDataMonAnTok
 Route::post('/them-mon-an', [DichVuController::class, 'themMonAn']);
 Route::post('/forgot-password', [AdminController::class, 'forgotPasswordAdmin']);
 Route::post('/update-password', [AdminController::class, 'updatePasswordAdmin']);
+Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/export', [AdminController::class, 'export']);
@@ -98,6 +100,10 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/delete', [MonAnController::class, 'deleteMonAn']);
         Route::post('/tim-mon', [MonAnController::class, 'searchMonAn']);
         Route::post('/get-mon-id', [MonAnController::class, 'getMonTheoID']);
+        Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
+
+
+
     });
 
     Route::group(['prefix' => '/ban'], function () {
@@ -149,6 +155,8 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update-chi-tiet-ban-hang', [DichVuController::class, 'updateChiTietBanHang']);
         Route::post('/xoa-chi-tiet', [DichVuController::class, 'xoaChiTietBanHang']);
         Route::post('/update-hoa-don-ban-hang', [DichVuController::class, 'updateHoaDonBanHang']);
+        Route::post('/dong-ban', [DichVuController::class, 'DongBan']);
+
 
     });
     Route::group(['prefix'  =>  '/nguyen-lieu'], function () {
@@ -196,10 +204,11 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/data-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataHoaDonNhapKho']);
         Route::post('/data-chi-tiet-hoa-don-nhap-kho', [HoaDonNhapKhoController::class, 'getDataChiTietHoaDonNhapKho']);
         Route::post('/export', [HoaDonNhapKhoController::class, 'export']);
+
     });
     Route::group(['prefix'  =>  '/ton-kho'], function () {
-        Route::post('/store', [TonKhoNguyenLieuController::class, 'store']);
-
+        Route::get('/get-data', [TonKhoNguyenLieuController::class, 'getdataTonKho']);
+        Route::post('/update-ton-kho', [TonKhoNguyenLieuController::class, 'updateTonKho']);
     });
     Route::group(['prefix'  =>  '/ma-giam-gia'], function () {
         Route::post('/tao-ma-giam-gia', [MaGiamGiaController::class, 'createMaGiamGia']);
@@ -211,6 +220,7 @@ Route::group(['prefix' => '/admin'], function () {
     });
     Route::group(['prefix'  =>  '/thong-ke'], function () {
         Route::post('data-thong-ke-1',[ThongKecontroller::class,'getDataThongKe1']);
+        Route::post('/doanh-thu', [ThongKecontroller::class, 'tinhDoanhThu']);
     });
 });
 
@@ -218,4 +228,12 @@ Route::group(['prefix'  =>  '/khach-hang'], function () {
     Route::post('send-mail-otp',[KhachHangController::class,'sendMailOtp']);
     Route::get('logout', [KhachHangController::class, 'logout']);
 });
+Route::group(['prefix'  =>  '/review'], function () {
+    Route::get('/{id_mon_an}', [ReViewMonAnController::class, 'getData']);
+    Route::post('/tao-danh-gia', [ReViewMonAnController::class, 'createReView']);
+    Route::post('/xoa-danh-gia', [ReViewMonAnController::class, 'deleteReview']);
+
+
+});
+
 

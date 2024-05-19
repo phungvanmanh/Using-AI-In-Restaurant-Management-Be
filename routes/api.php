@@ -40,7 +40,7 @@ Route::get('/get-data-mon-an/{token}', [MonAnController::class, 'getDataMonAnTok
 Route::post('/them-mon-an', [DichVuController::class, 'themMonAn']);
 Route::post('/forgot-password', [AdminController::class, 'forgotPasswordAdmin']);
 Route::post('/update-password', [AdminController::class, 'updatePasswordAdmin']);
-Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
+// Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/export', [AdminController::class, 'export']);
@@ -222,10 +222,15 @@ Route::group(['prefix' => '/admin'], function () {
 Route::group(['prefix'  =>  '/khach-hang'], function () {
     Route::post('send-mail-otp',[KhachHangController::class,'sendMailOtp']);
     Route::get('logout', [KhachHangController::class, 'logout']);
-    Route::group(['prefix'  =>  '/khach-hang'], function () {
+    Route::group(['prefix'  =>  '/mon-an'], function () {
         Route::post('/get-mon-id', [MonAnController::class, 'getMonTheoID']);
         Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
         Route::post('/tim-mon', [MonAnController::class, 'searchMonAn']);
+        Route::get('/get-data', [MonAnController::class, 'getDataMonAn']);
+        Route::get('danh-muc-get-data', [DanhMucController::class, 'getDataDanhMuc']);
+
+
+
     });
     Route::group(['prefix'  =>  '/review'], function () {
         Route::get('/{id_mon_an}', [ReViewMonAnController::class, 'getData']);

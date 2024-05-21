@@ -16,6 +16,7 @@ class LichLamViec extends Model
         'ngay_lam_viec',
         'is_done',
         'gio_bat_dau',
-        'gio_ket_thuc'
+        'gio_ket_thuc',
+        'check_lich',
     ];
 }

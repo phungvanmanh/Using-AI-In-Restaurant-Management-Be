@@ -21,6 +21,7 @@ return new class extends Migration
             $table->time('gio_bat_dau');
             $table->time('gio_ket_thuc');
             $table->integer('is_done')->default(0)->comment('0: chưa điểm danh, 1: đã điểm danh');
+            $table->integer('check_lich')->default(0);
             $table->timestamps();
         });
     }

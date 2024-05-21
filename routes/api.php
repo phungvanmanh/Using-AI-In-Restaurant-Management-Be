@@ -40,7 +40,7 @@ Route::get('/get-data-mon-an/{token}', [MonAnController::class, 'getDataMonAnTok
 Route::post('/them-mon-an', [DichVuController::class, 'themMonAn']);
 Route::post('/forgot-password', [AdminController::class, 'forgotPasswordAdmin']);
 Route::post('/update-password', [AdminController::class, 'updatePasswordAdmin']);
-// Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
+Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/export', [AdminController::class, 'export']);
@@ -151,8 +151,6 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/xoa-chi-tiet', [DichVuController::class, 'xoaChiTietBanHang']);
         Route::post('/update-hoa-don-ban-hang', [DichVuController::class, 'updateHoaDonBanHang']);
         Route::post('/dong-ban', [DichVuController::class, 'DongBan']);
-
-
     });
     Route::group(['prefix'  =>  '/nguyen-lieu'], function () {
         Route::post('/tao-nguyen-lieu', [NguyenLieuController::class, 'themNguyenLieu']);

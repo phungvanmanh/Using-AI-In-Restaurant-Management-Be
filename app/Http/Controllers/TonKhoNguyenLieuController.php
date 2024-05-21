@@ -9,7 +9,7 @@ class TonKhoNguyenLieuController extends Controller
 {
     public function getdataTonkho()
     {
-        $x = $this->checkRule(96);
+        $x = $this->checkRule(94);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -26,7 +26,7 @@ class TonKhoNguyenLieuController extends Controller
     }
     public function updateTonKho(Request $request)
     {
-        $x = $this->checkRule(97);
+        $x = $this->checkRule(95);
         if($x)  {
             return response()->json([
                 'status'    => 0,

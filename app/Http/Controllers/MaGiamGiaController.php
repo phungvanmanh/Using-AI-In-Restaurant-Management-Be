@@ -12,7 +12,7 @@ class MaGiamGiaController extends Controller
 {
     public function createMaGiamGia(CreateMaGiamGiaRequest $request)
     {
-        $x = $this->checkRule(98);
+        $x = $this->checkRule(96);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -23,7 +23,7 @@ class MaGiamGiaController extends Controller
     }
     public function getdulieu()
     {
-        $x = $this->checkRule(99);
+        $x = $this->checkRule(97);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -39,7 +39,7 @@ class MaGiamGiaController extends Controller
     }
     public function changesMaGiamGia(Request $request)
     {
-        $x = $this->checkRule(100);
+        $x = $this->checkRule(98);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -50,7 +50,7 @@ class MaGiamGiaController extends Controller
     }
     public function updateMaGiamGia(UpdateMaGiamGiaRequest $request)
     {
-        $x = $this->checkRule(101);
+        $x = $this->checkRule(99);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -61,7 +61,7 @@ class MaGiamGiaController extends Controller
     }
     public function deleteMaGiamGia(Request $request)
     {
-        $x = $this->checkRule(102);
+        $x = $this->checkRule(100);
         if($x)  {
             return response()->json([
                 'status'    => 0,

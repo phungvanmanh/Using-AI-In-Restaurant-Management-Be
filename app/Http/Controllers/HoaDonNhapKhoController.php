@@ -19,7 +19,7 @@ class HoaDonNhapKhoController extends Controller
 {
     public function addNguyenLieu(Request $request)
     {
-        $x = $this->checkRule(89);
+        $x = $this->checkRule(87);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -53,7 +53,7 @@ class HoaDonNhapKhoController extends Controller
 
     public function getdata()
     {
-        $x = $this->checkRule(88);
+        $x = $this->checkRule(86);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -72,7 +72,7 @@ class HoaDonNhapKhoController extends Controller
 
     public function createHoaDonNhapKho(Request $request)
     {
-        $x = $this->checkRule(92);
+        $x = $this->checkRule(90);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -127,7 +127,7 @@ class HoaDonNhapKhoController extends Controller
 
     public function updateNhapKho(Request $request)
     {
-        $x = $this->checkRule(90);
+        $x = $this->checkRule(88);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -154,7 +154,7 @@ class HoaDonNhapKhoController extends Controller
     }
     public function xoaNguyenLieu($id)
     {
-        $x = $this->checkRule(91);
+        $x = $this->checkRule(99);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -177,7 +177,7 @@ class HoaDonNhapKhoController extends Controller
     }
     public function getDataHoaDonNhapKho(Request $request)
     {
-        $x = $this->checkRule(93);
+        $x = $this->checkRule(91);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -205,7 +205,7 @@ class HoaDonNhapKhoController extends Controller
     }
     public function getDataChiTietHoaDonNhapKho(Request $request)
     {
-        $x = $this->checkRule(94);
+        $x = $this->checkRule(92);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -224,7 +224,7 @@ class HoaDonNhapKhoController extends Controller
 
     public function export(Request $request)
     {
-        $x = $this->checkRule(95);
+        $x = $this->checkRule(93);
         if($x)  {
             return response()->json([
                 'status'    => 0,

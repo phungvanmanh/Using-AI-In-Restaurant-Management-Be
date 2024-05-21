@@ -11,7 +11,7 @@ class LogControlter extends Controller
 {
     public function dataHistoryBuill()
     {
-        $x = $this->checkRule(77);
+        $x = $this->checkRule(75);
         if($x)  {
             return response()->json([
                 'status'    => 0,

@@ -78,13 +78,13 @@ class DichVuController extends Controller
 
     public function themMonAn(Request $request)
     {
-        $x = $this->checkRule(61);
-        if ($x) {
-            return response()->json([
-                'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
-            ]);
-        }
+        // $x = $this->checkRule(61);
+        // if ($x) {
+        //     return response()->json([
+        //         'status'    => 0,
+        //         'message'   => 'Bạn không đủ quyền',
+        //     ]);
+        // }
         $hoa_don = HoaDonBanHang::find($request->id_hoa_don);
         if ($hoa_don->is_done) {
             return response()->json([
@@ -173,7 +173,7 @@ class DichVuController extends Controller
     }
     public function updateChiTietBanHang(Request $request)
     {
-        $x = $this->checkRule(63);
+        $x = $this->checkRule(61);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -208,7 +208,7 @@ class DichVuController extends Controller
     }
     public function xoaChiTietBanHang(Request $request)
     {
-        $x = $this->checkRule(64);
+        $x = $this->checkRule(62);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -238,7 +238,7 @@ class DichVuController extends Controller
 
     public function updateHoaDonBanHang(Request $request)
     {
-        $x = $this->checkRule(65);
+        $x = $this->checkRule(63);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -265,7 +265,7 @@ class DichVuController extends Controller
     }
     public function DongBan(Request $request)
     {
-        $x = $this->checkRule(66);
+        $x = $this->checkRule(64);
         if($x)  {
             return response()->json([
                 'status'    => 0,

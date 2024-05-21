@@ -11,7 +11,7 @@ class ThongKecontroller extends Controller
 {
     public function getDataThongKe1(Request $request)
     {
-        $x = $this->checkRule(103);
+        $x = $this->checkRule(101);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -44,7 +44,7 @@ class ThongKecontroller extends Controller
     }
     public function tinhDoanhThu(Request $request)
     {
-        $x = $this->checkRule(104);
+        $x = $this->checkRule(102);
         if($x)  {
             return response()->json([
                 'status'    => 0,

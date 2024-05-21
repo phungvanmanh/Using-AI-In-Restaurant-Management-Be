@@ -14,7 +14,7 @@ class NguyenLieuController extends Controller
 {
     public function themNguyenLieu(createNguyenLieu $request)
     {
-        $x = $this->checkRule(67);
+        $x = $this->checkRule(65);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -36,7 +36,7 @@ class NguyenLieuController extends Controller
     }
     public function getNguyenLieu()
     {
-        $x = $this->checkRule(68);
+        $x = $this->checkRule(66);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -50,7 +50,7 @@ class NguyenLieuController extends Controller
     }
     public function capnhatNguyenLieu(Request $request)
     {
-        $x = $this->checkRule(69);
+        $x = $this->checkRule(67);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -61,7 +61,7 @@ class NguyenLieuController extends Controller
     }
     public function doiTrangThai(Request $request)
     {
-        $x = $this->checkRule(70);
+        $x = $this->checkRule(68);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -92,7 +92,7 @@ class NguyenLieuController extends Controller
     }
     public function deleteNguyenLieu(CheckidNguyenLieu $request)
     {
-        $x = $this->checkRule(71);
+        $x = $this->checkRule(69);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -109,7 +109,7 @@ class NguyenLieuController extends Controller
     }
     public function searchNguyenLieu(Request $request)
     {
-        $x = $this->checkRule(72);
+        $x = $this->checkRule(70);
         if($x)  {
             return response()->json([
                 'status'    => 0,

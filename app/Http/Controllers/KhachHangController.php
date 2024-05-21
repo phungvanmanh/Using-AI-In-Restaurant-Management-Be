@@ -19,7 +19,7 @@ class KhachHangController extends Controller
 
     public function store(CreateKhachHangRequest $request)
     {
-        $x = $this->checkRule(78);
+        $x = $this->checkRule(76);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -59,7 +59,7 @@ class KhachHangController extends Controller
 
     public function getData()
     {
-        $x = $this->checkRule(83);
+        $x = $this->checkRule(81);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -75,7 +75,7 @@ class KhachHangController extends Controller
 
     public function updateKh(UpdateKhachHangRequest $request)
     {
-        $x = $this->checkRule(79);
+        $x = $this->checkRule(77);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -87,7 +87,7 @@ class KhachHangController extends Controller
 
     public function deleteKh(Request $request)
     {
-        $x = $this->checkRule(80);
+        $x = $this->checkRule(78);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -99,7 +99,7 @@ class KhachHangController extends Controller
 
     public function export()
     {
-        $x = $this->checkRule(81);
+        $x = $this->checkRule(79);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -170,7 +170,7 @@ class KhachHangController extends Controller
     }
     public function searchKhachHang(Request $request)
     {
-        $x = $this->checkRule(82);
+        $x = $this->checkRule(80);
         if($x)  {
             return response()->json([
                 'status'    => 0,

@@ -13,7 +13,7 @@ use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
 class LuongController extends Controller
 {
     public function store(Request $request){
-        $x = $this->checkRule(84);
+        $x = $this->checkRule(82);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -82,7 +82,7 @@ class LuongController extends Controller
 
     public function updateRose(Request $request)
     {
-        $x = $this->checkRule(85);
+        $x = $this->checkRule(83);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -102,7 +102,7 @@ class LuongController extends Controller
 
     public function updateReceive(Request $request)
     {
-        $x = $this->checkRule(86);
+        $x = $this->checkRule(84);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -122,7 +122,7 @@ class LuongController extends Controller
 
     public function Detal(Request $request)
     {
-        $x = $this->checkRule(87);
+        $x = $this->checkRule(85);
         if($x)  {
             return response()->json([
                 'status'    => 0,

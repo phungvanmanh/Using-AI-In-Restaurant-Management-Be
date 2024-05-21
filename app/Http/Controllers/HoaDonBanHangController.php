@@ -18,7 +18,7 @@ class HoaDonBanHangController extends Controller
 {
     public function dataBill(Request $request)
     {
-        $x = $this->checkRule(73);
+        $x = $this->checkRule(71);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -48,7 +48,7 @@ class HoaDonBanHangController extends Controller
 
     public function hoaDon(Request $request)
     {
-        $x = $this->checkRule(74);
+        $x = $this->checkRule(72);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -77,7 +77,7 @@ class HoaDonBanHangController extends Controller
     }
     public function chitietHoaDon(Request $request)
     {
-        $x = $this->checkRule(75);
+        $x = $this->checkRule(73);
         if($x)  {
             return response()->json([
                 'status'    => 0,
@@ -131,7 +131,7 @@ class HoaDonBanHangController extends Controller
     }
     public function export()
     {
-        $x = $this->checkRule(76);
+        $x = $this->checkRule(74);
         if($x)  {
             return response()->json([
                 'status'    => 0,

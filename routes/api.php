@@ -64,7 +64,8 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/change-status', [QuyenController::class, 'changeStatus']);
         Route::post('/update', [QuyenController::class, 'updateQuyen']);
         Route::post('/delete', [QuyenController::class, 'deleteQuyen']);
-
+        Route::get('/get-data-chuc-nang', [QuyenController::class, 'getDataChucNang']);
+        Route::post('/phan-quyen', [QuyenController::class, 'phanQuyen']);
     });
 
     Route::group(['prefix' => '/lich-lam-viec'], function () {

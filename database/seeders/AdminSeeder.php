@@ -21,12 +21,12 @@ class AdminSeeder extends Seeder
 
         DB::table('admins')->insert([
             [
-                'email'                 => 'admin@master.com',
-                'first_last_name'             => 'Admin',
-                'password'              => bcrypt(123456),
+                'email'                => 'admin@master.com',
+                'first_last_name'      => 'Admin',
+                'password'             => bcrypt(123456),
                 'phone_number'         => '0905523543',
-                'id_permission'              => '1',
-                'date_birth'             => '2023-01-01',
+                'id_permission'        => '1',
+                'date_birth'           => '2023-01-01',
                 'status'               => 1,
             ],
         ]);

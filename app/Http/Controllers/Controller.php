@@ -16,9 +16,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    function getGivenName($fullName) {
-        $parts = explode(' ', $fullName);
-        return end($parts);
+    function getGivenName($fullName, $id, $id_nhan_vien, $id_buoi) {
+        $parts = $fullName . ',' . $id . ',' . $id_nhan_vien . "," . $id_buoi;
+        return $parts;
     }
 
     public function getDays($type){
@@ -63,20 +63,17 @@ class Controller extends BaseController
                 foreach ($lichLamViecAll as $key => $value) {
                     if ($value->ngay_lam_viec == $i->format('Y-m-d') && $j == $value->buoi_lam_viec) {
                         $nhanVien = Admin::find($value->id_nhan_vien);
-                        array_push($arr_info, $this->getGivenName($nhanVien->first_last_name));
+                        array_push($arr_info, $this->getGivenName($nhanVien->first_last_name, $value->is_done, $value->id_nhan_vien, $value->id));
                     }
                 }
 
                 $info = collect([
                     'id'            => $id,
                     'list'          => $arr_info,
-                    // 'ids'           => $ids,
                 ]);
                 $data[$i->format('Y-m-d')][$j] = $info;
             }
         }
-
-
 
         return response()->json([
             'days'  => $days,

@@ -57,7 +57,7 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/create-token/{id_ban}', [AuthController::class, 'generateQRCode']);
     Route::post('/get-qrcode', [AuthController::class, 'getQRCode']);
     Route::post('/change-status-hoa-don', [HoaDonBanHangController::class, 'changeStatus']);
-
+    Route::get('/get-quyen', [QuyenController::class, 'getQuyenUser']);
     Route::group(['prefix' => '/quyen'], function () {
         Route::post('/create', [QuyenController::class, 'createQuyen']);
         Route::get('/get-data', [QuyenController::class, 'getDataQuyen']);
@@ -71,7 +71,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/get-days/{type}', [Controller::class, 'getDays']);
         Route::post('/dang-ky/store', [LichLamViecController::class, 'createLichLamViec']);
         Route::post('/dang-ky/update', [LichLamViecController::class, 'updateLichLamViec']);
-
+        Route::post('/change-is-done', [LichLamViecController::class, 'changeIsDone']);
     });
 
     Route::group(['prefix' => '/danh-muc'], function () {

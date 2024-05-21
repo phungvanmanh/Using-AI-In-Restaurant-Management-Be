@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('name_permission');
             $table->integer('status');
             $table->integer('amount')->nullable();
-            $table->string('list_id_function')->nullable();
+            $table->longText('list_id_function')->nullable();
             $table->timestamps();
         });
     }

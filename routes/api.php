@@ -43,6 +43,7 @@ Route::post('/update-password', [AdminController::class, 'updatePasswordAdmin'])
 Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
 
 Route::group(['prefix' => '/admin'], function () {
+    Route::get('/get-pemission', [AdminController::class, 'getUserPermissions']);
     Route::get('/export', [AdminController::class, 'export']);
     Route::get('/get-user', [AuthController::class, 'getUser']);
     Route::post('/logout', [AuthController::class, 'logout']);

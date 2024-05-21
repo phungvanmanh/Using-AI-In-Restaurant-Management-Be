@@ -74,7 +74,7 @@ class LichLamViecController extends Controller
 
         return response()->json(['message' => 'Uploaded successfully']);
     }
-
+  
     public function changeIsDone(Request $request) {
         $data = $request->all();
         $currentDate = Carbon::now()->toDateString(); // Lấy ngày hiện tại
@@ -95,4 +95,13 @@ class LichLamViecController extends Controller
         ]);
     }
 
+    public function updateCheckLich(Request $request)
+    {
+        $checkValue = $request->check ? 1 : 0;
+        LichLamViec::update(['check_lich' => $checkValue]);
+
+        return response()->json([
+            'status' => true,
+        ]);
+    }
 }

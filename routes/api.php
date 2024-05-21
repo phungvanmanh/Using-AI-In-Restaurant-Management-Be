@@ -223,14 +223,12 @@ Route::group(['prefix' => '/admin'], function () {
 Route::group(['prefix'  =>  '/khach-hang'], function () {
     Route::post('send-mail-otp',[KhachHangController::class,'sendMailOtp']);
     Route::get('logout', [KhachHangController::class, 'logout']);
+    Route::get('/danh-muc-get-data', [DanhMucController::class, 'getDataDanhMuc']);
     Route::group(['prefix'  =>  '/mon-an'], function () {
         Route::post('/get-mon-id', [MonAnController::class, 'getMonTheoID']);
         Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
         Route::post('/tim-mon', [MonAnController::class, 'searchMonAn']);
         Route::get('/get-data', [MonAnController::class, 'getDataMonAn']);
-        Route::get('danh-muc-get-data', [DanhMucController::class, 'getDataDanhMuc']);
-
-
 
     });
     Route::group(['prefix'  =>  '/review'], function () {

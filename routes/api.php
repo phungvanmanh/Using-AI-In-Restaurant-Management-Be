@@ -55,7 +55,6 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/change-status', [AdminController::class, 'changeStatus']);
     // Route::post('/update', [AdminController::class, 'updateAdmin']);
     Route::get('/create-token/{id_ban}', [AuthController::class, 'generateQRCode']);
-    Route::post('/get-qrcode', [AuthController::class, 'getQRCode']);
     Route::post('/change-status-hoa-don', [HoaDonBanHangController::class, 'changeStatus']);
     Route::get('/get-quyen', [QuyenController::class, 'getQuyenUser']);
     Route::group(['prefix' => '/quyen'], function () {
@@ -169,9 +168,6 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/hoa-don', [HoaDonBanHangController::class, 'hoaDon']);
         Route::post('/chi-tiet-hoa-don', [HoaDonBanHangController::class, 'chitietHoaDon']);
         Route::get('/export', [HoaDonBanHangController::class, 'export']);
-
-
-
     });
     Route::group(['prefix'  =>  '/log'], function () {
         Route::get('/lich-su-thanh-toan', [LogControlter::class, 'dataHistoryBuill']);

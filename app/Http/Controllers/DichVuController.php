@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Ban;
 use App\Models\ChiTietHoaDonBanHang;
 use App\Models\HoaDonBanHang;
@@ -15,23 +16,36 @@ class DichVuController extends Controller
 {
     public function getdataTheoKhuVuc(Request $request)
     {
-        $data=Ban::where('status',1)
-                    ->where('id_area',$request ->id)
-                    ->get();
-        if($data)
-        {
+        $x = $this->checkRule(58);
+        if ($x) {
             return response()->json([
-                'data'=>$data,
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
+        $data = Ban::where('status', 1)
+            ->where('id_area', $request->id)
+            ->get();
+        if ($data) {
+            return response()->json([
+                'data' => $data,
             ]);
         }
     }
 
     public function createHoaDon(Request $request)
     {
+        $x = $this->checkRule(59);
+        if ($x) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $ban = Ban::find($request->id_ban);
         $id_nv = Auth::guard('admin')->user()->id;
         $request['id_nhan_vien'] = $id_nv;
-        if($ban && $ban->status == 1 && $ban->is_open_table == 0) {
+        if ($ban && $ban->status == 1 && $ban->is_open_table == 0) {
             $ban->is_open_table = 1;
             $ban->save();
 
@@ -46,9 +60,16 @@ class DichVuController extends Controller
 
     public function getIdHoaDon(Request $request)
     {
+        $x = $this->checkRule(60);
+        if ($x) {
+            return response()->json([
+                'status'    => 0,
+                'data'      => []
+            ]);
+        }
         $hoa_don = HoaDonBanHang::where('id_ban', $request->id_ban)
-                                ->where('is_done', 0)
-                                ->first();
+            ->where('is_done', 0)
+            ->first();
         return response()->json([
             'status'        => 1,
             'hoa_don'    => $hoa_don,
@@ -56,74 +77,89 @@ class DichVuController extends Controller
     }
 
     public function themMonAn(Request $request)
-{
-    $hoa_don = HoaDonBanHang::find($request->id_hoa_don);
-    if ($hoa_don->is_done) {
-        return response()->json([
-            'status' => 0,
-            'message' => 'Bill paid!',
-        ]);
-    } else {
-        $monAn = MonAn::find($request->id_mon_an);
-        $check = ChiTietHoaDonBanHang::where('id_hoa_don', $request->id_hoa_don)
-            ->where('id_mon_an', $request->id_mon_an)
-            ->first();
-
-        // Check for discount
-        $maGiamGia = MaGiamGia::where('id_mon', $request->id_mon_an)
-            ->where('ngay_bat_dau', '<=', now())
-            ->where('ngay_ket_thuc', '>=', now())
-            ->where('status', 1)
-            ->first();
-
-        $phanTramGiam = $maGiamGia ? $maGiamGia->phan_tram_giam : 0;
-
-        if ($check) {
-            $check->so_luong = $check->so_luong + 1;
-            $check->phan_tram_giam = $phanTramGiam;
-            $check->thanh_tien = ($check->so_luong * $check->don_gia) * (1 - ($phanTramGiam / 100));
-            $check->save();
-        } else {
-            ChiTietHoaDonBanHang::create([
-                'id_hoa_don' => $request->id_hoa_don,
-                'id_mon_an' => $request->id_mon_an,
-                'so_luong' => 1,
-                'don_gia' => $monAn->price,
-                'phan_tram_giam' => $phanTramGiam,
-                'thanh_tien' => $monAn->price * (1 - ($phanTramGiam / 100)),
+    {
+        $x = $this->checkRule(61);
+        if ($x) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
             ]);
         }
+        $hoa_don = HoaDonBanHang::find($request->id_hoa_don);
+        if ($hoa_don->is_done) {
+            return response()->json([
+                'status' => 0,
+                'message' => 'Bill paid!',
+            ]);
+        } else {
+            $monAn = MonAn::find($request->id_mon_an);
+            $check = ChiTietHoaDonBanHang::where('id_hoa_don', $request->id_hoa_don)
+                ->where('id_mon_an', $request->id_mon_an)
+                ->first();
 
-        $data = ChiTietHoaDonBanHang::where('id_hoa_don', $request->id_hoa_don)->get();
-        $tong_tien = 0;
-        foreach ($data as $value) {
-            $tong_tien += $value->thanh_tien;
+            // Check for discount
+            $maGiamGia = MaGiamGia::where('id_mon', $request->id_mon_an)
+                ->where('ngay_bat_dau', '<=', now())
+                ->where('ngay_ket_thuc', '>=', now())
+                ->where('status', 1)
+                ->first();
+
+            $phanTramGiam = $maGiamGia ? $maGiamGia->phan_tram_giam : 0;
+
+            if ($check) {
+                $check->so_luong = $check->so_luong + 1;
+                $check->phan_tram_giam = $phanTramGiam;
+                $check->thanh_tien = ($check->so_luong * $check->don_gia) * (1 - ($phanTramGiam / 100));
+                $check->save();
+            } else {
+                ChiTietHoaDonBanHang::create([
+                    'id_hoa_don' => $request->id_hoa_don,
+                    'id_mon_an' => $request->id_mon_an,
+                    'so_luong' => 1,
+                    'don_gia' => $monAn->price,
+                    'phan_tram_giam' => $phanTramGiam,
+                    'thanh_tien' => $monAn->price * (1 - ($phanTramGiam / 100)),
+                ]);
+            }
+
+            $data = ChiTietHoaDonBanHang::where('id_hoa_don', $request->id_hoa_don)->get();
+            $tong_tien = 0;
+            foreach ($data as $value) {
+                $tong_tien += $value->thanh_tien;
+            }
+
+            $hoa_don->tong_tien_truoc_giam = $tong_tien;
+            $hoa_don->tien_thuc_nhan = $tong_tien * (1 - ($hoa_don->phan_tram_giam / 100));
+            $hoa_don->save();
+
+            return response()->json([
+                'status' => 1,
+                'message' => $check ? 'Update successfully!' : 'Item added successfully!',
+            ]);
         }
-
-        $hoa_don->tong_tien_truoc_giam = $tong_tien;
-        $hoa_don->tien_thuc_nhan = $tong_tien * (1 - ($hoa_don->phan_tram_giam / 100));
-        $hoa_don->save();
-
-        return response()->json([
-            'status' => 1,
-            'message' => $check ? 'Update successfully!' : 'Item added successfully!',
-        ]);
     }
-}
 
 
     public function getChiTietBanHang(Request $request)
     {
-        $chiTiet=ChiTietHoaDonBanHang::join('mon_ans','mon_ans.id','chi_tiet_hoa_don_ban_hangs.id_mon_an')
-                                    ->where('chi_tiet_hoa_don_ban_hangs.id_hoa_don',$request->id_hoa_don)
-                                    ->where('chi_tiet_hoa_don_ban_hangs.is_done',0)
-                                    ->select('chi_tiet_hoa_don_ban_hangs.*','mon_ans.food_name')
-                                    ->get();
+        $x = $this->checkRule(62);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+                'kh'        => []
+            ]);
+        }
+        $chiTiet = ChiTietHoaDonBanHang::join('mon_ans', 'mon_ans.id', 'chi_tiet_hoa_don_ban_hangs.id_mon_an')
+            ->where('chi_tiet_hoa_don_ban_hangs.id_hoa_don', $request->id_hoa_don)
+            ->where('chi_tiet_hoa_don_ban_hangs.is_done', 0)
+            ->select('chi_tiet_hoa_don_ban_hangs.*', 'mon_ans.food_name')
+            ->get();
         $khach_hang = HoaDonBanHang::join('khach_hangs', 'hoa_don_ban_hangs.id_khach_hang', 'khach_hangs.id')
-                                    ->where('hoa_don_ban_hangs.id', $request->id_hoa_don)
-                                    ->select('khach_hangs.ten_khach_hang', 'khach_hangs.email', 'khach_hangs.so_dien_thoai')
-                                    ->first();
-        if($khach_hang == null) {
+            ->where('hoa_don_ban_hangs.id', $request->id_hoa_don)
+            ->select('khach_hangs.ten_khach_hang', 'khach_hangs.email', 'khach_hangs.so_dien_thoai')
+            ->first();
+        if ($khach_hang == null) {
             $khach_hang = new KhachHang();
             $khach_hang->ten_khach_hang = '';
             $khach_hang->email = '';
@@ -131,26 +167,32 @@ class DichVuController extends Controller
         }
 
         return response()->json([
-            'data'=>$chiTiet,
+            'data' => $chiTiet,
             'kh' => $khach_hang
         ]);
     }
     public function updateChiTietBanHang(Request $request)
     {
-        $chiTiet=ChiTietHoaDonBanHang::where('id',$request->id)->where('id_hoa_don', $request->id_hoa_don)->first();
-        if($chiTiet)
-        {
-            $chiTiet->so_luong=$request->so_luong;
-            $chiTiet->don_gia=$request->don_gia;
-            $chiTiet->phan_tram_giam=$request->phan_tram_giam;
-            $chiTiet->ghi_chu=$request->ghi_chu;
+        $x = $this->checkRule(63);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
+        $chiTiet = ChiTietHoaDonBanHang::where('id', $request->id)->where('id_hoa_don', $request->id_hoa_don)->first();
+        if ($chiTiet) {
+            $chiTiet->so_luong = $request->so_luong;
+            $chiTiet->don_gia = $request->don_gia;
+            $chiTiet->phan_tram_giam = $request->phan_tram_giam;
+            $chiTiet->ghi_chu = $request->ghi_chu;
             $chiTiet->thanh_tien = ($chiTiet->so_luong * $chiTiet->don_gia) - ($chiTiet->so_luong * $chiTiet->don_gia / 100 * $chiTiet->phan_tram_giam);
             $chiTiet->update();
-            $data=ChiTietHoaDonBanHang::where('id_hoa_don',$chiTiet->id_hoa_don)->get();
-            $tong_tien=0;
+            $data = ChiTietHoaDonBanHang::where('id_hoa_don', $chiTiet->id_hoa_don)->get();
+            $tong_tien = 0;
 
-            foreach($data as $key =>$value){
-                $tong_tien=$tong_tien+ $value->thanh_tien;
+            foreach ($data as $key => $value) {
+                $tong_tien = $tong_tien + $value->thanh_tien;
             }
 
             $hoa_don = HoaDonBanHang::find($chiTiet->id_hoa_don);
@@ -162,19 +204,24 @@ class DichVuController extends Controller
                 'status'    => 1,
                 'message'   => 'Update successfully!',
             ]);
-
         }
     }
     public function xoaChiTietBanHang(Request $request)
     {
-        $chiTiet=ChiTietHoaDonBanHang::where('id',$request->id)->first();
-        if($chiTiet)
-        {
+        $x = $this->checkRule(64);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
+        $chiTiet = ChiTietHoaDonBanHang::where('id', $request->id)->first();
+        if ($chiTiet) {
             $chiTiet->delete();
-            $data=ChiTietHoaDonBanHang::where('id_hoa_don',$chiTiet->id_hoa_don)->get();
-            $tong_tien=0;
-            foreach($data as $key =>$value){
-                $tong_tien=$tong_tien+ $value->thanh_tien;
+            $data = ChiTietHoaDonBanHang::where('id_hoa_don', $chiTiet->id_hoa_don)->get();
+            $tong_tien = 0;
+            foreach ($data as $key => $value) {
+                $tong_tien = $tong_tien + $value->thanh_tien;
             }
 
             $hoa_don = HoaDonBanHang::find($chiTiet->id_hoa_don);
@@ -191,8 +238,15 @@ class DichVuController extends Controller
 
     public function updateHoaDonBanHang(Request $request)
     {
+        $x = $this->checkRule(65);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $hoa_don = HoaDonBanHang::where('id', $request->id)->where('id_ban', $request->id_ban)->where('is_done', 0)->first();
-        if($hoa_don) {
+        if ($hoa_don) {
             $hoa_don->phan_tram_giam = $request->phan_tram_giam;
             $hoa_don->tien_thuc_nhan =  $hoa_don->tong_tien_truoc_giam * (1 - ($request->phan_tram_giam / 100));
             $hoa_don->ghi_chu = $request->ghi_chu;
@@ -210,35 +264,38 @@ class DichVuController extends Controller
         }
     }
     public function DongBan(Request $request)
-{
-    $ban = Ban::find($request->id_ban);
-    if ($ban && $ban->is_open_table == 1) {
-        $hoaDon = HoaDonBanHang::where('id_ban', $request->id_ban)
-        ->where('is_done',0)
-        ->first();
-        if ($hoaDon) {
-            $chiTietHoaDon = ChiTietHoaDonBanHang::where('id_hoa_don', $hoaDon->id)->get();
-            foreach($chiTietHoaDon as $chiTiet) {
-                $chiTiet->delete();
-            }
-
-            $hoaDon->delete();
+    {
+        $x = $this->checkRule(66);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
         }
-        $ban->is_open_table = 0;
-        $ban->save();
-        return response()->json([
-            'status' => 1,
-            'message' => 'The table has been successfully closed!',
-        ]);
-    } else {
-        return response()->json([
-            'status' => 0,
-            'message' => 'The table cannot be closed!',
-        ]);
+        $ban = Ban::find($request->id_ban);
+        if ($ban && $ban->is_open_table == 1) {
+            $hoaDon = HoaDonBanHang::where('id_ban', $request->id_ban)
+                ->where('is_done', 0)
+                ->first();
+            if ($hoaDon) {
+                $chiTietHoaDon = ChiTietHoaDonBanHang::where('id_hoa_don', $hoaDon->id)->get();
+                foreach ($chiTietHoaDon as $chiTiet) {
+                    $chiTiet->delete();
+                }
+
+                $hoaDon->delete();
+            }
+            $ban->is_open_table = 0;
+            $ban->save();
+            return response()->json([
+                'status' => 1,
+                'message' => 'The table has been successfully closed!',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 0,
+                'message' => 'The table cannot be closed!',
+            ]);
+        }
     }
-}
-
-
-
-
 }

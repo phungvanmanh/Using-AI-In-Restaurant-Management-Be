@@ -12,6 +12,13 @@ class DanhMucController extends Controller
 {
     public function getDataDanhMuc()
     {
+        $x = $this->checkRule(65);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = DanhMuc::get();
         return response()->json([
             'data'   => $data,
@@ -20,26 +27,60 @@ class DanhMucController extends Controller
 
     public function createDanhMuc(createDanhMucRequest $request)
     {
+        $x = $this->checkRule(17);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->createModel($request, DanhMuc::class, ['message' => 'New category added successfully!']);
     }
 
     public function changeStatus(CheckIdDanhMucRequest $request)
     {
+        $x = $this->checkRule(18);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, DanhMuc::class, 'changeStatus');
     }
 
     public function updateDanhMuc(UpdateDanhMucRequest $request)
     {
+        $x = $this->checkRule(20);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, DanhMuc::class, 'update');
     }
 
     public function deleteDanhMuc(CheckIdDanhMucRequest $request)
     {
+        $x = $this->checkRule(21);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->deleteModel($request, DanhMuc::class, 'name_category');
     }
     public function searchDanhMuc(Request $request)
     {
-
+        $x = $this->checkRule(22);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
 
         $key = '%' . $request->abc . '%';
 

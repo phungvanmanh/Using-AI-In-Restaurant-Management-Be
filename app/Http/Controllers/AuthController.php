@@ -79,6 +79,13 @@ class AuthController extends Controller
 
     public function generateQRCode($id_ban)
     {
+        $x = $this->checkRule(8);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         // Sử dụng firstOrCreate để tìm Token hoặc tạo mới nếu không tồn tại
         $tokenModel = Token::firstOrCreate(
             ['id_ban' => $id_ban],
@@ -89,12 +96,5 @@ class AuthController extends Controller
         $url = "/mon-an/{$id_ban}/{$id_hoa_don->id}?token={$tokenModel->token}";
 
         return response()->json(['url' => $url]);
-    }
-
-    public function checkQRCode(Request $request)
-    {
-        $token = $request->token;
-        $status = Cache::get($token)['status'] ?? 'expired';
-        return response()->json(['status' => $status]);
     }
 }

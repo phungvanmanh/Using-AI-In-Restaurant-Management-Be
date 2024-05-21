@@ -16,6 +16,13 @@ class BanController extends Controller
 {
     public function getDataBan()
     {
+        $x = $this->checkRule(34);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'   => [],
+            ]);
+        }
         $data = Ban::join('khu_vucs', 'khu_vucs.id', 'bans.id_area')
             ->select('bans.*', 'khu_vucs.name_area')
             ->get();
@@ -26,25 +33,60 @@ class BanController extends Controller
 
     public function createBan(CreateBanRequest $request)
     {
+        $x = $this->checkRule(33);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->createModel($request, Ban::class, ['message' => 'New table added successfully!']);
     }
 
     public function changeStatus(CheckIdBanRequest $request)
     {
+        $x = $this->checkRule(35);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, Ban::class, 'changeStatus');
     }
 
     public function updateBan(UpdateBanRequest $request)
     {
+        $x = $this->checkRule(36);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, Ban::class, 'update');
     }
 
     public function deleteBan(CheckIdBanRequest $request)
     {
+        $x = $this->checkRule(37);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->deleteModel($request, Ban::class, 'name_table');
     }
     public function searchBan(Request $request)
     {
+        $x = $this->checkRule(38);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $key = '%' . $request->abc . '%';
 
         $data   = Ban::where('name_table', 'like', $key)
@@ -56,6 +98,13 @@ class BanController extends Controller
     }
     public function getMonAnTheoBan(Request $request)
     {
+        $x = $this->checkRule(39);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'monAnList'   => [],
+            ]);
+        }
         // Lấy id_ban từ dữ liệu gửi lên trong body của request
         $id_ban = $request->input('id_ban');
         // Kiểm tra xem id_ban có tồn tại không
@@ -103,6 +152,13 @@ class BanController extends Controller
     }
     public function gopBan(Request $request)
     {
+        $x = $this->checkRule(40);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         // Lấy id_ban của bàn hiện tại
         $id_ban_hien_tai = $request->input('id_ban_hien_tai');
         // Lấy id_ban của bàn cần gộp vào

@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\DB;
 class LichLamViecController extends Controller
 {
     public function createLichLamViec(Request $request) {
+        $x = $this->checkRule(15);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $data = $request->all();
         $data['ngay_lam_viec'] = $request->ngay_lam_viec;
         $data['id_nhan_vien']  = Auth::guard('admin')->user()->id;
@@ -35,6 +42,13 @@ class LichLamViecController extends Controller
     }
 
     public function updateLichLamViec(Request $request) {
+        $x = $this->checkRule(16);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         // $user = auth('sanctum')->user();
         $data = $request->all();
         $res = DB::transaction(function () use ($data) {
@@ -74,7 +88,7 @@ class LichLamViecController extends Controller
 
         return response()->json(['message' => 'Uploaded successfully']);
     }
-  
+
     public function changeIsDone(Request $request) {
         $data = $request->all();
         $currentDate = Carbon::now()->toDateString(); // Lấy ngày hiện tại
@@ -92,16 +106,6 @@ class LichLamViecController extends Controller
         return response()->json([
             'status'    => 1,
             'message'   => 'Updated work schedule!',
-        ]);
-    }
-
-    public function updateCheckLich(Request $request)
-    {
-        $checkValue = $request->check ? 1 : 0;
-        LichLamViec::update(['check_lich' => $checkValue]);
-
-        return response()->json([
-            'status' => true,
         ]);
     }
 }

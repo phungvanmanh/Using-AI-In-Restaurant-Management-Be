@@ -11,6 +11,14 @@ class ThongKecontroller extends Controller
 {
     public function getDataThongKe1(Request $request)
     {
+        $x = $this->checkRule(103);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'list_label'=> [],
+                'list_data' => [],
+            ]);
+        }
         $data = HoaDonBanHang::where('is_done', 1)
             ->whereDate('created_at', '>=', $request->begin)
             ->whereDate('created_at', '<=', $request->end)
@@ -36,6 +44,17 @@ class ThongKecontroller extends Controller
     }
     public function tinhDoanhThu(Request $request)
     {
+        $x = $this->checkRule(104);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data' => [
+                    'tong_tien_nhap_kho' => 0,
+                    'tong_tien_ban_hang' => 0,
+                    'loi_nhuan' => 0,
+                ],
+            ]);
+        }
         $ngayBatDau = $request->input('ngay_bat_dau');
         $ngayKetThuc = $request->input('ngay_ket_thuc');
 

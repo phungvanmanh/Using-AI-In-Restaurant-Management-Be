@@ -13,6 +13,13 @@ class BaiViet1Controller extends Controller
 {
     public function createBaiViet1(CreateBaiVietRequest $request)
     {
+        $x = $this->checkRule(55);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $data = $request->all();
         BaiViet1::create($data);
 
@@ -23,6 +30,13 @@ class BaiViet1Controller extends Controller
     }
     public function getData()
     {
+        $x = $this->checkRule(53);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'  =>  [],
+            ]);
+        }
         $data   = BaiViet1::join('chuyen_muc_bai_viets', 'chuyen_muc_bai_viets.id', 'bai_viet1s.id_chuyen_muc_bai_viet')
         ->select('bai_viet1s.*', 'chuyen_muc_bai_viets.ten_chuyen_muc','chuyen_muc_bai_viets.tinh_trang')
         ->get();
@@ -33,15 +47,35 @@ class BaiViet1Controller extends Controller
     }
     public function capNhatBaiViet(UpdateBaiVietRequest $request)
     {
+        $x = $this->checkRule(57);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, BaiViet1::class, 'update');
     }
     public function xoaBaiViet(CheckidBaiViet $request)
     {
+        $x = $this->checkRule(56);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->deleteModel($request, BaiViet1::class, 'tieu_de_bai_viet');
     }
     public function timBaiViet(Request $request)
     {
-
+        $x = $this->checkRule(54);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
 
         $key = '%' . $request->abc . '%';
 

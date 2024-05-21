@@ -14,6 +14,13 @@ class MonAnController extends Controller
 
     public function createMonAn(createMonAnRequest $request)
     {
+        $x = $this->checkRule(28);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $data = $request->all();
         MonAn::create($data);
 
@@ -24,6 +31,13 @@ class MonAnController extends Controller
     }
     public function getDataMonAn()
     {
+        $x = $this->checkRule(29);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         // Join the tables and select required fields
         $data = MonAn::join('danh_mucs', 'mon_ans.id_category', '=', 'danh_mucs.id')
             ->select('mon_ans.*', 'danh_mucs.name_category', 'danh_mucs.status as category_status')
@@ -71,6 +85,13 @@ class MonAnController extends Controller
 
     public function deleteMonAn(Request $request)
     {
+        $x = $this->checkRule(32);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $monan = MonAn::find($request->id);
 
         if (!$monan) {
@@ -89,6 +110,13 @@ class MonAnController extends Controller
 
     public function changeStatus(Request $request)
     {
+        $x = $this->checkRule(30);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $monan = MonAn::find($request->id);
         $monan->status = !$monan->status;
         $monan->save();
@@ -100,6 +128,13 @@ class MonAnController extends Controller
     }
     public function updateMonAn(Request $request)
     {
+        $x = $this->checkRule(31);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $data = $request->all();
         $quyen = MonAn::where('id', $request->id)->first();
 

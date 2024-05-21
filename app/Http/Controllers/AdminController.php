@@ -21,6 +21,14 @@ class AdminController extends Controller
 {
     public function createAdmin(CreateAdminRequest $request)
     {
+        $x = $this->checkRule(2);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
+
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
@@ -40,6 +48,14 @@ class AdminController extends Controller
 
     public function getDataAdmin()
     {
+        $x = $this->checkRule(3);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => []
+            ]);
+        }
+
         $data = Admin::join('quyens', 'admins.id_permission', 'quyens.id')
             ->select('admins.id', 'admins.first_last_name', 'admins.email', 'admins.phone_number', 'admins.status', 'admins.id_permission', "admins.date_birth", 'quyens.name_permission')
             ->paginate(10);
@@ -59,6 +75,13 @@ class AdminController extends Controller
 
     public function changeStatus(CheckIdAdminRequest $request)
     {
+        $x = $this->checkRule(7);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $admin = Admin::find($request->id);
         $admin->status = !$admin->status;
         $admin->save();
@@ -71,17 +94,31 @@ class AdminController extends Controller
 
     public function updateAdmin(UpdateAdminRequest $request)
     {
+        $x = $this->checkRule(5);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, Admin::class, 'update');
     }
 
     public function deleteAdmin(CheckIdAdminRequest $request)
     {
+        $x = $this->checkRule(6);
+    if($x)  {
+        return response()->json([
+            'status'    => 0,
+            'message'   => 'Bạn không đủ quyền',
+        ]);
+    }
         return $this->deleteModel($request, Admin::class, 'first_last_name');
     }
 
     public function searchAdmin(Request $request)
     {
-        $search = $request->all();
+                $search = $request->all();
         $data = Admin::join('quyens', 'admins.id_quyen', 'quyens.id')
             ->where(function ($query) use ($search) {
                 $query->where('admins.ho_va_ten', 'like', '%' . $search['search'] . '%')
@@ -107,6 +144,14 @@ class AdminController extends Controller
 
     public function export()
     {
+        $x = $this->checkRule(1);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
+
         $data = Admin::join('quyens', 'admins.id_permission', '=', 'quyens.id')
             ->select('admins.first_last_name', 'admins.email', 'admins.phone_number', 'admins.date_birth', 'admins.status', 'quyens.name_permission')
             ->get();
@@ -139,6 +184,13 @@ class AdminController extends Controller
 
     public function changePasswordAdmin(ChangePasswordRequest $request)
     {
+        $x = $this->checkRule(4);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $admin = Admin::find($request->id);
         $admin->password = bcrypt($request->password);
         $admin->save();

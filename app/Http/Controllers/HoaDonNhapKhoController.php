@@ -19,6 +19,13 @@ class HoaDonNhapKhoController extends Controller
 {
     public function addNguyenLieu(Request $request)
     {
+        $x = $this->checkRule(89);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $user = Auth::guard('admin')->user();
         $nhap_kho = ChiTietHoaDonNhap::where('id_nguyen_lieu', $request->id)
             ->where('is_done', 0)
@@ -46,6 +53,13 @@ class HoaDonNhapKhoController extends Controller
 
     public function getdata()
     {
+        $x = $this->checkRule(88);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = ChiTietHoaDonNhap::join('nguyen_lieus', 'chi_tiet_hoa_don_nhaps.id_nguyen_lieu', 'nguyen_lieus.id')
             ->where('is_done', 0)
             ->select('chi_tiet_hoa_don_nhaps.*', 'nguyen_lieus.ten_nguyen_lieu', 'nguyen_lieus.gia')
@@ -58,6 +72,13 @@ class HoaDonNhapKhoController extends Controller
 
     public function createHoaDonNhapKho(Request $request)
     {
+        $x = $this->checkRule(92);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $user = Auth::guard('admin')->user();
         $nha_cung_cap = NhaCungCap::find($request->id_nha_cung_cap);
         $now = Carbon::now();
@@ -106,6 +127,13 @@ class HoaDonNhapKhoController extends Controller
 
     public function updateNhapKho(Request $request)
     {
+        $x = $this->checkRule(90);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $nhap_kho = ChiTietHoaDonNhap::where('id', $request->id)->first();
         if ($nhap_kho) {
             $nhap_kho->update([
@@ -126,6 +154,13 @@ class HoaDonNhapKhoController extends Controller
     }
     public function xoaNguyenLieu($id)
     {
+        $x = $this->checkRule(91);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         try {
             ChiTietHoaDonNhap::where('id', $id)->delete();
             return response()->json([
@@ -142,6 +177,14 @@ class HoaDonNhapKhoController extends Controller
     }
     public function getDataHoaDonNhapKho(Request $request)
     {
+        $x = $this->checkRule(93);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+                'tong_tien' => 0
+            ]);
+        }
         $data = HoaDonNhapKho::join('admins', 'admins.id', 'hoa_don_nhap_khos.id_nhan_vien')
             ->join('nha_cung_caps', 'nha_cung_caps.id', 'hoa_don_nhap_khos.id_nha_cung_cap')
             ->whereDate('hoa_don_nhap_khos.created_at', '>=', $request->begin)
@@ -162,6 +205,13 @@ class HoaDonNhapKhoController extends Controller
     }
     public function getDataChiTietHoaDonNhapKho(Request $request)
     {
+        $x = $this->checkRule(94);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = ChiTietHoaDonNhap::join('hoa_don_nhap_khos', 'hoa_don_nhap_khos.ma_hoa_don', 'chi_tiet_hoa_don_nhaps.id_hoa_don_nhap')
             ->join('nguyen_lieus', 'nguyen_lieus.id', 'chi_tiet_hoa_don_nhaps.id_nguyen_lieu')
             ->where('hoa_don_nhap_khos.ma_hoa_don', $request->ma_hoa_don)
@@ -174,6 +224,13 @@ class HoaDonNhapKhoController extends Controller
 
     public function export(Request $request)
     {
+        $x = $this->checkRule(95);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $maHoaDons = array_column($request->data, 'ma_hoa_don');
         $hoaDonNhaps = HoaDonNhapKho::whereIn('ma_hoa_don', $maHoaDons)
             ->join('nha_cung_caps', 'hoa_don_nhap_khos.id_nha_cung_cap', '=', 'nha_cung_caps.id')

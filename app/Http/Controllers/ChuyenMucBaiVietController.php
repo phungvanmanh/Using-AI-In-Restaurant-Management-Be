@@ -15,7 +15,13 @@ class ChuyenMucBaiVietController extends Controller
 {
     public function createChuyenMuc(CreateChuyenMucBaiVietRequest $request)
     {
-
+        $x = $this->checkRule(48);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         ChuyenMucBaiViet::create([
             'ten_chuyen_muc'      => $request->ten_chuyen_muc,
             'slug_chuyen_muc'     => $request->slug_chuyen_muc,
@@ -29,7 +35,13 @@ class ChuyenMucBaiVietController extends Controller
     }
     public function getData()
     {
-
+        $x = $this->checkRule(47);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'   => [],
+            ]);
+        }
         $data   = ChuyenMucBaiViet::select('id', 'ten_chuyen_muc', 'slug_chuyen_muc', 'tinh_trang')
             ->get();
 
@@ -39,7 +51,13 @@ class ChuyenMucBaiVietController extends Controller
     }
     public function capNhatChuyenMuc(UpdateChuyenMucBaiViet $request)
     {
-
+        $x = $this->checkRule(50);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         try {
             ChuyenMucBaiViet::where('id', $request->id)
                 ->update([
@@ -61,7 +79,13 @@ class ChuyenMucBaiVietController extends Controller
     }
     public function doiTrangThaiChuyenMuc(Request $request)
     {
-
+        $x = $this->checkRule(51);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         try {
             if ($request->tinh_trang == 1) {
                 $tinh_trang_moi = 0;
@@ -86,12 +110,25 @@ class ChuyenMucBaiVietController extends Controller
     }
     public function deleteChuyenMuc(CheckidChuyenMucBaiViet $request)
     {
+        $x = $this->checkRule(49);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->deleteModel($request, ChuyenMucBaiViet::class, 'ten_chuyen_muc');
     }
 
     public function searchChuyenMucBaiViet(Request $request)
     {
-
+        $x = $this->checkRule(52);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
 
         $key = '%' . $request->abc . '%';
 

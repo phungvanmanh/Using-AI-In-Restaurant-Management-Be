@@ -13,6 +13,13 @@ use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
 class LuongController extends Controller
 {
     public function store(Request $request){
+        $x = $this->checkRule(84);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $begin = $request->input('begin');
         $end   = $request->input('end');
         $date = Carbon::parse($begin);
@@ -75,6 +82,13 @@ class LuongController extends Controller
 
     public function updateRose(Request $request)
     {
+        $x = $this->checkRule(85);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $luong = Luong::find($request->id);
         if($luong) {
             $luong->hoa_hong = $request->hoa_hong;
@@ -88,6 +102,13 @@ class LuongController extends Controller
 
     public function updateReceive(Request $request)
     {
+        $x = $this->checkRule(86);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $luong = Luong::find($request->id);
         if($luong) {
             $luong->is_nhan = $request->check;
@@ -101,6 +122,13 @@ class LuongController extends Controller
 
     public function Detal(Request $request)
     {
+        $x = $this->checkRule(87);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = LichLamViec::where('id_nhan_vien', $request->id_nhan_vien)
                             ->select('id', DB::raw('DATE_FORMAT(ngay_lam_viec, "%d-%m-%Y") as ngay_lam_viec'), 'buoi_lam_viec', 'is_done')
                             ->get();

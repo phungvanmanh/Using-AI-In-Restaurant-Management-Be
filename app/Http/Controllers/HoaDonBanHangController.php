@@ -18,6 +18,14 @@ class HoaDonBanHangController extends Controller
 {
     public function dataBill(Request $request)
     {
+        $x = $this->checkRule(73);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+                'hoa_don'   => []
+            ]);
+        }
         $data = ChiTietHoaDonBanHang::where('id_hoa_don', $request->id_hoa_don_ban_hang)
             ->join('mon_ans', 'mon_ans.id', 'chi_tiet_hoa_don_ban_hangs.id_mon_an')
             ->select('chi_tiet_hoa_don_ban_hangs.*', 'mon_ans.food_name', 'mon_ans.price')
@@ -40,6 +48,14 @@ class HoaDonBanHangController extends Controller
 
     public function hoaDon(Request $request)
     {
+        $x = $this->checkRule(74);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+                'total'     => []
+            ]);
+        }
         $data = HoaDonBanHang::join('admins', 'admins.id', '=', 'hoa_don_ban_hangs.id_nhan_vien')
             ->join('bans', 'bans.id', 'hoa_don_ban_hangs.id_ban')
             ->whereDate('hoa_don_ban_hangs.created_at', '>=', $request->begin)
@@ -61,6 +77,13 @@ class HoaDonBanHangController extends Controller
     }
     public function chitietHoaDon(Request $request)
     {
+        $x = $this->checkRule(75);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = ChiTietHoaDonBanHang::where('id_hoa_don', $request->id)
             ->join('mon_ans', 'chi_tiet_hoa_don_ban_hangs.id_mon_an', 'mon_ans.id')
             ->select('chi_tiet_hoa_don_ban_hangs.*', 'mon_ans.food_name')
@@ -108,6 +131,13 @@ class HoaDonBanHangController extends Controller
     }
     public function export()
     {
+        $x = $this->checkRule(76);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $data = HoaDonBanHang::join('admins','hoa_don_ban_hangs.id_nhan_vien','admins.id')
                               ->join('bans','hoa_don_ban_hangs.id_ban','bans.id')
             ->select('hoa_don_ban_hangs.*','bans.name_table','admins.first_last_name')

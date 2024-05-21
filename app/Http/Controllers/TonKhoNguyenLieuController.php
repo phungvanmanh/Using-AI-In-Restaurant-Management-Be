@@ -9,6 +9,13 @@ class TonKhoNguyenLieuController extends Controller
 {
     public function getdataTonkho()
     {
+        $x = $this->checkRule(96);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = TonKhoNguyenLieu::join('nguyen_lieus','nguyen_lieus.id','ton_kho_nguyen_lieus.id_nguyen_lieu')
         ->select('ton_kho_nguyen_lieus.*','nguyen_lieus.ten_nguyen_lieu')
         ->get();
@@ -19,6 +26,13 @@ class TonKhoNguyenLieuController extends Controller
     }
     public function updateTonKho(Request $request)
     {
+        $x = $this->checkRule(97);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         // First, validate the request to ensure necessary data is present and correct
         $validatedData = $request->validate([
             'id' => 'required|integer|exists:ton_kho_nguyen_lieus,id', // Check if the ID exists in the database

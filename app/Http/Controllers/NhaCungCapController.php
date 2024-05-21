@@ -16,7 +16,13 @@ class NhaCungCapController extends Controller
 {
     public function getData()
     {
-
+        $x = $this->checkRule(41);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'   => [],
+            ]);
+        }
 
         $data = NhaCungCap::get();
         return response()->json([
@@ -25,7 +31,13 @@ class NhaCungCapController extends Controller
     }
     public function searchNhaCungCap(Request $request)
     {
-
+        $x = $this->checkRule(42);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
 
         $key = '%' . $request->abc . '%';
 
@@ -38,7 +50,13 @@ class NhaCungCapController extends Controller
     }
     public function createNhaCungCap(CreateNhaCungCap $request)
     {
-
+        $x = $this->checkRule(43);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         NhaCungCap::create([
             'ma_so_thue'            => $request->ma_so_thue,
             'ten_cong_ty'           => $request->ten_cong_ty,
@@ -56,12 +74,25 @@ class NhaCungCapController extends Controller
     }
     public function xoaNhaCungCap(CheckidNhaCungCapRequest $request)
     {
+        $x = $this->checkRule(44);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->deleteModel($request, NhaCungCap::class, 'ten_cong_ty');
     }
 
     public function capNhatNhaCungCap(UpdateNhaCungCap $request)
     {
-
+        $x = $this->checkRule(45);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         try {
             NhaCungCap::where('id', $request->id)
                 ->update([
@@ -89,7 +120,13 @@ class NhaCungCapController extends Controller
 
     public function doiTrangThaiNhaCungCap(Request $request)
     {
-
+        $x = $this->checkRule(46);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         try {
             if ($request->tinh_trang == 1) {
                 $tinh_trang_moi = 0;

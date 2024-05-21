@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\LichLamViec;
+use App\Models\Quyen;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,6 +23,13 @@ class Controller extends BaseController
     }
 
     public function getDays($type){
+        $x = $this->checkRule(14);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $type = 7 * $type;
         $user = Auth::guard('admin')->user()->id;
         $now  = Carbon::today()->addDays($type);
@@ -161,5 +169,17 @@ class Controller extends BaseController
         $responseData = array_merge($defaultResponseData, $responseData);
 
         return response()->json($responseData);
+    }
+
+    public function checkRule($id_fun)
+    {
+        $userLogin      = Auth::guard('admin')->user();
+        $list_quyen = Quyen::find($userLogin->id_permission)->list_id_function;
+        $arr_quyen  = explode(",", $list_quyen);
+        if(!in_array($id_fun, $arr_quyen)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -14,6 +14,13 @@ class NguyenLieuController extends Controller
 {
     public function themNguyenLieu(createNguyenLieu $request)
     {
+        $x = $this->checkRule(67);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         NguyenLieu::create([
             'ten_nguyen_lieu'       => $request->ten_nguyen_lieu,
             'slug_nguyen_lieu'      => $request->slug_nguyen_lieu,
@@ -29,6 +36,13 @@ class NguyenLieuController extends Controller
     }
     public function getNguyenLieu()
     {
+        $x = $this->checkRule(68);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = NguyenLieu::select('id', 'ten_nguyen_lieu', 'slug_nguyen_lieu', 'gia', 'don_vi_tinh', 'tinh_trang')->get();
         return response()->json([
             'data' => $data,
@@ -36,10 +50,24 @@ class NguyenLieuController extends Controller
     }
     public function capnhatNguyenLieu(Request $request)
     {
+        $x = $this->checkRule(69);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, NguyenLieu::class, 'update');
     }
     public function doiTrangThai(Request $request)
     {
+        $x = $this->checkRule(70);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         try {
             if ($request->tinh_trang == 1) {
                 $tinh_trang_moi = 0;
@@ -64,6 +92,13 @@ class NguyenLieuController extends Controller
     }
     public function deleteNguyenLieu(CheckidNguyenLieu $request)
     {
+        $x = $this->checkRule(71);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         // Tìm món ăn với id được cung cấp
         $tennguyenlieu = NguyenLieu::find($request->id);
 
@@ -74,7 +109,13 @@ class NguyenLieuController extends Controller
     }
     public function searchNguyenLieu(Request $request)
     {
-
+        $x = $this->checkRule(72);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
 
         $key = '%' . $request->abc . '%';
 

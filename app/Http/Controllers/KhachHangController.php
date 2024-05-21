@@ -19,6 +19,13 @@ class KhachHangController extends Controller
 
     public function store(CreateKhachHangRequest $request)
     {
+        $x = $this->checkRule(78);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $validated = $request->validate([
             'ten_khach_hang'    => 'required|string|max:255',
             'email'  => 'required|email|max:255',
@@ -52,6 +59,13 @@ class KhachHangController extends Controller
 
     public function getData()
     {
+        $x = $this->checkRule(83);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = KhachHang::get();
         return response()->json([
             'status'    => true,
@@ -61,16 +75,37 @@ class KhachHangController extends Controller
 
     public function updateKh(UpdateKhachHangRequest $request)
     {
+        $x = $this->checkRule(79);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->changeStatusOrUpdateModel($request, KhachHang::class, 'update');
     }
 
     public function deleteKh(Request $request)
     {
+        $x = $this->checkRule(80);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         return $this->deleteModel($request, KhachHang::class, 'ten_khach_hang');
     }
 
     public function export()
     {
+        $x = $this->checkRule(81);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $data = KhachHang::get();
         Log::info('Exporting data:', $data->toArray());
         return Excel::download(new KhachHangExport($data), 'khachhang.xlsx');
@@ -135,16 +170,21 @@ class KhachHangController extends Controller
     }
     public function searchKhachHang(Request $request)
     {
-        {
-
-            $key = '%' . $request->abc . '%';
-
-            $data   = KhachHang::where('ten_khach_hang', 'like', $key)
-                ->get();
-
+        $x = $this->checkRule(82);
+        if($x)  {
             return response()->json([
-                'data'  =>  $data,
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
             ]);
         }
+        $key = '%' . $request->abc . '%';
+
+        $data   = KhachHang::where('ten_khach_hang', 'like', $key)
+            ->get();
+
+        return response()->json([
+            'data'  =>  $data,
+        ]);
+
     }
 }

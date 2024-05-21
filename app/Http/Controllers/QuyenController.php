@@ -14,6 +14,13 @@ class QuyenController extends Controller
 {
     public function getDataQuyen()
     {
+        $x = $this->checkRule(10);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = Quyen::get();
         return response()->json([
             'data'   => $data,
@@ -22,7 +29,14 @@ class QuyenController extends Controller
 
     public function createQuyen(CreateQuyenRequest $request)
     {
-        $data = $request->all();
+        $x = $this->checkRule(9);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
+                $data = $request->all();
         Quyen::create($data);
 
         return response()->json([
@@ -33,6 +47,13 @@ class QuyenController extends Controller
 
     public function changeStatus(CheckIdQuyenRequest $request)
     {
+        $x = $this->checkRule(11);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $admin = Quyen::find($request->id);
         $admin->tinh_trang = !$admin->tinh_trang;
         $admin->save();
@@ -45,6 +66,13 @@ class QuyenController extends Controller
 
     public function updateQuyen(UpdateQuyenRequest $request)
     {
+        $x = $this->checkRule(12);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $data = $request->all();
         $quyen = Quyen::where('id', $request->id)->first();
 
@@ -58,6 +86,13 @@ class QuyenController extends Controller
 
     public function deleteQuyen(CheckIdQuyenRequest $request)
     {
+        $x = $this->checkRule(13);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyền',
+            ]);
+        }
         $quyen = Quyen::find($request->id);
         $ten_quyen = $quyen->name_permission;
         $quyen->delete();

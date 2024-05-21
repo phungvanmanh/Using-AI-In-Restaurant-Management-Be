@@ -11,6 +11,13 @@ class LogControlter extends Controller
 {
     public function dataHistoryBuill()
     {
+        $x = $this->checkRule(77);
+        if($x)  {
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+            ]);
+        }
         $data = ThanhToan::join('admins', 'thanh_toans.id_nhan_vien', 'admins.id')
             ->select('thanh_toans.id', 'thanh_toans.so_tien', 'thanh_toans.noi_dung', DB::raw("DATE_FORMAT(thanh_toans.created_at, '%d-%m-%Y %H:%i:%s') as transDate"), 'admins.first_last_name')
             ->get();

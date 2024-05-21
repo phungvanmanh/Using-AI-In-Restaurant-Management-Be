@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Quyen\CheckIdQuyenRequest;
 use App\Http\Requests\Quyen\CreateQuyenRequest;
 use App\Http\Requests\Quyen\UpdateQuyenRequest;
+use App\Models\Admin;
 use App\Models\Quyen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuyenController extends Controller
 {
@@ -63,6 +65,15 @@ class QuyenController extends Controller
         return response()->json([
             'status'    => 1,
             'message'   => 'Permission removed'. $ten_quyen .' success!'
+        ]);
+    }
+
+    public function getQuyenUser(Request $request) {
+        $user  = Auth::guard('admin')->user()->id;
+        $quyen = Admin::where('admins.id', $user)->join("quyens", 'admins.id_permission', 'quyens.id')->select('admins.id', 'admins.first_last_name', 'quyens.name_permission')->first();
+        return response()->json([
+            'status'    => 1,
+            'data'   => $quyen,
         ]);
     }
 }

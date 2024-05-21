@@ -43,7 +43,7 @@ class LichLamViecController extends Controller
             if ($now->greaterThan(Carbon::parse($lichLamViec->ngay_lam_viec))) {
                 return false;
             } else {
-                if($lichLamViec) {
+                if($lichLamViec && $lichLamViec->is_done == 0) {
                     $lichLamViec->delete();
                     return true;
                 }
@@ -74,4 +74,25 @@ class LichLamViecController extends Controller
 
         return response()->json(['message' => 'Uploaded successfully']);
     }
+
+    public function changeIsDone(Request $request) {
+        $data = $request->all();
+        $currentDate = Carbon::now()->toDateString(); // Lấy ngày hiện tại
+
+        $lichLamViec = LichLamViec::where('id', $data['id'])
+                                ->where('id_nhan_vien', $data['id_user'])
+                                ->whereDate('ngay_lam_viec', $currentDate) // Thêm điều kiện kiểm tra ngày hiện tại
+                                ->first();
+
+        if ($lichLamViec) {
+            $lichLamViec->is_done = !$lichLamViec->is_done;
+            $lichLamViec->save();
+        }
+
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Updated work schedule!',
+        ]);
+    }
+
 }

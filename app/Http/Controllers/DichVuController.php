@@ -39,7 +39,7 @@ class DichVuController extends Controller
         if ($x) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $ban = Ban::find($request->id_ban);
@@ -82,7 +82,7 @@ class DichVuController extends Controller
         // if ($x) {
         //     return response()->json([
         //         'status'    => 0,
-        //         'message'   => 'Bạn không đủ quyền',
+        //         'message'   => 'You are not authorized!',
         //     ]);
         // }
         $hoa_don = HoaDonBanHang::find($request->id_hoa_don);
@@ -177,7 +177,7 @@ class DichVuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $chiTiet = ChiTietHoaDonBanHang::where('id', $request->id)->where('id_hoa_don', $request->id_hoa_don)->first();
@@ -212,7 +212,7 @@ class DichVuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $chiTiet = ChiTietHoaDonBanHang::where('id', $request->id)->first();
@@ -242,7 +242,7 @@ class DichVuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $hoa_don = HoaDonBanHang::where('id', $request->id)->where('id_ban', $request->id_ban)->where('is_done', 0)->first();
@@ -269,7 +269,7 @@ class DichVuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $ban = Ban::find($request->id_ban);

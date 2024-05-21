@@ -23,7 +23,7 @@ class KhachHangController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $validated = $request->validate([
@@ -79,7 +79,7 @@ class KhachHangController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, KhachHang::class, 'update');
@@ -91,7 +91,7 @@ class KhachHangController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, KhachHang::class, 'ten_khach_hang');
@@ -103,7 +103,7 @@ class KhachHangController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $data = KhachHang::get();
@@ -174,7 +174,7 @@ class KhachHangController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $key = '%' . $request->abc . '%';

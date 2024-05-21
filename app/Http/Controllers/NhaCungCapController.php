@@ -35,7 +35,7 @@ class NhaCungCapController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
 
@@ -54,7 +54,7 @@ class NhaCungCapController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         NhaCungCap::create([
@@ -78,7 +78,7 @@ class NhaCungCapController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, NhaCungCap::class, 'ten_cong_ty');
@@ -90,7 +90,7 @@ class NhaCungCapController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         try {
@@ -124,7 +124,7 @@ class NhaCungCapController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         try {

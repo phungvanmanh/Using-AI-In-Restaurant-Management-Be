@@ -18,7 +18,7 @@ class MonAnController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $data = $request->all();
@@ -35,7 +35,7 @@ class MonAnController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         // Join the tables and select required fields
@@ -89,7 +89,7 @@ class MonAnController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $monan = MonAn::find($request->id);
@@ -114,7 +114,7 @@ class MonAnController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $monan = MonAn::find($request->id);
@@ -132,7 +132,7 @@ class MonAnController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $data = $request->all();

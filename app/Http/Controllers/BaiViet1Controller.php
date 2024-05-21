@@ -17,7 +17,7 @@ class BaiViet1Controller extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $data = $request->all();
@@ -51,7 +51,7 @@ class BaiViet1Controller extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, BaiViet1::class, 'update');
@@ -62,7 +62,7 @@ class BaiViet1Controller extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, BaiViet1::class, 'tieu_de_bai_viet');
@@ -73,7 +73,7 @@ class BaiViet1Controller extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
 

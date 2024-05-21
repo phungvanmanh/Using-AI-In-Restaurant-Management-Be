@@ -32,7 +32,7 @@ class KhuVucController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->createModel($request, KhuVuc::class, ['message' => 'New area added successfully!']);
@@ -44,7 +44,7 @@ class KhuVucController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, KhuVuc::class, 'changeStatus');
@@ -56,7 +56,7 @@ class KhuVucController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, KhuVuc::class, 'update');
@@ -68,7 +68,7 @@ class KhuVucController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, KhuVuc::class, 'name_area');

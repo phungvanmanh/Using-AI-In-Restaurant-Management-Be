@@ -30,7 +30,7 @@ class TonKhoNguyenLieuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         // First, validate the request to ensure necessary data is present and correct

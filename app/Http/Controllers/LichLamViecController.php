@@ -15,7 +15,7 @@ class LichLamViecController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $data = $request->all();
@@ -46,7 +46,7 @@ class LichLamViecController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         // $user = auth('sanctum')->user();

@@ -19,7 +19,7 @@ class ChuyenMucBaiVietController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         ChuyenMucBaiViet::create([
@@ -55,7 +55,7 @@ class ChuyenMucBaiVietController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         try {
@@ -83,7 +83,7 @@ class ChuyenMucBaiVietController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         try {
@@ -114,7 +114,7 @@ class ChuyenMucBaiVietController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, ChuyenMucBaiViet::class, 'ten_chuyen_muc');
@@ -126,7 +126,7 @@ class ChuyenMucBaiVietController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
 

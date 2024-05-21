@@ -18,7 +18,7 @@ class NguyenLieuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         NguyenLieu::create([
@@ -54,7 +54,7 @@ class NguyenLieuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, NguyenLieu::class, 'update');
@@ -65,7 +65,7 @@ class NguyenLieuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         try {
@@ -96,7 +96,7 @@ class NguyenLieuController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         // Tìm món ăn với id được cung cấp

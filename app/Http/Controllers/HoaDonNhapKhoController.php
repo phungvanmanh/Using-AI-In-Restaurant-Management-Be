@@ -23,7 +23,7 @@ class HoaDonNhapKhoController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $user = Auth::guard('admin')->user();
@@ -76,7 +76,7 @@ class HoaDonNhapKhoController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $user = Auth::guard('admin')->user();
@@ -131,7 +131,7 @@ class HoaDonNhapKhoController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $nhap_kho = ChiTietHoaDonNhap::where('id', $request->id)->first();
@@ -158,7 +158,7 @@ class HoaDonNhapKhoController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         try {
@@ -228,7 +228,7 @@ class HoaDonNhapKhoController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $maHoaDons = array_column($request->data, 'ma_hoa_don');

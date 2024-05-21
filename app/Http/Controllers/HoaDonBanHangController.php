@@ -135,7 +135,7 @@ class HoaDonBanHangController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $data = HoaDonBanHang::join('admins','hoa_don_ban_hangs.id_nhan_vien','admins.id')

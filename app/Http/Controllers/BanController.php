@@ -37,7 +37,7 @@ class BanController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->createModel($request, Ban::class, ['message' => 'New table added successfully!']);
@@ -49,7 +49,7 @@ class BanController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, Ban::class, 'changeStatus');
@@ -61,7 +61,7 @@ class BanController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, Ban::class, 'update');
@@ -73,7 +73,7 @@ class BanController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, Ban::class, 'name_table');
@@ -84,7 +84,7 @@ class BanController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $key = '%' . $request->abc . '%';
@@ -156,7 +156,7 @@ class BanController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         // Lấy id_ban của bàn hiện tại

@@ -83,7 +83,7 @@ class AuthController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         // Sử dụng firstOrCreate để tìm Token hoặc tạo mới nếu không tồn tại

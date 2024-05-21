@@ -66,7 +66,7 @@ class AdminController extends Controller
         if ($x) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
 
@@ -120,7 +120,7 @@ class AdminController extends Controller
         if ($x) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $admin = Admin::find($request->id);
@@ -139,7 +139,7 @@ class AdminController extends Controller
         if ($x) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, Admin::class, 'update');
@@ -151,7 +151,7 @@ class AdminController extends Controller
         if ($x) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, Admin::class, 'first_last_name');
@@ -189,7 +189,7 @@ class AdminController extends Controller
         if ($x) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
 
@@ -229,7 +229,7 @@ class AdminController extends Controller
         if ($x) {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         $admin = Admin::find($request->id);

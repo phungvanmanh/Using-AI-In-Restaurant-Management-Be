@@ -16,7 +16,7 @@ class MaGiamGiaController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->createModel($request, MaGiamGia::class, ['message' => 'Successfully generated code!']);
@@ -43,7 +43,7 @@ class MaGiamGiaController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, MaGiamGia::class, 'changeStatus');
@@ -54,7 +54,7 @@ class MaGiamGiaController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->changeStatusOrUpdateModel($request, MaGiamGia::class, 'update');
@@ -65,7 +65,7 @@ class MaGiamGiaController extends Controller
         if($x)  {
             return response()->json([
                 'status'    => 0,
-                'message'   => 'Bạn không đủ quyền',
+                'message'   => 'You are not authorized!',
             ]);
         }
         return $this->deleteModel($request, MaGiamGia::class, 'ma_giam_gia');

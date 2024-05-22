@@ -26,10 +26,10 @@ class AdminController extends Controller
         $admin = Auth::guard("admin")->user();
         if ($admin) {
             $permissionId = $admin->id;
-
-            $quyen = Quyen::select('list_id_function')
-                ->where('id', $permissionId)
-                ->first();
+            $quyen = Admin::join('quyens', 'admins.id_permission', 'quyens.id')
+                            ->select('list_id_function')
+                            ->where('admins.id', $permissionId)
+                            ->first();
             if ($quyen && !is_null($quyen->list_id_function)) {
                 $list_id_function = explode(",", $quyen->list_id_function);
                 if (is_array($list_id_function) && count($list_id_function) > 0) {

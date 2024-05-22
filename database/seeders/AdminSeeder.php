@@ -40,7 +40,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'email'                => 'vuthihoailinh@gmail.com',
-                'first_last_name'      => 'Lương Trọng Linh',
+                'first_last_name'      => 'Vũ Thị Hoài Linh',
                 'password'             => bcrypt(123456),
                 'phone_number'         => '0952832452',
                 'id_permission'        => '3',
@@ -49,7 +49,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'email'                => 'huynhvanthien@gmail.com',
-                'first_last_name'      => 'Lương Trọng Linh',
+                'first_last_name'      => 'Huỳnh Văn Thiện',
                 'password'             => bcrypt(123456),
                 'phone_number'         => '0951825039',
                 'id_permission'        => '2',
@@ -58,7 +58,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'email'                => 'dangdinhhuy@gmail.com',
-                'first_last_name'      => 'Lương Trọng Linh',
+                'first_last_name'      => 'Đặng Đình Huy',
                 'password'             => bcrypt(123456),
                 'phone_number'         => '0399882085',
                 'id_permission'        => '4',

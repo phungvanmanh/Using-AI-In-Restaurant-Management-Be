@@ -14,8 +14,6 @@ class MonAn extends Model
         'price',
         'image',
         'status',
-        'total_input',
-        'total_ouput',
         'id_category'
     ];
 }

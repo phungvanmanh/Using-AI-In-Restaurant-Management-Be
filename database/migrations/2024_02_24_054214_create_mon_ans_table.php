@@ -15,8 +15,6 @@ return new class extends Migration
             $table->string('image');
             $table->float('price');
             $table->integer('status');
-            $table->float('total_input')->nullable();
-            $table->float('total_ouput')->nullable();
             $table->integer('id_category')->nullable();
 
             $table->timestamps();

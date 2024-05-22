@@ -142,14 +142,14 @@ class DichVuController extends Controller
 
     public function getChiTietBanHang(Request $request)
     {
-        $x = $this->checkRule(62);
-        if($x)  {
-            return response()->json([
-                'status'    => 0,
-                'data'      => [],
-                'kh'        => []
-            ]);
-        }
+        // $x = $this->checkRule(62);
+        // if($x)  {
+        //     return response()->json([
+        //         'status'    => 0,
+        //         'data'      => [],
+        //         'kh'        => []
+        //     ]);
+        // }
         $chiTiet = ChiTietHoaDonBanHang::join('mon_ans', 'mon_ans.id', 'chi_tiet_hoa_don_ban_hangs.id_mon_an')
             ->where('chi_tiet_hoa_don_ban_hangs.id_hoa_don', $request->id_hoa_don)
             ->where('chi_tiet_hoa_don_ban_hangs.is_done', 0)

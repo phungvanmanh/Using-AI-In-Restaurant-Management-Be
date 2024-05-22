@@ -46,7 +46,7 @@ class ChucNangSeeder extends Seeder
             ['id' => 26, 'ten_chuc_nang' => 'Delete area'],
             ['id' => 27, 'ten_chuc_nang' => 'Change status area'],
             ['id' => 28, 'ten_chuc_nang' => 'Create dish'],
-            ['id' => 29, 'ten_chuc_nang' => 'Get data dish'],
+            // ['id' => 29, 'ten_chuc_nang' => 'Get data dish'],
             ['id' => 30, 'ten_chuc_nang' => 'Change status dish'],
             ['id' => 31, 'ten_chuc_nang' => 'Update dish'],
             ['id' => 32, 'ten_chuc_nang' => 'Delete dish'],

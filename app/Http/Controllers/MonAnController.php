@@ -31,13 +31,13 @@ class MonAnController extends Controller
     }
     public function getDataMonAn()
     {
-        $x = $this->checkRule(29);
-        if($x)  {
-            return response()->json([
-                'status'    => 0,
-                'message'   => 'You are not authorized!',
-            ]);
-        }
+        // $x = $this->checkRule(29);
+        // if($x)  {
+        //     return response()->json([
+        //         'status'    => 0,
+        //         'message'   => 'You are not authorized!',
+        //     ]);
+        // }
         // Join the tables and select required fields
         $data = MonAn::join('danh_mucs', 'mon_ans.id_category', '=', 'danh_mucs.id')
             ->select('mon_ans.*', 'danh_mucs.name_category', 'danh_mucs.status as category_status')

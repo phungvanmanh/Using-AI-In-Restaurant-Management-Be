@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->integer('status');
             $table->integer('id_permission')->nullable();
-            $table->string('hash_reset');
+            $table->string('hash_reset')->nullable();
             $table->timestamps();
         });
     }

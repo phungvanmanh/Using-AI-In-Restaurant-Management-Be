@@ -12,13 +12,13 @@ class DanhMucController extends Controller
 {
     public function getDataDanhMuc()
     {
-        $x = $this->checkRule(65);
-        if($x)  {
-            return response()->json([
-                'status'    => 0,
-                'data'      => [],
-            ]);
-        }
+        // $x = $this->checkRule(65);
+        // if($x)  {
+        //     return response()->json([
+        //         'status'    => 0,
+        //         'data'      => [],
+        //     ]);
+        // }
         $data = DanhMuc::get();
         return response()->json([
             'data'   => $data,

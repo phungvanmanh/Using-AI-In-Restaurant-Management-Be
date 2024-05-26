@@ -9,6 +9,7 @@ use App\Models\MonAn;
 use App\Http\Controllers\Controller;
 use App\Models\KhachHang;
 use App\Models\MaGiamGia;
+use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -277,6 +278,7 @@ class DichVuController extends Controller
             $hoaDon = HoaDonBanHang::where('id_ban', $request->id_ban)
                 ->where('is_done', 0)
                 ->first();
+            $tokens = Token::where('id_ban', $request->id_ban)->first()->delete();
             if ($hoaDon) {
                 $chiTietHoaDon = ChiTietHoaDonBanHang::where('id_hoa_don', $hoaDon->id)->get();
                 foreach ($chiTietHoaDon as $chiTiet) {

@@ -106,4 +106,15 @@ class AuthController extends Controller
 
         return response()->json(['url' => $url]);
     }
+
+    public function checkAvailability(Request $request)
+    {
+        $token = Token::where('token', $request->token)->first();
+
+        if ($token) {
+            return response()->json(['isActive' => true]);
+        } else {
+            return response()->json(['isActive' => false]);
+        }
+    }
 }

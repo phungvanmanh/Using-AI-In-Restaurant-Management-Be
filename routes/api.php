@@ -41,6 +41,7 @@ Route::post('/them-mon-an', [DichVuController::class, 'themMonAn']);
 Route::post('/forgot-password', [AdminController::class, 'forgotPasswordAdmin']);
 Route::post('/update-password', [AdminController::class, 'updatePasswordAdmin']);
 Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);
+Route::post('/check-availability', [AuthController::class, 'checkAvailability']);
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/get-pemission', [AdminController::class, 'getUserPermissions']);
@@ -217,9 +218,10 @@ Route::group(['prefix' => '/admin'], function () {
 });
 
 Route::group(['prefix'  =>  '/khach-hang'], function () {
+    Route::get('/bai-viet/get-data', [BaiViet1Controller::class, 'getDataCustumer']);
     Route::post('send-mail-otp',[KhachHangController::class,'sendMailOtp']);
     Route::get('logout', [KhachHangController::class, 'logout']);
-    Route::get('/danh-muc-get-data', [DanhMucController::class, 'getDataDanhMuc']);
+    Route::get('/danh-muc-get-data', [DanhMucController::class, 'getDataDanhMucCustomer']);
     Route::group(['prefix'  =>  '/mon-an'], function () {
         Route::post('/get-mon-id', [MonAnController::class, 'getMonTheoID']);
         Route::get('/get-mon-an-pho-bien', [MonAnController::class, 'getMonAnPhoBien']);

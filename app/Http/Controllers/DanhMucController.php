@@ -24,6 +24,13 @@ class DanhMucController extends Controller
             'data'   => $data,
         ]);
     }
+    public function getDataDanhMucCustomer()
+    {
+        $data = DanhMuc::get();
+        return response()->json([
+            'data'   => $data,
+        ]);
+    }
 
     public function createDanhMuc(createDanhMucRequest $request)
     {

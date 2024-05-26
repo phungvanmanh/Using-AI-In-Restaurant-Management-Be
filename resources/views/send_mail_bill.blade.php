@@ -417,7 +417,7 @@
                                                             <tr>
                                                                 <td align="center"
                                                                     style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px">
-                                                                    <img src="https://ehflkeh.stripocdn.email/content/guids/CABINET_225ad992cc1f20946ad283c1c6c66fde7695c136d815036dde0ccf51132618b9/images/thietkelogonhahangphuongtaydepmatremovebg.png"
+                                                                    <img src="https://thietkelogo.edu.vn/uploads/.thumbs/images/logo/85.jpg"
                                                                         alt=""
                                                                         style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"
                                                                         width="220" class="adapt-img"
@@ -642,10 +642,10 @@
                                                                     <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         Code bill:&nbsp;<strong>{{ $data['code_bill'] }}</strong></p>
-                                                                    <p
+                                                                    {{-- <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
-                                                                        Invoice date:&nbsp;<strong>Apr 17, 2021</strong>
-                                                                    </p>
+                                                                        Invoice date:&nbsp;<strong>{{}}</strong>
+                                                                    </p> --}}
                                                                     <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         Payment method: <strong>QRCode</strong></p>
@@ -673,11 +673,11 @@
                                                                     style="padding:0;Margin:0">
                                                                     <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
-                                                                        ​Shipping address:</p>
+                                                                        ​Address:</p>
                                                                     <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
-                                                                        <strong>Sarah Powell,<br>600 Montgomery
-                                                                            St,<br>San Francisco, CA 94111</strong></p>
+                                                                        <strong>120,<br>Hoang Minh Thao
+                                                                            St,<br>ĐH DUY TÂN Đà Nẵng</strong></p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -706,8 +706,8 @@
                                                                             style="mso-line-height-rule:exactly;text-decoration:underline;color:#5C68E2;font-size:14px">support@example.com</a>&nbsp;or
                                                                         give us a call at&nbsp;<a target="_blank"
                                                                             href=""
-                                                                            style="mso-line-height-rule:exactly;text-decoration:underline;color:#5C68E2;font-size:14px">+000
-                                                                            123 456</a>.</p>
+                                                                            style="mso-line-height-rule:exactly;text-decoration:underline;color:#5C68E2;font-size:14px">+84
+                                                                            397757013</a>.</p>
                                                                 </td>
                                                             </tr>
                                                         </table>

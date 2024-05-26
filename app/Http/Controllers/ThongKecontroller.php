@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\HoaDonBanHang;
 use App\Models\HoaDonNhapKho;
+use App\Models\LichLamViec;
+use App\Models\Luong;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,6 +56,8 @@ class ThongKecontroller extends Controller
                     'tong_tien_nhap_kho' => 0,
                     'tong_tien_ban_hang' => 0,
                     'loi_nhuan' => 0,
+                    'total_luong'       => 0
+
                 ],
             ]);
         }
@@ -66,9 +72,27 @@ class ThongKecontroller extends Controller
         $tongTienBanHang = HoaDonBanHang::whereBetween('created_at', [$ngayBatDau, $ngayKetThuc])
             ->where('is_done', 1)
             ->sum('tien_thuc_nhan');
+            $date = Carbon::parse($ngayBatDau);
 
+            $year = $date->year;
+            $month = $date->month;
+
+            $nhan_vien = Admin::join('quyens', 'admins.id_permission', 'quyens.id')
+                                ->whereNot('quyens.name_permission', 'like', '%Admin%')
+                                ->where('quyens.status', 1)
+                                ->where('admins.status', 1)
+                                ->select('admins.id','admins.first_last_name', 'quyens.name_permission', 'quyens.amount')
+                                ->get();
+            $total_luong = 0;
+            foreach($nhan_vien as $value) {
+                $luong = Luong::where('id_nhan_vien', $value->id)->where('thang', $month)->where('nam', $year)->first();
+                if($luong) {
+                    $total_luong  += $luong->tong_luong;
+                    // echo $total_luong . " - " . $value->id;
+                }
+            }
         // Lợi nhuận
-        $loiNhuan = $tongTienBanHang - $tongTienNhapKho;
+        $loiNhuan = ($tongTienBanHang - $tongTienNhapKho) - $total_luong;
 
         // Trả về response JSON
         return response()->json([
@@ -77,6 +101,7 @@ class ThongKecontroller extends Controller
                 'tong_tien_nhap_kho' => $tongTienNhapKho,
                 'tong_tien_ban_hang' => $tongTienBanHang,
                 'loi_nhuan' => $loiNhuan,
+                'total_luong'       => $total_luong
             ],
         ], 200);
     }

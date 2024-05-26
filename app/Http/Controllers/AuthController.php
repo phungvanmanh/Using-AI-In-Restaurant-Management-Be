@@ -19,6 +19,15 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+        // Fetch the admin record
+        $admin = \App\Models\Admin::where('email', $credentials['email'])->first();
+
+        // Check if admin exists and status is 1
+        if (!$admin || $admin->status != 1) {
+            return response()->json(['message' => 'Account is inactive or does not exist!'], 401);
+        }
+
+        // Attempt to generate a token
         if (!$token = Auth::guard('admin')->attempt($credentials)) {
             return response()->json(['message' => 'Account password incorrect!'], 401);
         }

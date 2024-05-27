@@ -278,7 +278,10 @@ class DichVuController extends Controller
             $hoaDon = HoaDonBanHang::where('id_ban', $request->id_ban)
                 ->where('is_done', 0)
                 ->first();
-            $tokens = Token::where('id_ban', $request->id_ban)->first()->delete();
+                $token = Token::where('id_ban', $hoaDon->id_ban)->first();
+                if($token) {
+                    $token->delete();
+                }
             if ($hoaDon) {
                 $chiTietHoaDon = ChiTietHoaDonBanHang::where('id_hoa_don', $hoaDon->id)->get();
                 foreach ($chiTietHoaDon as $chiTiet) {

@@ -152,7 +152,7 @@ class HoaDonNhapKhoController extends Controller
             ]);
         }
     }
-    public function xoaNguyenLieu($id)
+    public function xoaNguyenLieu(Request $request)
     {
         $x = $this->checkRule(99);
         if($x)  {
@@ -162,7 +162,7 @@ class HoaDonNhapKhoController extends Controller
             ]);
         }
         try {
-            ChiTietHoaDonNhap::where('id', $id)->delete();
+            ChiTietHoaDonNhap::where('id', $request->id)->delete();
             return response()->json([
                 'status' => true,
                 'message' => 'Successfully removed',

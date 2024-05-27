@@ -261,7 +261,7 @@ class AdminController extends Controller
         $admin->save();
 
         $data['email'] = $admin->email;
-        $data['URL'] = "http://192.168.1.126:8000/change-password/" . $hash_reset;
+        $data['URL'] = "http://192.168.2.115:8001/change-password/" . $hash_reset;
 
         Mail::to($admin->email)->queue(new SendMailForgotPassword($data));
 

@@ -15,13 +15,12 @@ return [
     |
     */
 
-    'paths' => ['api/*', '*'],  // Đường dẫn nào cần CORS, 'api/*' là phổ biến cho các ứng dụng API
-    'allowed_methods' => ['*'],  // Phương thức nào được phép
-    'allowed_origins' => ['http://testfe.prodevecode.com'],  // Nguồn gốc nào được phép, '*' nghĩa là tất cả
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'allowed_methods' => ['*'],
+    'allowed_origins' => ['http://testfe.prodevecode.com'],
     'allowed_origins_patterns' => [],
-    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization'],
+    'allowed_headers' => ['Content-Type', 'X-Auth-Token', 'Origin', 'Authorization'],
     'exposed_headers' => [],
     'max_age' => 0,
-    'supports_credentials' => false,  // Đặt true nếu bạn cần hỗ trợ cookies
-
+    'supports_credentials' => true,
 ];

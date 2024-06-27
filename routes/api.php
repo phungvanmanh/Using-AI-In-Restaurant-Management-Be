@@ -30,7 +30,7 @@ use App\Http\Controllers\TransactionController;
 use App\Models\HoaDonBanHang;
 use App\Models\Luong;
 use Illuminate\Support\Facades\Route;
-Route::group(['middleware' => ['cors']], function () {
+// Route::group(['middleware' => ['cors']], function () {
 
     Route::post('khach-hang/login',[KhachHangController::class,'login']);
     Route::post('login', [AuthController::class, 'login']);
@@ -237,4 +237,4 @@ Route::group(['middleware' => ['cors']], function () {
             Route::post('/xoa-danh-gia', [ReViewMonAnController::class, 'deleteReview']);
         });
     });
-});
+// });

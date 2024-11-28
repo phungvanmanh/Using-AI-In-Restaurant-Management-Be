@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://testfe.prodevecode.com'],
+    'allowed_origins' => ['*'],
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['Content-Type', 'X-Auth-Token', 'Origin', 'Authorization'],
     'exposed_headers' => [],
